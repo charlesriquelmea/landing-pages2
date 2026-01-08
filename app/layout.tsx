@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: "We are an award-winning digital media and video production company with over 9+ years of experience serving the DMV",
     type: "website",
     // Esta es la imagen que guardaste en la carpeta 'public'
-    images: ['/wdm-og.png'], 
+    images: ['/wdm-og.jpg'], 
   },
 
   generator: "v0.app",
