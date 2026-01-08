@@ -12,40 +12,26 @@ const _geistMono = V0_Font_Geist_Mono({ subsets: ['latin'], weight: ["100","200"
 const _sourceSerif_4 = V0_Font_Source_Serif_4({ subsets: ['latin'], weight: ["200","300","400","500","600","700","800","900"] })
 
 export const metadata: Metadata = {
-  // Define la URL base para que las imágenes se carguen correctamente en redes
+  // 1. Base URL para asegurar que las imágenes se vean en redes sociales
   metadataBase: new URL('https://washingtondigitalmedia.protolylat.com'),
 
   title: "Washington Digital Media | Video Production & Digital Marketing Agency in DC",
   description:
     "Award-winning video production and digital marketing agency in Washington DC. Over 2,000 videos produced for Fortune 500s, nonprofits, and startups.",
   
-  // Configuración para Redes Sociales (Open Graph)
+  // 2. Configuración Open Graph (WhatsApp, LinkedIn, Facebook)
   openGraph: {
     title: "WASHINGTON DIGITAL LLC",
     description: "We are an award-winning digital media and video production company with over 9+ years of experience serving the DMV",
     type: "website",
-    // Recuerda que debes guardar tu imagen como 'wdm-og.png' en la carpeta 'public'
+    // Esta es la imagen que guardaste en la carpeta 'public'
     images: ['/wdm-og.png'], 
   },
 
   generator: "v0.app",
-  // icons: {
-  //   icon: [
-  //     {
-  //       url: "/icon-light-32x32.png",
-  //       media: "(prefers-color-scheme: light)",
-  //     },
-  //     {
-  //       url: "/icon-dark-32x32.png",
-  //       media: "(prefers-color-scheme: dark)",
-  //     },
-  //     {
-  //       url: "/icon.svg",
-  //       type: "image/svg+xml",
-  //     },
-  //   ],
-  //   apple: "/apple-icon.png",
-  // },
+
+  // NOTA: Se eliminó el bloque 'icons' manual para que Next.js detecte
+  // automáticamente tu favicon nuevo (icon.png) y no use los viejos de v0.
 }
 
 export default function RootLayout({
