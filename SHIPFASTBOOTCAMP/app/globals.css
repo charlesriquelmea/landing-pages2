@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Nueva paleta Orlando Florida para mercado latino */
+    --background: 220 20% 98%;
+    --foreground: 220 40% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 40% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 40% 15%;
+    --primary: 24 95% 53%; /* Naranja Florida sunset */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 199 89% 48%; /* Azul océano Florida */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220 15% 92%;
+    --muted-foreground: 220 20% 45%;
+    --accent: 280 65% 60%; /* Púrpura tropical */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 15% 85%;
+    --input: 220 15% 85%;
+    --ring: 24 95% 53%;
+    --radius: 0.75rem;
+
+    /* Colores Orlando Florida - Sunset tropical */
+    --florida-orange: 24 95% 53%;
+    --florida-orange-light: 24 95% 65%;
+    --florida-orange-dark: 24 95% 42%;
+    --florida-blue: 199 89% 48%;
+    --florida-blue-light: 199 89% 60%;
+    --florida-blue-dark: 199 89% 35%;
+    --florida-purple: 280 65% 60%;
+    --florida-pink: 330 80% 65%;
+    --florida-teal: 175 70% 45%;
+    --florida-sand: 45 30% 95%;
+    --florida-navy: 220 40% 15%;
+    --florida-cream: 45 25% 97%;
+
+    /* USA Colors */
+    --usa-red: 0 70% 45%;
+    --usa-blue: 220 70% 35%;
+    --usa-white: 0 0% 100%;
+  }
+
+  .dark {
+    /* Modo oscuro Orlando Florida */
+    --background: 220 35% 12%;
+    --foreground: 45 25% 95%;
+    --card: 220 30% 16%;
+    --card-foreground: 45 25% 95%;
+    --popover: 220 30% 16%;
+    --popover-foreground: 45 25% 95%;
+    --primary: 24 95% 58%;
+    --primary-foreground: 220 35% 12%;
+    --secondary: 199 89% 55%;
+    --secondary-foreground: 220 35% 12%;
+    --muted: 220 25% 20%;
+    --muted-foreground: 45 20% 80%;
+    --accent: 280 65% 65%;
+    --accent-foreground: 220 35% 12%;
+    --destructive: 0 62.8% 55%;
+    --destructive-foreground: 45 25% 95%;
+    --border: 220 20% 25%;
+    --input: 220 20% 25%;
+    --ring: 24 95% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Clases de utilidad Orlando Florida */
+@layer utilities {
+  .bg-florida-orange {
+    background-color: hsl(var(--florida-orange));
+  }
+  .bg-florida-orange-light {
+    background-color: hsl(var(--florida-orange-light));
+  }
+  .bg-florida-orange-dark {
+    background-color: hsl(var(--florida-orange-dark));
+  }
+  .bg-florida-blue {
+    background-color: hsl(var(--florida-blue));
+  }
+  .bg-florida-blue-light {
+    background-color: hsl(var(--florida-blue-light));
+  }
+  .bg-florida-blue-dark {
+    background-color: hsl(var(--florida-blue-dark));
+  }
+  .bg-florida-purple {
+    background-color: hsl(var(--florida-purple));
+  }
+  .bg-florida-pink {
+    background-color: hsl(var(--florida-pink));
+  }
+  .bg-florida-teal {
+    background-color: hsl(var(--florida-teal));
+  }
+  .bg-florida-sand {
+    background-color: hsl(var(--florida-sand));
+  }
+  .bg-florida-navy {
+    background-color: hsl(var(--florida-navy));
+  }
+  .bg-florida-cream {
+    background-color: hsl(var(--florida-cream));
+  }
+
+  .text-florida-orange {
+    color: hsl(var(--florida-orange));
+  }
+  .text-florida-orange-light {
+    color: hsl(var(--florida-orange-light));
+  }
+  .text-florida-blue {
+    color: hsl(var(--florida-blue));
+  }
+  .text-florida-blue-light {
+    color: hsl(var(--florida-blue-light));
+  }
+  .text-florida-purple {
+    color: hsl(var(--florida-purple));
+  }
+  .text-florida-pink {
+    color: hsl(var(--florida-pink));
+  }
+  .text-florida-teal {
+    color: hsl(var(--florida-teal));
+  }
+  .text-florida-navy {
+    color: hsl(var(--florida-navy));
+  }
+  .text-florida-cream {
+    color: hsl(var(--florida-cream));
+  }
+
+  .border-florida-orange {
+    border-color: hsl(var(--florida-orange));
+  }
+  .border-florida-blue {
+    border-color: hsl(var(--florida-blue));
+  }
+  .border-florida-purple {
+    border-color: hsl(var(--florida-purple));
+  }
+  .border-florida-navy {
+    border-color: hsl(var(--florida-navy));
+  }
+
+  /* USA Colors */
+  .bg-usa-red {
+    background-color: hsl(var(--usa-red));
+  }
+  .bg-usa-blue {
+    background-color: hsl(var(--usa-blue));
+  }
+  .bg-usa-white {
+    background-color: hsl(var(--usa-white));
+  }
+  .text-usa-red {
+    color: hsl(var(--usa-red));
+  }
+  .text-usa-blue {
+    color: hsl(var(--usa-blue));
+  }
+}
+
+/* Custom styles for card flip effect */
+.perspective {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotateY-180 {
+  transform: rotateY(180deg);
+}
+
+/* Gradientes Orlando Florida */
+.bg-gradient-florida {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--florida-orange)) 0%,
+    hsl(var(--florida-pink)) 50%,
+    hsl(var(--florida-purple)) 100%
+  );
+}
+
+.bg-gradient-florida-sunset {
+  background: linear-gradient(135deg, hsl(var(--florida-orange)) 0%, hsl(var(--florida-pink)) 100%);
+}
+
+.bg-gradient-florida-ocean {
+  background: linear-gradient(135deg, hsl(var(--florida-blue)) 0%, hsl(var(--florida-teal)) 100%);
+}
+
+.bg-gradient-usa {
+  background: linear-gradient(135deg, hsl(var(--usa-red)) 0%, hsl(var(--usa-blue)) 100%);
+}
