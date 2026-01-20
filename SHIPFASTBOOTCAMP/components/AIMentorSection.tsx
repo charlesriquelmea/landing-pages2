@@ -26,6 +26,7 @@ export default function AIMentorSection() {
   const [inputMessage, setInputMessage] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const chatContainerRef = useRef<HTMLDivElement>(null) // Nuevo ref para el contenedor
 
   const predefinedQuestions = ["Como valido mi idea de negocio?", "Que es un MVP y como lo creo?"]
 
@@ -36,8 +37,11 @@ export default function AIMentorSection() {
       "Gran pregunta! Un MVP (Producto Minimo Viable) es la version mas simple de tu producto que te permite aprender del mercado.\n\nPara crear tu MVP:\n\n1. Identifica la funcionalidad core\n2. Elimina todo lo no esencial\n3. Construye rapido y barato\n4. Lanza y mide feedback\n\nQue tipo de MVP tienes en mente?",
   }
 
+  // CORRECCIÓN: Usamos scrollTop en el contenedor en lugar de scrollIntoView
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
+    }
   }
 
   useEffect(() => {
@@ -192,8 +196,11 @@ export default function AIMentorSection() {
                 <Sparkles className="h-5 w-5 opacity-75" />
               </div>
 
-              {/* Messages Area */}
-              <div className="h-80 bg-slate-50 dark:bg-slate-900 p-4 overflow-y-auto">
+              {/* Messages Area - CORRECCIÓN: Agregamos el ref aquí */}
+              <div 
+                ref={chatContainerRef}
+                className="h-80 bg-slate-50 dark:bg-slate-900 p-4 overflow-y-auto"
+              >
                 <AnimatePresence>
                   {messages.map((message) => (
                     <motion.div
