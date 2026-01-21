@@ -7,7 +7,7 @@ import { ArrowRight, ArrowLeft, Send, Edit2, Loader2, Sparkles } from 'lucide-re
 import { useLanguage } from '@/lib/language-context'
 
 // --- CONFIGURACIÓN ---
-const WHATSAPP_NUMBER = '5491112345678' // 👈 TU NÚMERO AQUÍ
+const WHATSAPP_NUMBER = '+56930835236' 
 
 // --- DATOS ---
 export default function OrderForm() {
