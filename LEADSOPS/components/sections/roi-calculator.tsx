@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Card } from '@/components/ui/card'
 import { DollarSign, TrendingUp, Clock, Target } from 'lucide-react'
+import { useLanguage } from '@/lib/language-context'
 
 export default function ROICalculator() {
+  const { t } = useLanguage()
   const [jobValue, setJobValue] = useState(800)
   const [monthlyLeads, setMonthlyLeads] = useState(50)
   const [projectedRevenue, setProjectedRevenue] = useState(0)
@@ -33,10 +35,10 @@ export default function ROICalculator() {
           className="text-center mb-12"
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            Calcula Tu <span className="text-[#22C55E]">ROI</span> con LeadOps
+            {t.roi_calculator.title} <span className="text-[#22C55E]">{t.roi_calculator.title_highlight}</span> {t.roi_calculator.title_suffix}
           </h2>
           <p className="text-xl text-slate-400 text-pretty">
-            Descubre cuánto puedes ganar en los próximos 30 días
+            {t.roi_calculator.subtitle}
           </p>
         </motion.div>
 
@@ -53,7 +55,7 @@ export default function ROICalculator() {
               <div>
                 <label className="flex items-center gap-2 text-white font-semibold mb-3">
                   <DollarSign className="w-5 h-5 text-[#22C55E]" />
-                  Valor Promedio de Trabajo
+                  {t.roi_calculator.job_value_label}
                 </label>
                 <input
                   type="range"
@@ -75,7 +77,7 @@ export default function ROICalculator() {
               <div>
                 <label className="flex items-center gap-2 text-white font-semibold mb-3">
                   <Target className="w-5 h-5 text-[#06B6D4]" />
-                  Leads Mensuales Actuales
+                  {t.roi_calculator.monthly_leads_label}
                 </label>
                 <input
                   type="range"
@@ -117,7 +119,7 @@ export default function ROICalculator() {
                   <div className="flex items-center justify-center gap-2 mb-2">
                     <TrendingUp className="w-6 h-6 text-white" />
                     <span className="text-white/90 font-semibold text-lg">
-                      Revenue Mensual Proyectado Extra
+                      {t.roi_calculator.projected_revenue_label}
                     </span>
                   </div>
 
@@ -131,7 +133,7 @@ export default function ROICalculator() {
                   </motion.div>
 
                   <div className="text-white/90 text-lg font-semibold">
-                    ↑ +{improvement}% vs tu situación actual
+                    ↑ +{improvement}% {t.roi_calculator.improvement_suffix}
                   </div>
                 </div>
               </motion.div>
@@ -141,25 +143,25 @@ export default function ROICalculator() {
                 <div className="bg-slate-700/30 rounded-xl p-6 border border-slate-600">
                   <div className="flex items-center gap-2 mb-2">
                     <Clock className="w-5 h-5 text-[#06B6D4]" />
-                    <span className="text-slate-300 font-medium">Tiempo Ahorrado</span>
+                    <span className="text-slate-300 font-medium">{t.roi_calculator.time_saved_label}</span>
                   </div>
-                  <div className="text-3xl font-bold text-white">18hrs/semana</div>
-                  <div className="text-slate-400 text-sm mt-1">En seguimiento manual</div>
+                  <div className="text-3xl font-bold text-white">{t.roi_calculator.time_saved_value}</div>
+                  <div className="text-slate-400 text-sm mt-1">{t.roi_calculator.time_saved_sub}</div>
                 </div>
 
                 <div className="bg-slate-700/30 rounded-xl p-6 border border-slate-600">
                   <div className="flex items-center gap-2 mb-2">
                     <DollarSign className="w-5 h-5 text-[#22C55E]" />
-                    <span className="text-slate-300 font-medium">Costo por Lead</span>
+                    <span className="text-slate-300 font-medium">{t.roi_calculator.cost_per_lead_label}</span>
                   </div>
                   <div className="text-3xl font-bold text-white">-42%</div>
-                  <div className="text-slate-400 text-sm mt-1">Reducción promedio</div>
+                  <div className="text-slate-400 text-sm mt-1">{t.roi_calculator.cost_per_lead_sub}</div>
                 </div>
               </div>
 
               {/* Note */}
               <p className="text-center text-slate-400 text-sm">
-                * Basado en conversión promedio de 40% con LeadOps vs 15% método tradicional
+                {t.roi_calculator.note}
               </p>
             </div>
           </Card>

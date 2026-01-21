@@ -5,9 +5,11 @@ import { AlertTriangle, TrendingUp, Users, DollarSign, CheckCircle2, ArrowRight 
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
+import { useLanguage } from '@/lib/language-context'
 
 export default function WarningSection() {
   const [showModal, setShowModal] = useState(false)
+  const { t } = useLanguage()
 
   return (
     <>
@@ -41,17 +43,17 @@ export default function WarningSection() {
 
                 {/* Title */}
                 <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6 text-white">
-                  ⚠️ Advertencia Importante
+                  {t.warning.title}
                 </h2>
 
                 {/* Main Message */}
                 <div className="bg-slate-900/50 border border-amber-500/20 rounded-xl p-6 mb-8">
                   <p className="text-xl sm:text-2xl text-center text-white leading-relaxed font-semibold mb-4">
-                    Tú eres responsable de llevar tráfico a LeadOps
+                    {t.warning.main_message_title}
                   </p>
                   <p className="text-lg text-center text-slate-300 leading-relaxed">
-                    Nosotros <span className="text-[#22C55E] font-semibold">capturamos, calificamos y agendamos citas 24/7</span>,
-                    pero <span className="text-amber-400 font-semibold">TÚ debes generar el tráfico</span> orgánico o pagado.
+                    {t.warning.main_message_text_1} <span className="text-[#22C55E] font-semibold">{t.warning.main_message_highlight_1}</span>
+                    {t.warning.main_message_text_2} <span className="text-amber-400 font-semibold">{t.warning.main_message_highlight_2}</span> {t.warning.main_message_text_3}
                   </p>
                 </div>
 
@@ -61,9 +63,9 @@ export default function WarningSection() {
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-6 h-6 text-[#22C55E] shrink-0 mt-1" />
                       <div>
-                        <h3 className="text-white font-semibold mb-1">Lo que SÍ hacemos</h3>
+                        <h3 className="text-white font-semibold mb-1">{t.warning.what_we_do.title}</h3>
                         <p className="text-slate-300 text-sm leading-relaxed">
-                          Capturamos cada lead 24/7, calificamos con IA, agendamos citas automáticamente, y solo cobras por resultados
+                          {t.warning.what_we_do.text}
                         </p>
                       </div>
                     </div>
@@ -73,9 +75,9 @@ export default function WarningSection() {
                     <div className="flex items-start gap-3">
                       <TrendingUp className="w-6 h-6 text-amber-400 shrink-0 mt-1" />
                       <div>
-                        <h3 className="text-white font-semibold mb-1">Tu responsabilidad</h3>
+                        <h3 className="text-white font-semibold mb-1">{t.warning.your_responsibility.title}</h3>
                         <p className="text-slate-300 text-sm leading-relaxed">
-                          Generar tráfico con Google Ads, SEO, redes sociales, o cualquier método de marketing para atraer visitantes
+                          {t.warning.your_responsibility.text}
                         </p>
                       </div>
                     </div>
@@ -90,27 +92,17 @@ export default function WarningSection() {
                     </div>
                     <div className="flex-1">
                       <h3 className="text-xl font-bold text-white mb-2">
-                        Modelo de Pago Justo y Transparente
+                        {t.warning.payment_model.title}
                       </h3>
                       <div className="space-y-2 text-slate-300">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
-                          <span className="text-sm">
-                            <span className="font-semibold text-white">Solo pagas por resultados:</span> Leads calificados o citas confirmadas
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
-                          <span className="text-sm">
-                            <span className="font-semibold text-white">Costo de infraestructura mensual:</span> Mantener el sistema 24/7 funcionando
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
-                          <span className="text-sm">
-                            <span className="font-semibold text-white">Sin sorpresas:</span> Precios claros desde el día 1
-                          </span>
-                        </div>
+                        {t.warning.payment_model.points.map((point, index) => (
+                          <div key={index} className="flex items-center gap-2">
+                            <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
+                            <span className="text-sm">
+                              <span className="font-semibold text-white">{point.label}</span> {point.text}
+                            </span>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -123,7 +115,7 @@ export default function WarningSection() {
                     variant="outline"
                     className="bg-transparent border-amber-500/50 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500"
                   >
-                    Ver Detalles Completos
+                    {t.warning.cta_details}
                     <Users className="ml-2 w-4 h-4" />
                   </Button>
                 </div>
@@ -155,10 +147,10 @@ export default function WarningSection() {
               </div>
               <div className="flex-1">
                 <h3 className="text-2xl font-bold text-white mb-2">
-                  Detalles del Modelo LeadOps
+                  {t.warning.modal.title}
                 </h3>
                 <p className="text-slate-400">
-                  Entendiendo tu inversión y responsabilidades
+                  {t.warning.modal.subtitle}
                 </p>
               </div>
             </div>
@@ -168,15 +160,12 @@ export default function WarningSection() {
               <div>
                 <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-[#22C55E]" />
-                  Lo que LeadOps hace por ti
+                  {t.warning.modal.section_1.title}
                 </h4>
                 <ul className="space-y-2 text-slate-300 ml-7">
-                  <li className="leading-relaxed">✓ Landing pages optimizadas con Next.js (ultra rápidas, SEO nativo)</li>
-                  <li className="leading-relaxed">✓ IA Receptionist 24/7 que califica y responde leads al instante</li>
-                  <li className="leading-relaxed">✓ Agendamiento automático sincronizado con tu calendario</li>
-                  <li className="leading-relaxed">✓ CRM integrado con ServiceTitan/Housecall Pro</li>
-                  <li className="leading-relaxed">✓ SMS bidireccional y seguimiento automatizado</li>
-                  <li className="leading-relaxed">✓ Dashboard de analytics en tiempo real</li>
+                  {t.warning.modal.section_1.items.map((item, idx) => (
+                    <li key={idx} className="leading-relaxed">✓ {item}</li>
+                  ))}
                 </ul>
               </div>
 
@@ -184,13 +173,13 @@ export default function WarningSection() {
               <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
                 <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-amber-400" />
-                  Tu responsabilidad
+                  {t.warning.modal.section_2.title}
                 </h4>
                 <p className="text-slate-300 leading-relaxed mb-3">
-                  LeadOps convierte visitantes en citas, pero <span className="font-semibold text-white">tú debes traer esos visitantes</span> a tu landing page.
+                  {t.warning.modal.section_2.text_1} <span className="font-semibold text-white">{t.warning.modal.section_2.text_highlight}</span> {t.warning.modal.section_2.text_2}
                 </p>
                 <p className="text-slate-300 leading-relaxed">
-                  Métodos recomendados: Google Ads (LSA, Search), Facebook Ads, SEO local, referidos, yard signs con QR codes, etc.
+                  {t.warning.modal.section_2.text_3}
                 </p>
               </div>
 
@@ -198,21 +187,15 @@ export default function WarningSection() {
               <div>
                 <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
                   <DollarSign className="w-5 h-5 text-[#22C55E]" />
-                  Estructura de costos
+                  {t.warning.modal.section_3.title}
                 </h4>
                 <div className="space-y-3 text-slate-300 ml-7">
-                  <div>
-                    <div className="font-semibold text-white">Setup inicial ($797 - $1,997)</div>
-                    <p className="text-sm leading-relaxed">Configuración completa en 48 horas del sistema, landing pages, integraciones, y IA</p>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-white">Mensualidad ($299 - $799)</div>
-                    <p className="text-sm leading-relaxed">Mantener infraestructura 24/7: servidores, IA, CRM, soporte, actualizaciones</p>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-white">Pay per result ($30/lead o $50/cita)</div>
-                    <p className="text-sm leading-relaxed">Solo pagas cuando entregamos un lead calificado o cita confirmada</p>
-                  </div>
+                  {t.warning.modal.section_3.items.map((item, idx) => (
+                    <div key={idx}>
+                      <div className="font-semibold text-white">{item.title}</div>
+                      <p className="text-sm leading-relaxed">{item.text}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -222,7 +205,7 @@ export default function WarningSection() {
                 onClick={() => setShowModal(false)}
                 className="flex-1 bg-slate-700 hover:bg-slate-600 text-white"
               >
-                Entendido
+                {t.warning.modal.cta_understood}
               </Button>
               <Button
                 onClick={() => {
@@ -231,7 +214,7 @@ export default function WarningSection() {
                 }}
                 className="flex-1 bg-[#2563EB] hover:bg-[#1d4ed8] text-white"
               >
-                Comenzar Setup
+                {t.warning.modal.cta_start}
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </div>

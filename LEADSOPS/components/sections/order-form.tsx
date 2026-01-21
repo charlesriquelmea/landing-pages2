@@ -3,34 +3,18 @@
 import React, { useState } from "react"
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, ArrowLeft, Send, CheckCircle2, Edit2, Loader2, Sparkles } from 'lucide-react'
+import { ArrowRight, ArrowLeft, Send, Edit2, Loader2, Sparkles } from 'lucide-react'
+import { useLanguage } from '@/lib/language-context'
 
 // --- CONFIGURACIÓN ---
 const WHATSAPP_NUMBER = '5491112345678' // 👈 TU NÚMERO AQUÍ
 
 // --- DATOS ---
-const plans = [
-  { id: 'quick-start', name: 'Quick Start', display: 'Quick Start', price: '$299/mo', setup: '$797 setup', value: 'quick-start' },
-  { id: 'core-growth', name: 'Core Growth', display: 'Core Growth', price: '$499/mo', setup: '$1,470 setup', extra: '$30/lead', value: 'core-growth' },
-  { id: 'dominance', name: 'Dominance', display: 'Dominance', price: '$799/mo', setup: '$1,997 setup', extra: '$50/appt', value: 'dominance' },
-]
-
-const verticals = [
-  { id: 'hvac', name: 'HVAC', icon: '🌡️', value: 'hvac' },
-  { id: 'plumbing', name: 'Plomería', icon: '🔧', value: 'plumbing' },
-  { id: 'roofing', name: 'Techado', icon: '🏠', value: 'roofing' },
-  { id: 'electrical', name: 'Eléctrica', icon: '⚡', value: 'electrical' },
-  { id: 'realestate', name: 'Bienes Raíces', icon: '🏘️', value: 'realestate' },
-  { id: 'clinics', name: 'Clínicas', icon: '🏥', value: 'clinics' },
-]
-
 export default function OrderForm() {
-  // step -1 = Pantalla de Bienvenida
-  // step 0 a N = Preguntas
-  // step N+1 = Resumen
-  const [step, setStep] = useState(-1) 
+  const { t } = useLanguage()
+  const [step, setStep] = useState(-1)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,60 +25,21 @@ export default function OrderForm() {
     comments: '',
   })
 
-  const questions = [
-    {
-      question: '¿Cuál es tu nombre?',
-      description: 'Así te llamaremos durante todo el proceso',
-      type: 'input',
-      field: 'name',
-      placeholder: 'Juan Pérez',
-    },
-    {
-      question: '¿Cuál es tu email?',
-      description: 'Para enviarte la confirmación y acceso',
-      type: 'input',
-      inputType: 'email',
-      field: 'email',
-      placeholder: 'juan@empresa.com',
-    },
-    {
-      question: '¿Tu número de teléfono?',
-      description: 'Para coordinar el setup en 48 horas',
-      type: 'input',
-      inputType: 'tel',
-      field: 'phone',
-      placeholder: '+54 9 11...',
-    },
-    {
-      question: '¿Cómo se llama tu negocio?',
-      description: 'Lo usaremos para personalizar tu sistema',
-      type: 'input',
-      field: 'business',
-      placeholder: 'HVAC Pro Services',
-    },
-    {
-      question: '¿En qué industria estás?',
-      description: 'Optimizaremos el sistema para tu vertical',
-      type: 'select',
-      field: 'vertical',
-      options: verticals,
-    },
-    {
-      question: '¿Qué plan se adapta mejor a ti?',
-      description: 'Puedes cambiarlo después sin penalización',
-      type: 'select',
-      field: 'plan',
-      options: plans,
-    },
-    {
-      question: '¿Algo más que debamos saber?',
-      description: 'Objetivos, horarios preferidos, etc. (opcional)',
-      type: 'textarea',
-      field: 'comments',
-      placeholder: 'Queremos empezar lo antes posible...',
-      optional: true,
-    },
+  // Mapeamos las preguntas desde la traducción y le añadimos la configuración técnica
+  const questionsConfig = [
+    { type: 'input', field: 'name' }, // q1
+    { type: 'input', inputType: 'email', field: 'email' }, // q2
+    { type: 'input', inputType: 'tel', field: 'phone' }, // q3
+    { type: 'input', field: 'business' }, // q4
+    { type: 'select', field: 'vertical', options: t.order_form.verticals }, // q5
+    { type: 'select', field: 'plan', options: t.order_form.plans }, // q6
+    { type: 'textarea', field: 'comments', optional: true }, // q7
   ]
+
+  const questions = t.order_form.questions.map((q: any, i: number) => ({
+    ...q,
+    ...questionsConfig[i]
+  }))
 
   // --- LOGICA ---
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -107,14 +52,13 @@ export default function OrderForm() {
   }
 
   const nextStep = () => {
-    // Corregido: Ahora permite avanzar hasta el resumen (questions.length)
     if (step < questions.length) setStep(step + 1)
   }
 
   const prevStep = () => {
     if (step > -1) setStep(step - 1)
   }
-  
+
   const startForm = () => setStep(0)
 
   const isValidEmail = (email: string) => /\S+@\S+\.\S+/.test(email)
@@ -126,34 +70,34 @@ export default function OrderForm() {
     const currentQ = questions[step]
     if (!currentQ) return false
     if (currentQ.optional) return true
-    
+
     const value = formData[currentQ.field as keyof typeof formData] || ''
-    
+
     if (currentQ.field === 'email') return isValidEmail(value)
-    return value.trim() !== ''
+    return value.toString().trim() !== ''
   }
 
   const handleSubmit = () => {
     setIsSubmitting(true)
-    const selectedPlan = plans.find(p => p.value === formData.plan)
-    const selectedVertical = verticals.find(v => v.value === formData.vertical)
-    
+    const selectedPlan = t.order_form.plans.find((p: any) => p.value === formData.plan)
+    const selectedVertical = t.order_form.verticals.find((v: any) => v.value === formData.vertical)
+
     const message = `
-🚀 *NUEVO PEDIDO LEADOPS OS*
+🚀 *${t.order_form.whatsapp_message.title}*
 
-👤 *Cliente:* ${formData.name}
-📧 *Email:* ${formData.email}
-📱 *Tel:* ${formData.phone}
+👤 *${t.order_form.whatsapp_message.client}:* ${formData.name}
+📧 *${t.order_form.whatsapp_message.email}:* ${formData.email}
+📱 *${t.order_form.whatsapp_message.phone}:* ${formData.phone}
 
-🏢 *Negocio:* ${formData.business}
-🔧 *Vertical:* ${selectedVertical?.name || formData.vertical}
+🏢 *${t.order_form.whatsapp_message.business}:* ${formData.business}
+🔧 *${t.order_form.whatsapp_message.vertical}:* ${selectedVertical?.name || formData.vertical}
 
-📦 *Plan:* ${selectedPlan?.display}
-💬 *Nota:* ${formData.comments || '-'}
+📦 *${t.order_form.whatsapp_message.plan}:* ${selectedPlan?.display}
+💬 *${t.order_form.whatsapp_message.note}:* ${formData.comments || '-'}
     `.trim()
 
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
-    
+
     setTimeout(() => {
       window.open(whatsappUrl, '_blank')
       setIsSubmitting(false)
@@ -167,8 +111,8 @@ export default function OrderForm() {
   const progress = ((step + 1) / questions.length) * 100
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 relative min-h-screen flex items-center bg-gradient-to-b from-[#0F172A] to-[#1E293B] overflow-hidden">
-      
+    <section className="py-24 px-4 sm:px-6 lg:px-8 relative min-h-screen flex items-center bg-gradient-to-b from-[#0F172A] to-[#1E293B] overflow-hidden" id="order-form">
+
       {/* Fondo Decorativo */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute -top-[20%] -right-[10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px]" />
@@ -176,7 +120,7 @@ export default function OrderForm() {
       </div>
 
       <div className="container mx-auto max-w-3xl relative z-10">
-        
+
         {/* --- PANTALLA DE BIENVENIDA (Step -1) --- */}
         <AnimatePresence mode="wait">
           {isIntro && (
@@ -191,21 +135,20 @@ export default function OrderForm() {
                 <Sparkles className="w-8 h-8 text-blue-400" />
               </div>
               <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6 leading-tight">
-                Comienza tu Transformación <br/>
+                {t.order_form.intro.title} <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
-                  LeadOps OS
+                  {t.order_form.intro.title_highlight}
                 </span>
               </h1>
               <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-                Completa este formulario rápido para configurar tu sistema. 
-                Te tomará menos de 2 minutos.
+                {t.order_form.intro.subtitle}
               </p>
-              <Button 
+              <Button
                 onClick={startForm}
                 size="lg"
                 className="bg-blue-600 hover:bg-blue-500 text-white text-lg px-8 py-6 rounded-full shadow-lg shadow-blue-500/25 transition-all hover:scale-105"
               >
-                Comenzar Ahora <ArrowRight className="ml-2 w-5 h-5" />
+                {t.order_form.intro.cta_button} <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </motion.div>
           )}
@@ -229,7 +172,7 @@ export default function OrderForm() {
                   />
                 </div>
                 <div className="mt-3 flex justify-between text-sm text-slate-400 font-medium">
-                  <span>{isSummary ? 'Revisión Final' : `Paso ${step + 1} de ${questions.length}`}</span>
+                  <span>{isSummary ? t.order_form.steps_status.summary : `${t.order_form.steps_status.step_prefix} ${step + 1} ${t.order_form.steps_status.step_of} ${questions.length}`}</span>
                   <span>{Math.round(Math.min(progress, 100))}%</span>
                 </div>
               </div>
@@ -247,7 +190,7 @@ export default function OrderForm() {
                       transition={{ duration: 0.3 }}
                     >
                       <h2 className="text-3xl sm:text-5xl font-bold text-white mb-4">
-                        {currentQuestion.question}
+                        {currentQuestion.text}
                       </h2>
                       <p className="text-lg text-slate-400 mb-8">
                         {currentQuestion.description}
@@ -269,17 +212,17 @@ export default function OrderForm() {
                         )}
 
                         {currentQuestion.type === 'textarea' && (
-                          <div className="relative z-20"> {/* z-20 asegura que nada lo tape */}
+                          <div className="relative z-20">
                             <textarea
                               name={currentQuestion.field}
-                              value={formData[currentQuestion.field as keyof typeof formData] || ''} // <--- El || '' evita el bloqueo
+                              value={formData[currentQuestion.field as keyof typeof formData] || ''}
                               onChange={handleInputChange}
                               className="w-full bg-slate-800/50 rounded-xl border border-slate-700 focus:border-blue-500 text-white text-xl p-6 outline-none min-h-[150px] resize-none focus:ring-2 focus:ring-blue-500/20 transition-all"
                               placeholder={currentQuestion.placeholder}
                               autoFocus
                             />
                             <p className="mt-3 text-sm text-slate-500 text-right">
-                              Presiona <strong>Siguiente</strong> para continuar
+                              {currentQuestion.helper}
                             </p>
                           </div>
                         )}
@@ -290,11 +233,10 @@ export default function OrderForm() {
                               <button
                                 key={option.id}
                                 onClick={() => handleSelectOption(currentQuestion.field, option.value)}
-                                className={`p-6 rounded-xl border-2 text-left transition-all ${
-                                  formData[currentQuestion.field as keyof typeof formData] === option.value
-                                    ? 'bg-blue-600/20 border-blue-500'
-                                    : 'bg-slate-800/40 border-slate-700 hover:bg-slate-800'
-                                }`}
+                                className={`p-6 rounded-xl border-2 text-left transition-all ${formData[currentQuestion.field as keyof typeof formData] === option.value
+                                  ? 'bg-blue-600/20 border-blue-500'
+                                  : 'bg-slate-800/40 border-slate-700 hover:bg-slate-800'
+                                  }`}
                               >
                                 <div className="flex items-center gap-3 mb-2">
                                   {option.icon && <span className="text-2xl">{option.icon}</span>}
@@ -305,10 +247,10 @@ export default function OrderForm() {
                             ))}
                           </div>
                         )}
-                        
+
                         {/* Error de Email */}
-                        {currentQuestion.field === 'email' && formData.email && !isValidEmail(formData.email) && (
-                          <p className="text-red-400 text-sm">Por favor ingresa un email válido.</p>
+                        {currentQuestion.field === 'email' && formData.email && !isValidEmail(formData.email) && currentQuestion.error && (
+                          <p className="text-red-400 text-sm">{currentQuestion.error}</p>
                         )}
                       </div>
                     </motion.div>
@@ -320,32 +262,32 @@ export default function OrderForm() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="bg-slate-800/50 rounded-2xl border border-slate-700 p-8"
                     >
-                      <h2 className="text-3xl font-bold text-white mb-6">Confirma tu pedido</h2>
+                      <h2 className="text-3xl font-bold text-white mb-6">{t.order_form.summary.title}</h2>
                       <div className="space-y-6 text-white">
                         <div className="grid sm:grid-cols-2 gap-6">
                           <div>
-                            <p className="text-slate-500 text-xs uppercase font-bold">Cliente</p>
+                            <p className="text-slate-500 text-xs uppercase font-bold">{t.order_form.summary.client_label}</p>
                             <p className="text-lg font-medium">{formData.name}</p>
                             <p className="text-slate-400 text-sm">{formData.email}</p>
                           </div>
                           <div>
-                            <p className="text-slate-500 text-xs uppercase font-bold">Negocio</p>
+                            <p className="text-slate-500 text-xs uppercase font-bold">{t.order_form.summary.business_label}</p>
                             <p className="text-lg font-medium">{formData.business}</p>
                             <p className="text-slate-400 text-sm flex items-center gap-2">
-                              {verticals.find(v => v.value === formData.vertical)?.icon}
-                              {verticals.find(v => v.value === formData.vertical)?.name}
+                              {t.order_form.verticals.find((v: any) => v.value === formData.vertical)?.icon}
+                              {t.order_form.verticals.find((v: any) => v.value === formData.vertical)?.name}
                             </p>
                           </div>
                         </div>
                         <div className="pt-6 border-t border-slate-700">
-                          <p className="text-slate-500 text-xs uppercase font-bold mb-2">Plan Seleccionado</p>
+                          <p className="text-slate-500 text-xs uppercase font-bold mb-2">{t.order_form.summary.plan_label}</p>
                           <div className="bg-blue-500/10 border border-blue-500/30 p-4 rounded-lg flex justify-between items-center">
                             <div>
-                              <p className="text-blue-400 font-bold">{plans.find(p => p.value === formData.plan)?.name}</p>
-                              <p className="text-xs text-slate-300">{plans.find(p => p.value === formData.plan)?.price}</p>
+                              <p className="text-blue-400 font-bold">{t.order_form.plans.find((p: any) => p.value === formData.plan)?.name}</p>
+                              <p className="text-xs text-slate-300">{t.order_form.plans.find((p: any) => p.value === formData.plan)?.price}</p>
                             </div>
                             <Button variant="ghost" size="sm" onClick={() => setStep(5)} className="text-blue-400 hover:text-blue-300">
-                              <Edit2 className="w-4 h-4" />
+                              <Edit2 className="w-4 h-4" /> {t.order_form.summary.edit}
                             </Button>
                           </div>
                         </div>
@@ -363,7 +305,7 @@ export default function OrderForm() {
                   size="lg"
                   className="bg-transparent border-slate-600 text-white hover:bg-slate-800"
                 >
-                  <ArrowLeft className="mr-2 w-4 h-4" /> Atrás
+                  <ArrowLeft className="mr-2 w-4 h-4" /> {t.order_form.buttons.back}
                 </Button>
 
                 {!isSummary ? (
@@ -373,7 +315,7 @@ export default function OrderForm() {
                     size="lg"
                     className="flex-1 bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-50"
                   >
-                    Siguiente <ArrowRight className="ml-2 w-4 h-4" />
+                    {t.order_form.buttons.next} <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 ) : (
                   <Button
@@ -383,9 +325,9 @@ export default function OrderForm() {
                     className="flex-1 bg-green-600 hover:bg-green-500 text-white font-bold shadow-lg shadow-green-500/20"
                   >
                     {isSubmitting ? (
-                      <><Loader2 className="mr-2 w-4 h-4 animate-spin" /> Procesando...</>
+                      <><Loader2 className="mr-2 w-4 h-4 animate-spin" /> {t.order_form.summary.submit_button_processing}</>
                     ) : (
-                      <>Confirmar Pedido <Send className="ml-2 w-4 h-4" /></>
+                      <>{t.order_form.summary.submit_button_default} <Send className="ml-2 w-4 h-4" /></>
                     )}
                   </Button>
                 )}

@@ -4,12 +4,15 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Flame, Calculator } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
+import { useLanguage } from '@/lib/language-context'
 
 export default function HeroSection() {
+  const { t } = useLanguage()
   const [typedText, setTypedText] = useState('')
-  const fullText = 'Instalamos un Sistema Garantizado de Leads y Citas para Ti.'
+  const fullText = t.hero.typed_text
 
   useEffect(() => {
+    setTypedText('')
     let currentIndex = 0
     const typingInterval = setInterval(() => {
       if (currentIndex <= fullText.length) {
@@ -21,7 +24,7 @@ export default function HeroSection() {
     }, 50)
 
     return () => clearInterval(typingInterval)
-  }, [])
+  }, [fullText])
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Background Grid Pattern */}
@@ -68,7 +71,7 @@ export default function HeroSection() {
             >
               <Flame className="w-4 h-4 text-[#22C55E]" />
               <span className="text-sm font-medium text-slate-200">
-                500+ Negocios Creciendo con LeadOps
+                {t.hero.badge}
               </span>
             </motion.div>
 
@@ -80,7 +83,7 @@ export default function HeroSection() {
               className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] text-balance"
             >
               <span className="bg-gradient-to-r from-white via-slate-100 to-[#06B6D4] bg-clip-text text-transparent">
-                Deja de Perseguir Clientes.
+                {t.hero.h1_start}
               </span>
               <br />
               <span className="text-white">
@@ -100,9 +103,8 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-2xl text-pretty"
             >
-              El OS de Crecimiento todo-en-uno para HVAC, Plomeros y Techadores.
-              Capturamos, calificamos y agendamos citas 24/7.
-              <span className="text-[#22C55E] font-semibold"> Solo pagas por resultados.</span>
+              {t.hero.subheadline}
+              <span className="text-[#22C55E] font-semibold"> {t.hero.subheadline_highlight}</span>
             </motion.p>
 
             {/* CTAs */}
@@ -127,7 +129,7 @@ export default function HeroSection() {
                   onClick={() => document.getElementById('order-form')?.scrollIntoView({ behavior: 'smooth' })}
                   className="bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-semibold text-lg px-8 py-6 rounded-xl shadow-[0_0_30px_rgba(37,99,235,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.7)] transition-all duration-300 group"
                 >
-                  Verificar Disponibilidad en Mi Área
+                  {t.hero.cta_primary}
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </motion.div>
@@ -139,7 +141,7 @@ export default function HeroSection() {
                 className="border-2 border-white/30 bg-transparent hover:bg-white hover:text-[#0F172A] text-white font-semibold text-lg px-8 py-6 rounded-xl transition-all duration-300"
               >
                 <Calculator className="mr-2 w-5 h-5" />
-                Comenzar Ahora
+                {t.hero.cta_secondary}
               </Button>
             </motion.div>
 
@@ -151,7 +153,7 @@ export default function HeroSection() {
               className="pt-8 border-t border-slate-700/50"
             >
               <p className="text-sm text-slate-400 mb-4">
-                Confiado por 500+ profesionales en TX, FL, CA
+                {t.hero.social_proof}
               </p>
               <div className="flex gap-8 items-center grayscale opacity-60">
                 {/* Logo placeholders - using text for demo */}
@@ -198,12 +200,12 @@ export default function HeroSection() {
                       </div>
                       <div className="flex-1">
                         <div className="text-white font-bold text-sm mb-1">
-                          Nueva Cita Calificada
+                          {t.hero.notification_title}
                         </div>
                         <div className="text-white/90 text-xs space-y-1">
                           <div>🔧 HVAC Repair</div>
-                          <div>📅 Mañana 2:00 PM</div>
-                          <div>💰 Est. Value: $850</div>
+                          <div>📅 {t.hero.notification_time}</div>
+                          <div>💰 {t.hero.notification_value}</div>
                         </div>
                       </div>
                     </div>
@@ -225,7 +227,7 @@ export default function HeroSection() {
                 transition={{ delay: 1.5, duration: 0.5 }}
                 className="absolute -left-8 top-32 bg-[#22C55E] text-white px-4 py-2 rounded-lg shadow-lg font-semibold text-sm"
               >
-                ✓ Calificado
+                ✓ {t.hero.floating_qualified}
               </motion.div>
 
               <motion.div
@@ -234,7 +236,7 @@ export default function HeroSection() {
                 transition={{ delay: 1.7, duration: 0.5 }}
                 className="absolute -right-8 bottom-32 bg-[#06B6D4] text-white px-4 py-2 rounded-lg shadow-lg font-semibold text-sm"
               >
-                +127% ROI
+                {t.hero.floating_roi}
               </motion.div>
             </motion.div>
           </motion.div>

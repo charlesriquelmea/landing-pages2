@@ -5,107 +5,28 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Card } from '@/components/ui/card'
 import { Check } from 'lucide-react'
+import { useLanguage } from '@/lib/language-context'
 
-const verticals = [
-  {
-    id: 'hvac',
-    name: 'HVAC',
-    icon: '🌡️',
-    title: 'Casos de Uso para HVAC',
-    useCases: [
-      'Especiales de tune-up de furnace',
-      'Instalaciones de AC urgentes',
-      'Contratos de mantenimiento',
-      'Emergency calls 24/7',
-    ],
-    stat: '87% de HVACs ven ROI en 30 días',
-    color: 'from-orange-500 to-red-500',
-    setup: 'Configuración completa en 48 horas',
-    modify: 'Modificaciones: 7-10 días hábiles',
-  },
-  {
-    id: 'plumbing',
-    name: 'Plomería',
-    icon: '🔧',
-    title: 'Casos de Uso para Plomería',
-    useCases: [
-      'Reparaciones de emergencia 24/7',
-      'Instalaciones de water heater',
-      'Detección de fugas',
-      'Repiping de casas completas',
-    ],
-    stat: '92% tasa de respuesta en emergencias',
-    color: 'from-blue-500 to-cyan-500',
-    setup: 'Configuración completa en 48 horas',
-    modify: 'Modificaciones: 7-10 días hábiles',
-  },
-  {
-    id: 'electrical',
-    name: 'Eléctricos',
-    icon: '⚡',
-    title: 'Casos de Uso para Eléctricos',
-    useCases: [
-      'Panel upgrades y rewiring',
-      'Instalación de EV chargers',
-      'Smart home integration',
-      'Inspecciones de seguridad',
-    ],
-    stat: '95% de leads calificados son servicios premium',
-    color: 'from-yellow-500 to-orange-500',
-    setup: 'Configuración completa en 48 horas',
-    modify: 'Modificaciones: 7-10 días hábiles',
-  },
-  {
-    id: 'roofing',
-    name: 'Techos',
-    icon: '🏠',
-    title: 'Casos de Uso para Techos',
-    useCases: [
-      'Inspecciones post-tormenta',
-      'Reemplazos completos',
-      'Reparaciones de emergencia',
-      'Instalación de solar panels',
-    ],
-    stat: '81% cierran contratos de alto valor',
-    color: 'from-slate-500 to-gray-600',
-    setup: 'Configuración completa en 48 horas',
-    modify: 'Modificaciones: 7-10 días hábiles',
-  },
-  {
-    id: 'realestate',
-    name: 'Bienes Raíces',
-    icon: '🏘️',
-    title: 'Casos de Uso para Bienes Raíces',
-    useCases: [
-      'Calificación de compradores/inquilinos',
-      'Agendamiento de visitas 24/7',
-      'Captación de listados',
-      'Seguimiento automatizado de leads',
-    ],
-    stat: '88% mejora en tasa de conversión',
-    color: 'from-purple-500 to-pink-500',
-    setup: 'Configuración completa en 48 horas',
-    modify: 'Modificaciones: 7-10 días hábiles',
-  },
-  {
-    id: 'clinics',
-    name: 'Clínicas',
-    icon: '🏥',
-    title: 'Casos de Uso para Clínicas',
-    useCases: [
-      'Agendamiento de citas médicas',
-      'Recordatorios automáticos',
-      'Manejo de cancelaciones',
-      'Verificación de seguros',
-    ],
-    stat: '93% reducción en no-shows',
-    color: 'from-green-500 to-teal-500',
-    setup: 'Configuración completa en 48 horas',
-    modify: 'Modificaciones: 7-10 días hábiles',
-  },
-]
+const verticalIcons: { [key: string]: string } = {
+  hvac: '🌡️',
+  plumbing: '🔧',
+  electrical: '⚡',
+  roofing: '🏠',
+  realestate: '🏘️',
+  clinics: '🏥',
+}
+
+const verticalColors: { [key: string]: string } = {
+  hvac: 'from-orange-500 to-red-500',
+  plumbing: 'from-blue-500 to-cyan-500',
+  electrical: 'from-yellow-500 to-orange-500',
+  roofing: 'from-slate-500 to-gray-600',
+  realestate: 'from-purple-500 to-pink-500',
+  clinics: 'from-green-500 to-teal-500',
+}
 
 export default function VerticalSelector() {
+  const { t } = useLanguage()
   const [activeTab, setActiveTab] = useState('hvac')
 
   return (
@@ -120,23 +41,23 @@ export default function VerticalSelector() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            Especializado para <span className="text-[#2563EB]">Tu Industria</span>
+            {t.vertical_selector.title} <span className="text-[#2563EB]">{t.vertical_selector.title_highlight}</span>
           </h2>
           <p className="text-xl text-slate-400 text-pretty">
-            Soluciones personalizadas para cada vertical
+            {t.vertical_selector.subtitle}
           </p>
         </motion.div>
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid grid-cols-3 sm:grid-cols-6 w-full bg-slate-800/50 p-1 rounded-xl mb-8">
-            {verticals.map((vertical) => (
+            {t.vertical_selector.items.map((vertical) => (
               <TabsTrigger
                 key={vertical.id}
                 value={vertical.id}
                 className="data-[state=active]:bg-[#2563EB] data-[state=active]:text-white text-slate-400 font-semibold py-3 rounded-lg transition-all duration-300"
               >
-                <span className="mr-2">{vertical.icon}</span>
+                <span className="mr-2">{verticalIcons[vertical.id]}</span>
                 <span className="hidden sm:inline">{vertical.name}</span>
               </TabsTrigger>
             ))}
@@ -144,7 +65,7 @@ export default function VerticalSelector() {
 
           {/* Content */}
           <AnimatePresence mode="wait">
-            {verticals.map((vertical) => (
+            {t.vertical_selector.items.map((vertical) => (
               <TabsContent key={vertical.id} value={vertical.id} className="mt-0">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -157,7 +78,7 @@ export default function VerticalSelector() {
                       {/* Left Content */}
                       <div>
                         <div className="flex items-center gap-3 mb-6">
-                          <span className="text-5xl">{vertical.icon}</span>
+                          <span className="text-5xl">{verticalIcons[vertical.id]}</span>
                           <h3 className="text-2xl font-bold text-white">{vertical.title}</h3>
                         </div>
 
@@ -179,7 +100,7 @@ export default function VerticalSelector() {
                         </ul>
 
                         {/* Stat */}
-                        <div className={`inline-block bg-gradient-to-r ${vertical.color} bg-clip-text text-transparent font-bold text-lg mb-4`}>
+                        <div className={`inline-block bg-gradient-to-r ${verticalColors[vertical.id]} bg-clip-text text-transparent font-bold text-lg mb-4`}>
                           📊 {vertical.stat}
                         </div>
 
@@ -211,7 +132,7 @@ export default function VerticalSelector() {
 
                           {/* Overlay Icon */}
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-8xl opacity-20">{vertical.icon}</span>
+                            <span className="text-8xl opacity-20">{verticalIcons[vertical.id]}</span>
                           </div>
                         </div>
                       </div>

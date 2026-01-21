@@ -2,27 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Facebook, Twitter, Linkedin, Instagram, Shield, Lock, CheckCircle } from 'lucide-react'
-
-const footerLinks = {
-  product: [
-    { name: 'Features', href: '#' },
-    { name: 'Pricing', href: '#' },
-    { name: 'Integrations', href: '#' },
-    { name: 'Case Studies', href: '#' },
-  ],
-  resources: [
-    { name: 'Help Center', href: '#' },
-    { name: 'API Docs', href: '#' },
-    { name: 'Blog', href: '#' },
-    { name: 'Contractors Academy', href: '#' },
-  ],
-  legal: [
-    { name: 'Terms of Service', href: '#' },
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Cookie Policy', href: '#' },
-    { name: 'CCPA Compliance', href: '#' },
-  ],
-}
+import { useLanguage } from '@/lib/language-context'
 
 const socialLinks = [
   { icon: Facebook, href: '#', label: 'Facebook' },
@@ -32,12 +12,21 @@ const socialLinks = [
 ]
 
 const trustBadges = [
-  { icon: Lock, text: '256-bit SSL' },
-  { icon: Shield, text: 'SOC 2 Certified' },
-  { icon: CheckCircle, text: 'GDPR Compliant' },
+  { icon: Lock, width: 'w-5', height: 'h-5' },
+  { icon: Shield, width: 'w-5', height: 'h-5' },
+  { icon: CheckCircle, width: 'w-5', height: 'h-5' },
 ]
 
 export default function Footer() {
+  const { t } = useLanguage()
+
+  // Dynamic mapped links
+  const footerLinks = {
+    product: t.footer.columns.product.items.map(item => ({ name: item, href: '#' })),
+    resources: t.footer.columns.resources.items.map(item => ({ name: item, href: '#' })),
+    legal: t.footer.columns.legal.items.map(item => ({ name: item, href: '#' })),
+  }
+
   return (
     <footer className="bg-[#0A0F1E] border-t border-slate-800 relative overflow-hidden">
       {/* Gradient Border Top */}
@@ -55,10 +44,10 @@ export default function Footer() {
           >
             <div className="mb-4">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-[#2563EB] to-[#06B6D4] bg-clip-text text-transparent">
-                LeadOps OS
+                {t.footer.brand_title}
               </h3>
               <p className="text-slate-400 mt-2 text-sm leading-relaxed">
-                Growth OS para Home Service Pros
+                {t.footer.brand_desc}
               </p>
             </div>
 
@@ -85,7 +74,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h4 className="text-white font-semibold mb-4">Product</h4>
+            <h4 className="text-white font-semibold mb-4">{t.footer.columns.product.title}</h4>
             <ul className="space-y-3">
               {footerLinks.product.map((link, index) => (
                 <li key={index}>
@@ -108,7 +97,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h4 className="text-white font-semibold mb-4">Resources</h4>
+            <h4 className="text-white font-semibold mb-4">{t.footer.columns.resources.title}</h4>
             <ul className="space-y-3">
               {footerLinks.resources.map((link, index) => (
                 <li key={index}>
@@ -131,7 +120,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <h4 className="text-white font-semibold mb-4">Legal</h4>
+            <h4 className="text-white font-semibold mb-4">{t.footer.columns.legal.title}</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link, index) => (
                 <li key={index}>
@@ -159,7 +148,7 @@ export default function Footer() {
           {trustBadges.map((badge, index) => (
             <div key={index} className="flex items-center gap-2 text-slate-400">
               <badge.icon className="w-5 h-5 text-[#22C55E]" />
-              <span className="text-sm font-medium">{badge.text}</span>
+              <span className="text-sm font-medium">{t.footer.trust_badges[index]}</span>
             </div>
           ))}
         </motion.div>
@@ -173,8 +162,8 @@ export default function Footer() {
           className="text-center pt-8 border-t border-slate-800"
         >
           <p className="text-slate-400 text-sm">
-            © 2026 LeadOps OS.{' '}
-            <span className="text-[#2563EB]">Made for Pros by Pros.</span>
+            © 2026 {t.footer.brand_title}.{' '}
+            <span className="text-[#2563EB]">{t.footer.made_by}</span> {t.footer.rights}
           </p>
         </motion.div>
       </div>

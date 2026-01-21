@@ -4,24 +4,11 @@ import { motion } from 'framer-motion'
 import { X, Check, ArrowRight } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-
-const oldWayFeatures = [
-  'Comprar leads compartidos ($50-150 cada uno)',
-  'Perseguir tire-kickers todo el día',
-  'Seguimiento manual que nunca pasa',
-  'Tasa de conversión: 15%',
-  'Tiempo perdido: 20hrs/semana',
-]
-
-const newWayFeatures = [
-  'Leads 100% exclusivos para ti',
-  'IA califica en 60 segundos',
-  'Auto-agendamiento en tu calendario',
-  'Tasa de conversión: 40%+',
-  'Recuperas 20hrs/semana',
-]
+import { useLanguage } from '@/lib/language-context'
 
 export default function ComparisonSection() {
+  const { t } = useLanguage()
+
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
       <div className="container mx-auto">
@@ -34,10 +21,12 @@ export default function ComparisonSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            La Diferencia es <span className="text-[#22C55E]">Clara</span>
+            {t.comparison.title.split(t.comparison.title_highlight)[0]}
+            <span className="text-[#22C55E]">{t.comparison.title_highlight}</span>
+            {t.comparison.title.split(t.comparison.title_highlight)[1]}
           </h2>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto text-pretty">
-            Deja de trabajar más duro. Trabaja más inteligente.
+            {t.comparison.subtitle}
           </p>
         </motion.div>
 
@@ -55,11 +44,11 @@ export default function ComparisonSection() {
                 <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
                   <X className="w-6 h-6 text-red-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">La Forma Antigua</h3>
+                <h3 className="text-2xl font-bold text-white">{t.comparison.old_way_title}</h3>
               </div>
-              <p className="text-red-300 mb-6 font-semibold">(Costosa)</p>
+              <p className="text-red-300 mb-6 font-semibold">{t.comparison.old_way_subtitle}</p>
               <ul className="space-y-4">
-                {oldWayFeatures.map((feature, index) => (
+                {t.comparison.old_features.map((feature, index) => (
                   <motion.li
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
@@ -86,22 +75,22 @@ export default function ComparisonSection() {
             <Card className="h-full bg-gradient-to-br from-[#2563EB]/20 via-[#06B6D4]/10 to-[#22C55E]/10 border-[#2563EB]/30 p-8 relative overflow-hidden hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#2563EB]/20 transition-all duration-300">
               {/* Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#2563EB]/10 to-[#22C55E]/10 opacity-50" />
-              
+
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 rounded-full bg-[#22C55E]/20 flex items-center justify-center">
                     <Check className="w-6 h-6 text-[#22C55E]" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">La Forma LeadOps</h3>
+                  <h3 className="text-2xl font-bold text-white">{t.comparison.new_way_title}</h3>
                   <div className="ml-auto">
                     <span className="bg-[#22C55E] text-[#0F172A] text-xs font-bold px-3 py-1 rounded-full">
-                      NUEVA FORMA
+                      {t.comparison.new_way_badge}
                     </span>
                   </div>
                 </div>
-                <p className="text-[#06B6D4] mb-6 font-semibold">(Inteligente)</p>
+                <p className="text-[#06B6D4] mb-6 font-semibold">{t.comparison.new_way_subtitle}</p>
                 <ul className="space-y-4">
-                  {newWayFeatures.map((feature, index) => (
+                  {t.comparison.new_features.map((feature, index) => (
                     <motion.li
                       key={index}
                       initial={{ opacity: 0, x: 20 }}
@@ -146,7 +135,7 @@ export default function ComparisonSection() {
             onClick={() => document.getElementById('order-form')?.scrollIntoView({ behavior: 'smooth' })}
             className="bg-[#22C55E] hover:bg-[#16a34a] text-white font-semibold text-lg px-8 py-6 rounded-xl shadow-lg shadow-[#22C55E]/30 transition-all duration-300 group"
           >
-            Cambiar a LeadOps Ahora
+            {t.comparison.cta}
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
         </motion.div>
