@@ -5,7 +5,10 @@ import { motion } from "framer-motion"
 import { Check, ChevronRight, Users, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export default function PricingSection() {
+interface PricingSectionProps {
+  onOpenForm?: () => void;
+}
+export default function PricingSection({ onOpenForm }: PricingSectionProps) {
   const [isEarlyBird] = useState(true)
 
   const features = [
@@ -21,6 +24,12 @@ export default function PricingSection() {
     "Backend e integraciones post-evento incluidas",
     "Servidor y dominio incluidos por 6 meses",
   ]
+  const scrollToForm = () => {
+    const formSection = document.getElementById('order-form')
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
     <section id="pricing" className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
@@ -115,6 +124,7 @@ export default function PricingSection() {
               <Button
                 className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-bold shadow-lg shadow-orange-500/25"
                 size="lg"
+                onClick={scrollToForm}
               >
                 Asegurar mi lugar ahora
                 <ChevronRight className="ml-2 h-4 w-4" />

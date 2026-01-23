@@ -8,7 +8,10 @@ import { Button } from "@/components/ui/button"
 
 const EVENT_DATE = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  onOpenForm?: () => void;
+}
+export default function HeroSection({ onOpenForm }: HeroSectionProps) {
   const { theme } = useTheme()
   const [days, setDays] = useState(30)
   const [hours, setHours] = useState(0)
@@ -34,6 +37,13 @@ export default function HeroSection() {
   }, [])
 
   if (!mounted) return null
+
+  const scrollToForm = () => {
+  const formSection = document.getElementById('order-form')
+  if (formSection) {
+    formSection.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen">
@@ -172,6 +182,7 @@ export default function HeroSection() {
             >
               <Button
                 size="lg"
+                onClick={scrollToForm}
                 className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-bold shadow-lg shadow-orange-500/25"
               >
                 Reservar Mi Cupo

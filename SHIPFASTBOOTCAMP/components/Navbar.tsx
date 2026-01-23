@@ -32,6 +32,13 @@ export default function Navbar() {
     { name: "Contacto", href: "#contacto" },
   ]
 
+  const scrollToForm = () => {
+      const formSection = document.getElementById('order-form')
+      if (formSection) {
+        formSection.scrollIntoView({ behavior: 'smooth' })
+      }
+  }
+
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -82,7 +89,7 @@ export default function Navbar() {
             >
               {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
-            <Button className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-bold">
+            <Button className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-bold" onClick={scrollToForm}>
               Inscribirse
             </Button>
           </div>

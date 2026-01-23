@@ -4,9 +4,21 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { Check, Play, Terminal, Code2, Zap, ArrowRight, Rocket, Sun, Palmtree } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useRef } from "react"
+// Importamos dinámicamente para evitar errores de hidratación
+import dynamic from 'next/dynamic'
 
-export default function ValidationSprintSection() {
+// Importación dinámica con SSR desactivado para las partículas
+const ParticlesBackground = dynamic(() => import('./ParticlesBackground'), { 
+  ssr: false 
+})
+
+interface ValidationSprintSectionProps {
+  onOpenForm?: () => void;
+}
+
+export default function ValidationSprintSection({ onOpenForm }: ValidationSprintSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
+  
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -30,6 +42,13 @@ export default function ValidationSprintSection() {
     { text: "await sprint.build()", color: "text-pink-400" },
     { text: "await sprint.launch() // Vamos!", color: "text-pink-400" },
   ]
+
+  const scrollToForm = () => {
+    const formSection = document.getElementById('order-form')
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
     <section ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden">
@@ -56,7 +75,7 @@ export default function ValidationSprintSection() {
         </motion.div>
       </div>
 
-      {/* Floating palm trees and tropical elements */}
+      {/* Floating palm trees */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute -left-20 bottom-20 text-white/10"
@@ -74,32 +93,9 @@ export default function ValidationSprintSection() {
         </motion.div>
       </div>
 
-      {/* Animated particles - stars/fireflies */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-yellow-300 rounded-full"
-            initial={{
-              x: `${Math.random() * 100}%`,
-              y: `${Math.random() * 100}%`,
-              scale: Math.random() * 0.5 + 0.5,
-              opacity: 0.3,
-            }}
-            animate={{
-              y: [null, `${Math.random() * -30}%`],
-              opacity: [0.3, 1, 0.3],
-              scale: [null, 1.5, 1],
-            }}
-            transition={{
-              duration: Math.random() * 4 + 3,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
+      {/* --- AQUÍ CARGAMOS LAS PARTÍCULAS DE FORMA SEGURA --- */}
+      <ParticlesBackground />
+      {/* ---------------------------------------------------- */}
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Location Badge */}
@@ -206,6 +202,7 @@ export default function ValidationSprintSection() {
             >
               <Button
                 size="lg"
+                onClick={scrollToForm}
                 className="group relative overflow-hidden bg-gradient-to-r from-yellow-500 via-orange-500 to-pink-500 hover:from-yellow-400 hover:via-orange-400 hover:to-pink-400 text-white font-bold px-10 py-7 text-xl rounded-2xl shadow-2xl shadow-orange-500/40 hover:shadow-orange-500/60 transition-all duration-300 border-2 border-white/20"
               >
                 <motion.span

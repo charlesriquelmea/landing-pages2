@@ -20,8 +20,26 @@ import { useState } from "react"
 import FaqSection from "./FaqSection"
 import { Button } from "@/components/ui/button"
 
-export default function Footer() {
+// 1. IMPORTAMOS EL COMPONENTE DEL FORMULARIO
+// Asegúrate de que la ruta sea correcta según donde guardaste el archivo anterior
+import OrderFormSection from "./OrderFormSection"
+
+interface FooterProps {
+  onOpenForm?: () => void;
+}
+
+export default function Footer({ onOpenForm }: FooterProps) {
   const [showFaq, setShowFaq] = useState(false)
+
+  // Función para hacer scroll suave al formulario si se toca el botón del footer
+  const scrollToForm = () => {
+    const formSection = document.getElementById('order-form')
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth' })
+    } else if (onOpenForm) {
+      onOpenForm()
+    }
+  }
 
   const socialLinks = [
     { icon: <Facebook className="h-5 w-5" />, href: "#", label: "Facebook" },
@@ -63,7 +81,8 @@ export default function Footer() {
 
   return (
     <footer id="contacto" className="bg-slate-900 border-t border-slate-800">
-      {/* Hero Section in Footer */}
+      
+      {/* --- SECCIÓN HERO DEL FOOTER --- */}
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-20">
         <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/10 via-transparent to-purple-500/10" />
         <div className="container mx-auto px-4 relative z-10">
@@ -129,6 +148,7 @@ export default function Footer() {
             >
               <Button
                 size="lg"
+                onClick={scrollToForm} // Modificado para que haga scroll al formulario de abajo
                 className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-bold text-lg px-8 py-4 shadow-lg shadow-orange-500/25"
               >
                 Reservar Mi Cupo Ahora
@@ -162,8 +182,14 @@ export default function Footer() {
         </div>
       </section>
 
+      {/* --- 2. AQUÍ INSERTAMOS EL FORMULARIO --- */}
+      {/* Al estar fuera del container anterior, toma todo el ancho, pero OrderFormSection ya maneja sus anchos */}
+      <OrderFormSection />
+
+      {/* --- SECCIÓN DE FAQ Y LINKS --- */}
       <div className="pt-20 pb-10">
         <div className="container mx-auto px-4">
+          
           {/* FAQ Section */}
           <div className="mb-16">
             <button onClick={() => setShowFaq(!showFaq)} className="flex items-center justify-center w-full mb-8">
