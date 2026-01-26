@@ -6,6 +6,7 @@ import { useTheme } from "next-themes"
 import { Menu, X, Sun, Moon, Palmtree } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { smoothScrollTo } from "@/lib/smoothScroll"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -33,10 +34,7 @@ export default function Navbar() {
   ]
 
   const scrollToForm = () => {
-      const formSection = document.getElementById('order-form')
-      if (formSection) {
-        formSection.scrollIntoView({ behavior: 'smooth' })
-      }
+    smoothScrollTo('order-form', 2000)
   }
 
   return (
@@ -44,9 +42,8 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-lg py-2" : "bg-transparent py-4"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-lg py-2" : "bg-transparent py-4"
+        }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
@@ -65,11 +62,10 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`transition-colors font-medium ${
-                  scrolled
-                    ? "text-slate-700 dark:text-gray-300 hover:text-orange-500"
-                    : "text-white/90 hover:text-orange-400"
-                }`}
+                className={`transition-colors font-medium ${scrolled
+                  ? "text-slate-700 dark:text-gray-300 hover:text-orange-500"
+                  : "text-white/90 hover:text-orange-400"
+                  }`}
               >
                 {link.name}
               </Link>
@@ -80,11 +76,10 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-4">
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className={`p-2 rounded-full transition-colors ${
-                scrolled
-                  ? "text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                  : "text-white hover:bg-white/10"
-              }`}
+              className={`p-2 rounded-full transition-colors ${scrolled
+                ? "text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                : "text-white hover:bg-white/10"
+                }`}
               aria-label="Toggle theme"
             >
               {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -98,18 +93,16 @@ export default function Navbar() {
           <div className="flex items-center md:hidden space-x-4">
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className={`p-2 rounded-full transition-colors ${
-                scrolled ? "text-slate-700 dark:text-gray-300" : "text-white"
-              }`}
+              className={`p-2 rounded-full transition-colors ${scrolled ? "text-slate-700 dark:text-gray-300" : "text-white"
+                }`}
               aria-label="Toggle theme"
             >
               {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`p-2 rounded-md transition-colors ${
-                scrolled ? "text-slate-700 dark:text-gray-300" : "text-white"
-              }`}
+              className={`p-2 rounded-md transition-colors ${scrolled ? "text-slate-700 dark:text-gray-300" : "text-white"
+                }`}
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

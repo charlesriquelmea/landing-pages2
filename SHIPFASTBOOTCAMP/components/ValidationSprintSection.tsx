@@ -7,9 +7,11 @@ import { useRef } from "react"
 // Importamos dinámicamente para evitar errores de hidratación
 import dynamic from 'next/dynamic'
 
+import { smoothScrollTo } from "@/lib/smoothScroll"
+
 // Importación dinámica con SSR desactivado para las partículas
-const ParticlesBackground = dynamic(() => import('./ParticlesBackground'), { 
-  ssr: false 
+const ParticlesBackground = dynamic(() => import('./ParticlesBackground'), {
+  ssr: false
 })
 
 interface ValidationSprintSectionProps {
@@ -18,7 +20,7 @@ interface ValidationSprintSectionProps {
 
 export default function ValidationSprintSection({ onOpenForm }: ValidationSprintSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
-  
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -44,10 +46,7 @@ export default function ValidationSprintSection({ onOpenForm }: ValidationSprint
   ]
 
   const scrollToForm = () => {
-    const formSection = document.getElementById('order-form')
-    if (formSection) {
-      formSection.scrollIntoView({ behavior: 'smooth' })
-    }
+    smoothScrollTo('order-form', 2000)
   }
 
   return (

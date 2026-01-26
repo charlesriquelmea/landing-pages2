@@ -3,28 +3,28 @@
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { 
-  ArrowRight, 
-  ArrowLeft, 
-  Send, 
-  Loader2, 
-  User, 
-  Mail, 
-  Phone, 
-  Building2, 
-  Briefcase, 
-  MessageSquare, 
-  Check, 
+import {
+  ArrowRight,
+  ArrowLeft,
+  Send,
+  Loader2,
+  User,
+  Mail,
+  Phone,
+  Building2,
+  Briefcase,
+  MessageSquare,
+  Check,
   Sparkles,
   Edit2,
   CheckCircle2
 } from "lucide-react"
 
-import { Input } from "@/components/ui/input" 
+import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
 // --- CONFIGURACIÓN ---
-const WHATSAPP_NUMBER = '+'
+const WHATSAPP_NUMBER = '+56930835236'
 
 // --- TEXTOS EN ESPAÑOL ---
 const t = {
@@ -109,11 +109,11 @@ const t = {
   },
   errors: {
     required: "Este campo es requerido",
-    email: "Email inválido"
+    email: "Email inválido",
+    phone: "Ingresa un teléfono válido (mínimo 8 números)"
   }
 }
 
-// Datos iniciales para poder resetear fácil
 const INITIAL_DATA = {
   name: '',
   email: '',
@@ -126,9 +126,9 @@ const INITIAL_DATA = {
 export default function OrderFormSection() {
   const [step, setStep] = useState(-1)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false) // Nuevo estado de éxito
+  const [isSuccess, setIsSuccess] = useState(false)
   const [currentError, setCurrentError] = useState("")
-  
+
   const [formData, setFormData] = useState(INITIAL_DATA)
 
   const questionsConfig = [
@@ -160,15 +160,27 @@ export default function OrderFormSection() {
   }
 
   const handleSelectOption = (field: string, value: string) => {
-    setFormData({ ...formData, [field]: value })
-    setTimeout(() => nextStep(), 300)
+    setFormData(prev => ({ ...prev, [field]: value }))
+    setCurrentError("")
+    setTimeout(() => {
+      setStep(prevStep => {
+        if (prevStep < questions.length) return prevStep + 1
+        return prevStep
+      })
+    }, 300)
   }
 
   const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 
+  const isValidPhone = (phone: string) => {
+    const phoneRegex = /^[+]?[\d\s-()]+$/
+    const digitCount = (phone.match(/\d/g) || []).length
+    return phoneRegex.test(phone) && digitCount >= 8
+  }
+
   const validateCurrentStep = () => {
     if (step === -1 || step === questions.length) return true
-    
+
     const currentQ = questions[step]
     if (currentQ.optional) return true
 
@@ -181,6 +193,11 @@ export default function OrderFormSection() {
 
     if (currentQ.field === 'email' && !isValidEmail(value as string)) {
       setCurrentError(t.questions[1].error || t.errors.email)
+      return false
+    }
+
+    if (currentQ.field === 'phone' && !isValidPhone(value as string)) {
+      setCurrentError(t.errors.phone)
       return false
     }
 
@@ -204,59 +221,62 @@ export default function OrderFormSection() {
     }
   }
 
-  // --- NUEVA LÓGICA DE RESET ---
+  // --- CORRECCIÓN: Scroll automático al resetear ---
   const handleReset = () => {
     setFormData(INITIAL_DATA)
     setIsSuccess(false)
-    setStep(-1) // Vuelve a la intro
+    setStep(-1)
+
+    // Redirige al inicio de la página (top del document) - Agregamos el comportamiento solicitado
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    // Si se desea recargar o navegar a root, se podría usar window.location.href = '/'
+    // pero el scroll al top es la interpretación habitual en Landing Pages SPA.
   }
 
   const handleSubmit = () => {
     setIsSubmitting(true)
     const selectedVertical = t.verticals.find((v: any) => v.value === formData.vertical)
 
-    const message = `
-🚀 *${t.whatsapp_message.title}*
+    const message = `*NUEVA SOLICITUD - LEADOPS OS*
 
-👤 *${t.whatsapp_message.client}:* ${formData.name}
-📧 *${t.whatsapp_message.email}:* ${formData.email}
-📱 *${t.whatsapp_message.phone}:* ${formData.phone}
+*Detalles del Negocio*
+Empresa: ${formData.business}
+Rubro: ${selectedVertical?.name || formData.vertical}
 
-🏢 *${t.whatsapp_message.business}:* ${formData.business}
-🔧 *${t.whatsapp_message.vertical}:* ${selectedVertical?.name || formData.vertical}
+*Datos de Contacto*
+Cliente: ${formData.name}
+Email: ${formData.email}
+WhatsApp: ${formData.phone}
 
-💬 *${t.whatsapp_message.note}:* ${formData.comments || '-'}
-    `.trim()
+*Mensaje / Notas*
+${formData.comments || 'Sin comentarios adicionales.'}`
 
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
 
-    // Simulamos un pequeño delay y luego mostramos el éxito
     setTimeout(() => {
       window.open(whatsappUrl, '_blank')
       setIsSubmitting(false)
-      setIsSuccess(true) // Activamos la pantalla de éxito
+      setIsSuccess(true)
     }, 1500)
   }
 
   const isIntro = step === -1
   const isSummary = step === questions.length
   const currentQ = questions[step]
-  
+
   const isCurrentValid = !isIntro && !isSummary && !isSuccess && (
-    (currentQ.optional && !formData[currentQ.field as keyof typeof formData]) || 
+    (currentQ.optional && !formData[currentQ.field as keyof typeof formData]) ||
     (formData[currentQ.field as keyof typeof formData]?.toString().length > 0 && !currentError)
   )
 
   return (
     <section id="order-form" className="flex flex-col items-center justify-center min-h-[800px] px-6 bg-slate-900 border-t border-slate-800 text-white py-20 overflow-hidden relative">
-      
-      {/* Fondo decorativo */}
+
       <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <AnimatePresence mode="wait">
-        
-        {/* --- ESTADO: INTRO --- */}
+
         {isIntro && !isSuccess && (
           <motion.div
             key="intro"
@@ -277,7 +297,7 @@ export default function OrderFormSection() {
             <p className="text-xl text-gray-400 mb-12 max-w-lg mx-auto">
               {t.intro.subtitle}
             </p>
-            <Button 
+            <Button
               onClick={() => setStep(0)}
               className="bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white px-10 py-7 text-lg rounded-full shadow-lg shadow-orange-500/20 transition-all hover:scale-105 border-0"
             >
@@ -286,7 +306,6 @@ export default function OrderFormSection() {
           </motion.div>
         )}
 
-        {/* --- ESTADO: PREGUNTAS --- */}
         {!isIntro && !isSummary && !isSuccess && (
           <motion.div
             key={`step-${step}`}
@@ -305,14 +324,12 @@ export default function OrderFormSection() {
             </motion.h2>
             <p className="text-gray-400 text-center mb-8">{currentQ.description}</p>
 
-            <motion.div 
+            <motion.div
               className="w-full relative"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              
-              {/* Inputs */}
               {currentQ.type === 'input' && (
                 <div className="relative group">
                   <currentQ.icon className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors ${isCurrentValid ? "text-green-400" : "text-gray-500 group-focus-within:text-orange-400"}`} />
@@ -329,7 +346,6 @@ export default function OrderFormSection() {
                 </div>
               )}
 
-              {/* Textarea */}
               {currentQ.type === 'textarea' && (
                 <div className="relative group">
                   <currentQ.icon className={`absolute left-4 top-6 w-5 h-5 transition-colors ${isCurrentValid ? "text-green-400" : "text-gray-500 group-focus-within:text-orange-400"}`} />
@@ -344,18 +360,16 @@ export default function OrderFormSection() {
                 </div>
               )}
 
-              {/* Selects */}
               {currentQ.type === 'select' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {currentQ.options?.map((option: any) => (
                     <button
                       key={option.value}
                       onClick={() => handleSelectOption(currentQ.field, option.value)}
-                      className={`group flex items-center gap-3 p-4 rounded-xl border transition-all hover:scale-[1.02] active:scale-[0.98] ${
-                        formData[currentQ.field as keyof typeof formData] === option.value
+                      className={`group flex items-center gap-3 p-4 rounded-xl border transition-all hover:scale-[1.02] active:scale-[0.98] ${formData[currentQ.field as keyof typeof formData] === option.value
                           ? "bg-orange-500/10 border-orange-500 text-white shadow-[0_0_20px_rgba(249,115,22,0.15)]"
                           : "bg-slate-800/40 border-slate-700 hover:bg-slate-800 hover:border-slate-600 text-gray-300"
-                      }`}
+                        }`}
                     >
                       <span className="text-2xl">{option.icon}</span>
                       <span className="font-medium">{option.name}</span>
@@ -364,7 +378,6 @@ export default function OrderFormSection() {
                 </div>
               )}
 
-              {/* Check de Validación */}
               {(currentQ.type === 'input' || currentQ.type === 'textarea') && isCurrentValid && (
                 <motion.div
                   initial={{ scale: 0 }}
@@ -375,7 +388,6 @@ export default function OrderFormSection() {
                 </motion.div>
               )}
 
-              {/* Mensaje de Error */}
               {currentError && (
                 <motion.p
                   initial={{ opacity: 0, x: -10 }}
@@ -388,29 +400,26 @@ export default function OrderFormSection() {
             </motion.div>
 
             <div className="flex items-center gap-4 mt-10 w-full">
-               <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 onClick={prevStep}
                 className="text-gray-500 hover:text-white hover:bg-white/5"
               >
                 <ArrowLeft className="w-6 h-6" />
               </Button>
-              
-              {currentQ.type !== 'select' && (
-                <Button 
-                  onClick={nextStep}
-                  className="flex-1 bg-white text-slate-900 hover:bg-gray-200 py-7 text-lg rounded-xl font-bold"
-                >
-                  {t.buttons.next}
-                </Button>
-              )}
+
+              <Button
+                onClick={nextStep}
+                className="flex-1 bg-white text-slate-900 hover:bg-gray-200 py-7 text-lg rounded-xl font-bold transition-all shadow-lg hover:shadow-white/10"
+              >
+                {t.buttons.next}
+              </Button>
             </div>
           </motion.div>
         )}
 
-        {/* --- ESTADO: SUMMARY --- */}
         {isSummary && !isSuccess && (
-           <motion.div
+          <motion.div
             key="summary"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -418,38 +427,38 @@ export default function OrderFormSection() {
             className="w-full max-w-lg bg-slate-800/60 border border-slate-700 rounded-2xl p-8 backdrop-blur-md shadow-2xl relative z-10"
           >
             <h2 className="text-2xl font-bold text-white mb-6 text-center">{t.summary.title}</h2>
-            
+
             <div className="space-y-4 mb-8">
               <div className="p-4 bg-slate-900/50 rounded-xl border border-slate-700/50">
                 <p className="text-gray-500 text-xs uppercase font-bold mb-2 tracking-wider">{t.summary.client_label}</p>
                 <div className="flex items-center gap-3 mb-2">
-                    <User className="w-4 h-4 text-orange-400"/>
-                    <p className="text-lg font-medium text-white">{formData.name}</p>
+                  <User className="w-4 h-4 text-orange-400" />
+                  <p className="text-lg font-medium text-white">{formData.name}</p>
                 </div>
                 <div className="flex items-center gap-3 mb-1">
-                    <Mail className="w-4 h-4 text-orange-400"/>
-                    <p className="text-gray-400 text-sm">{formData.email}</p>
+                  <Mail className="w-4 h-4 text-orange-400" />
+                  <p className="text-gray-400 text-sm">{formData.email}</p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <Phone className="w-4 h-4 text-orange-400"/>
-                    <p className="text-gray-400 text-sm">{formData.phone}</p>
+                  <Phone className="w-4 h-4 text-orange-400" />
+                  <p className="text-gray-400 text-sm">{formData.phone}</p>
                 </div>
               </div>
-              
+
               <div className="p-4 bg-slate-900/50 rounded-xl border border-slate-700/50 flex justify-between items-center">
-                  <div>
-                    <p className="text-gray-500 text-xs uppercase font-bold mb-1 tracking-wider">{t.summary.business_label}</p>
-                    <p className="font-bold text-lg text-white mb-2">{formData.business}</p>
-                    
-                    <p className="text-gray-500 text-xs uppercase font-bold mb-1 tracking-wider">{t.summary.rubro_label}</p>
-                    <p className="text-sm text-pink-400 font-semibold flex items-center gap-2">
-                      {t.verticals.find((v: any) => v.value === formData.vertical)?.icon}
-                      {t.verticals.find((v: any) => v.value === formData.vertical)?.name}
-                    </p>
-                  </div>
-                  <Button variant="ghost" size="sm" onClick={() => setStep(3)} className="text-gray-500 hover:text-white hover:bg-white/5">
-                    <Edit2 className="w-4 h-4" />
-                  </Button>
+                <div>
+                  <p className="text-gray-500 text-xs uppercase font-bold mb-1 tracking-wider">{t.summary.business_label}</p>
+                  <p className="font-bold text-lg text-white mb-2">{formData.business}</p>
+
+                  <p className="text-gray-500 text-xs uppercase font-bold mb-1 tracking-wider">{t.summary.rubro_label}</p>
+                  <p className="text-sm text-pink-400 font-semibold flex items-center gap-2">
+                    {t.verticals.find((v: any) => v.value === formData.vertical)?.icon}
+                    {t.verticals.find((v: any) => v.value === formData.vertical)?.name}
+                  </p>
+                </div>
+                <Button variant="ghost" size="sm" onClick={() => setStep(3)} className="text-gray-500 hover:text-white hover:bg-white/5">
+                  <Edit2 className="w-4 h-4" />
+                </Button>
               </div>
             </div>
 
@@ -457,8 +466,8 @@ export default function OrderFormSection() {
               <Button variant="ghost" onClick={prevStep} className="text-gray-500 hover:text-white hover:bg-white/5">
                 <ArrowLeft className="w-5 h-5" />
               </Button>
-              <Button 
-                onClick={handleSubmit} 
+              <Button
+                onClick={handleSubmit}
                 disabled={isSubmitting}
                 className="flex-1 bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white font-bold py-7 rounded-xl shadow-lg shadow-orange-500/20 border-0 transition-all hover:scale-[1.02]"
               >
@@ -468,32 +477,31 @@ export default function OrderFormSection() {
           </motion.div>
         )}
 
-        {/* --- ESTADO: SUCCESS MESSAGE --- */}
         {isSuccess && (
           <motion.div
             key="success"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="w-full max-w-md bg-slate-800/80 border border-slate-700 rounded-2xl p-8 backdrop-blur-xl shadow-2xl relative z-10 text-center"
+            className="w-full max-w-md bg-slate-800/80 border border-slate-700 rounded-2xl p-8 backdrop-blur-xl shadow-[0_0_50px_rgba(249,115,22,0.15)] relative z-10 text-center"
           >
-            <motion.div 
-              initial={{ scale: 0 }} 
-              animate={{ scale: 1 }} 
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring" }}
-              className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-green-500/30"
+              className="w-20 h-20 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(16,185,129,0.15)]"
             >
-              <CheckCircle2 className="w-10 h-10 text-white" />
+              <CheckCircle2 className="w-10 h-10 text-emerald-400" />
             </motion.div>
-            
+
             <h2 className="text-3xl font-bold text-white mb-4">{t.success.title}</h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
               {t.success.subtitle}
             </p>
-            
-            <Button 
+
+            <Button
               onClick={handleReset}
-              className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-6 rounded-xl border border-slate-600 transition-all hover:scale-[1.02]"
+              className="w-full bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white font-bold py-6 rounded-xl shadow-lg shadow-orange-500/20 border-0 transition-all hover:scale-[1.02]"
             >
               {t.success.button}
             </Button>

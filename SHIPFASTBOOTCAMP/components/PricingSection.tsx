@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Check, ChevronRight, Users, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { smoothScrollTo } from "@/lib/smoothScroll"
 
 interface PricingSectionProps {
   onOpenForm?: () => void;
@@ -25,10 +26,7 @@ export default function PricingSection({ onOpenForm }: PricingSectionProps) {
     "Servidor y dominio incluidos por 6 meses",
   ]
   const scrollToForm = () => {
-    const formSection = document.getElementById('order-form')
-    if (formSection) {
-      formSection.scrollIntoView({ behavior: 'smooth' })
-    }
+    smoothScrollTo('order-form', 2000)
   }
 
   return (

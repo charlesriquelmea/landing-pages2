@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
 import { ArrowDown, Calendar, ChevronRight, MapPin, Palmtree } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { smoothScrollTo } from "@/lib/smoothScroll"
 
 const EVENT_DATE = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
 
@@ -39,11 +40,8 @@ export default function HeroSection({ onOpenForm }: HeroSectionProps) {
   if (!mounted) return null
 
   const scrollToForm = () => {
-  const formSection = document.getElementById('order-form')
-  if (formSection) {
-    formSection.scrollIntoView({ behavior: 'smooth' })
+    smoothScrollTo('order-form', 2000)
   }
-}
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen">

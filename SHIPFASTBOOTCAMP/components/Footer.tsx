@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button"
 
 // 1. IMPORTAMOS EL COMPONENTE DEL FORMULARIO
 // Asegúrate de que la ruta sea correcta según donde guardaste el archivo anterior
+import { smoothScrollTo } from "@/lib/smoothScroll"
 import OrderFormSection from "./OrderFormSection"
 
 interface FooterProps {
@@ -32,11 +33,10 @@ export default function Footer({ onOpenForm }: FooterProps) {
   const [showFaq, setShowFaq] = useState(false)
 
   // Función para hacer scroll suave al formulario si se toca el botón del footer
+  // Función para hacer scroll suave al formulario si se toca el botón del footer
   const scrollToForm = () => {
-    const formSection = document.getElementById('order-form')
-    if (formSection) {
-      formSection.scrollIntoView({ behavior: 'smooth' })
-    } else if (onOpenForm) {
+    smoothScrollTo('order-form', 2000)
+    if (onOpenForm) {
       onOpenForm()
     }
   }
@@ -81,7 +81,7 @@ export default function Footer({ onOpenForm }: FooterProps) {
 
   return (
     <footer id="contacto" className="bg-slate-900 border-t border-slate-800">
-      
+
       {/* --- SECCIÓN HERO DEL FOOTER --- */}
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-20">
         <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/10 via-transparent to-purple-500/10" />
@@ -189,7 +189,7 @@ export default function Footer({ onOpenForm }: FooterProps) {
       {/* --- SECCIÓN DE FAQ Y LINKS --- */}
       <div className="pt-20 pb-10">
         <div className="container mx-auto px-4">
-          
+
           {/* FAQ Section */}
           <div className="mb-16">
             <button onClick={() => setShowFaq(!showFaq)} className="flex items-center justify-center w-full mb-8">
