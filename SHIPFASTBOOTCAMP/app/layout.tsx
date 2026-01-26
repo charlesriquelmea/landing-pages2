@@ -8,8 +8,8 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://shipfast.protolylat.com"),
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Ship Fast - Edicion Latina Orlando',
+  // description: 'Ship Fast - Edicion Latina Orlando',
   generator: 'v0.app',
   // icons: {
   //   icon: [
