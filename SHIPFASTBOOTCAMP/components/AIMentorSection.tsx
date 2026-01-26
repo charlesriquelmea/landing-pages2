@@ -114,7 +114,7 @@ export default function AIMentorSection() {
             <div className="rounded-2xl p-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-lg">
               <div className="flex items-center mb-4">
                 <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
-                  <Image src="/professional-latino-mentor.jpg" alt="Carlos Riquelme" fill className="object-cover" />
+                  <Image src="/placeholder.svg" alt="Carlos Riquelme" fill className="object-cover" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white">Carlos Riquelme</h3>

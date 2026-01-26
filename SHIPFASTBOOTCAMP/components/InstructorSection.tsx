@@ -9,7 +9,7 @@ export default function InstructorSection() {
     name: "Carlos Riquelme",
     role: "Facilitador Principal",
     company: "Ship Fast Edicion Latina Orlando",
-    image: "/professional-latino-man-mentor.jpg",
+    image: "/placeholder.svg",
     bio: "Carlos es un especialista en Lean Startup con mas de 10 anos de experiencia ayudando a emprendedores a validar y escalar sus ideas de negocio. Ha trabajado con mas de 500 startups y es experto en metodologias de sprint de innovacion y desarrollo de MVP.",
     expertise: [
       "Metodologia Lean Startup aplicada a diferentes sectores",

@@ -12,6 +12,7 @@ import Timeline from "@/components/Timeline"
 import PricingSection from "@/components/PricingSection"
 import Footer from "@/components/Footer"
 import { ThemeProvider } from "@/components/theme-provider"
+import InstructorSecondSection from "@/components/InstructorSecondsection"
 // 2. IMPORTA EL FORMULARIO (ajusta la ruta si es necesario)
 // import { OnboardingForm } from "@/components/form/onboarding-form" 
 
@@ -24,6 +25,7 @@ export default function Home() {
         
         <HeroSection />
         <InstructorSection />
+        <InstructorSecondSection />
         <CourseOverview />
         <WhatYouWillLearn />
         <ValidationSprintSection />

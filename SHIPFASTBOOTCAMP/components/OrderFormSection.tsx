@@ -3,24 +3,24 @@
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import {
-  ArrowRight,
-  ArrowLeft,
-  Send,
-  Loader2,
-  User,
-  Mail,
-  Phone,
-  Building2,
-  Briefcase,
-  MessageSquare,
-  Check,
+import { 
+  ArrowRight, 
+  ArrowLeft, 
+  Send, 
+  Loader2, 
+  User, 
+  Mail, 
+  Phone, 
+  Building2, 
+  Briefcase, // Usaremos este icono genérico para el Rubro
+  MessageSquare, 
+  Check, 
   Sparkles,
   Edit2,
   CheckCircle2
 } from "lucide-react"
 
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/input" 
 import { Button } from "@/components/ui/button"
 
 // --- CONFIGURACIÓN ---
@@ -34,15 +34,7 @@ const t = {
     subtitle: "Completa este formulario rápido para configurar tu sistema. Te tomará menos de 2 minutos.",
     cta_button: "Comenzar Ahora"
   },
-  verticals: [
-    { id: 'hvac', name: 'HVAC', icon: '🌡️', value: 'hvac' },
-    { id: 'plumbing', name: 'Plomería', icon: '🔧', value: 'plumbing' },
-    { id: 'roofing', name: 'Techado', icon: '🏠', value: 'roofing' },
-    { id: 'electrical', name: 'Eléctrica', icon: '⚡', value: 'electrical' },
-    { id: 'realestate', name: 'Bienes Raíces', icon: '🏘️', value: 'realestate' },
-    { id: 'clinics', name: 'Clínicas', icon: '🏥', value: 'clinics' },
-    { id: 'other', name: 'Otro', icon: '🚀', value: 'other' },
-  ],
+  // (El array de 'verticals' ya no es necesario porque ahora es texto libre)
   questions: [
     {
       id: 'q1',
@@ -72,7 +64,8 @@ const t = {
     {
       id: 'q5',
       text: '¿Cuál es tu rubro?',
-      description: 'Optimizaremos el sistema para tu industria',
+      description: 'Ayúdanos a entender tu industria',
+      placeholder: 'Ej: Construcción, Marketing, Salud...', // Nuevo placeholder
     },
     {
       id: 'q6',
@@ -99,7 +92,7 @@ const t = {
     next: "Siguiente"
   },
   whatsapp_message: {
-    title: "NUEVO CONTACTO LEADOPS",
+    title: "NUEVA SOLICITUD - LEADOPS OS",
     client: "Cliente",
     email: "Email",
     phone: "WhatsApp",
@@ -128,15 +121,17 @@ export default function OrderFormSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [currentError, setCurrentError] = useState("")
-
+  
   const [formData, setFormData] = useState(INITIAL_DATA)
 
+  // CAMBIO: Configuración de preguntas actualizada
   const questionsConfig = [
     { field: 'name', icon: User, type: 'input' },
     { field: 'email', icon: Mail, type: 'input', inputType: 'email' },
     { field: 'phone', icon: Phone, type: 'input', inputType: 'tel' },
     { field: 'business', icon: Building2, type: 'input' },
-    { field: 'vertical', icon: Briefcase, type: 'select', options: t.verticals },
+    // CAMBIO: 'vertical' ahora es type: 'input' (antes era 'select')
+    { field: 'vertical', icon: Briefcase, type: 'input' }, 
     { field: 'comments', icon: MessageSquare, type: 'textarea', optional: true },
   ]
 
@@ -159,6 +154,7 @@ export default function OrderFormSection() {
     if (currentError) setCurrentError("")
   }
 
+  // (Esta función ya no se usa para el Rubro, pero la dejo por si agregas selects en el futuro)
   const handleSelectOption = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
     setCurrentError("")
@@ -171,7 +167,7 @@ export default function OrderFormSection() {
   }
 
   const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-
+  
   const isValidPhone = (phone: string) => {
     const phoneRegex = /^[+]?[\d\s-()]+$/
     const digitCount = (phone.match(/\d/g) || []).length
@@ -180,7 +176,7 @@ export default function OrderFormSection() {
 
   const validateCurrentStep = () => {
     if (step === -1 || step === questions.length) return true
-
+    
     const currentQ = questions[step]
     if (currentQ.optional) return true
 
@@ -221,27 +217,28 @@ export default function OrderFormSection() {
     }
   }
 
-  // --- CORRECCIÓN: Scroll automático al resetear ---
   const handleReset = () => {
     setFormData(INITIAL_DATA)
     setIsSuccess(false)
     setStep(-1)
-
-    // Redirige al inicio de la página (top del document) - Agregamos el comportamiento solicitado
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-    // Si se desea recargar o navegar a root, se podría usar window.location.href = '/'
-    // pero el scroll al top es la interpretación habitual en Landing Pages SPA.
+    
+    setTimeout(() => {
+      const formSection = document.getElementById('order-form')
+      if (formSection) {
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 200)
   }
 
   const handleSubmit = () => {
     setIsSubmitting(true)
-    const selectedVertical = t.verticals.find((v: any) => v.value === formData.vertical)
-
+    
+    // CAMBIO: Ya no buscamos en 't.verticals', usamos el texto directo
     const message = `*NUEVA SOLICITUD - LEADOPS OS*
 
 *Detalles del Negocio*
 Empresa: ${formData.business}
-Rubro: ${selectedVertical?.name || formData.vertical}
+Rubro: ${formData.vertical}
 
 *Datos de Contacto*
 Cliente: ${formData.name}
@@ -263,20 +260,20 @@ ${formData.comments || 'Sin comentarios adicionales.'}`
   const isIntro = step === -1
   const isSummary = step === questions.length
   const currentQ = questions[step]
-
+  
   const isCurrentValid = !isIntro && !isSummary && !isSuccess && (
-    (currentQ.optional && !formData[currentQ.field as keyof typeof formData]) ||
+    (currentQ.optional && !formData[currentQ.field as keyof typeof formData]) || 
     (formData[currentQ.field as keyof typeof formData]?.toString().length > 0 && !currentError)
   )
 
   return (
     <section id="order-form" className="flex flex-col items-center justify-center min-h-[800px] px-6 bg-slate-900 border-t border-slate-800 text-white py-20 overflow-hidden relative">
-
+      
       <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <AnimatePresence mode="wait">
-
+        
         {isIntro && !isSuccess && (
           <motion.div
             key="intro"
@@ -297,7 +294,7 @@ ${formData.comments || 'Sin comentarios adicionales.'}`
             <p className="text-xl text-gray-400 mb-12 max-w-lg mx-auto">
               {t.intro.subtitle}
             </p>
-            <Button
+            <Button 
               onClick={() => setStep(0)}
               className="bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white px-10 py-7 text-lg rounded-full shadow-lg shadow-orange-500/20 transition-all hover:scale-105 border-0"
             >
@@ -324,7 +321,7 @@ ${formData.comments || 'Sin comentarios adicionales.'}`
             </motion.h2>
             <p className="text-gray-400 text-center mb-8">{currentQ.description}</p>
 
-            <motion.div
+            <motion.div 
               className="w-full relative"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -360,16 +357,18 @@ ${formData.comments || 'Sin comentarios adicionales.'}`
                 </div>
               )}
 
+              {/* (Omitimos el bloque select ya que no hay preguntas select activas actualmente, pero el código de soporte sigue ahí si lo necesitas) */}
               {currentQ.type === 'select' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {currentQ.options?.map((option: any) => (
                     <button
                       key={option.value}
                       onClick={() => handleSelectOption(currentQ.field, option.value)}
-                      className={`group flex items-center gap-3 p-4 rounded-xl border transition-all hover:scale-[1.02] active:scale-[0.98] ${formData[currentQ.field as keyof typeof formData] === option.value
+                      className={`group flex items-center gap-3 p-4 rounded-xl border transition-all hover:scale-[1.02] active:scale-[0.98] ${
+                        formData[currentQ.field as keyof typeof formData] === option.value
                           ? "bg-orange-500/10 border-orange-500 text-white shadow-[0_0_20px_rgba(249,115,22,0.15)]"
                           : "bg-slate-800/40 border-slate-700 hover:bg-slate-800 hover:border-slate-600 text-gray-300"
-                        }`}
+                      }`}
                     >
                       <span className="text-2xl">{option.icon}</span>
                       <span className="font-medium">{option.name}</span>
@@ -400,15 +399,15 @@ ${formData.comments || 'Sin comentarios adicionales.'}`
             </motion.div>
 
             <div className="flex items-center gap-4 mt-10 w-full">
-              <Button
-                variant="ghost"
+               <Button 
+                variant="ghost" 
                 onClick={prevStep}
                 className="text-gray-500 hover:text-white hover:bg-white/5"
               >
                 <ArrowLeft className="w-6 h-6" />
               </Button>
-
-              <Button
+              
+              <Button 
                 onClick={nextStep}
                 className="flex-1 bg-white text-slate-900 hover:bg-gray-200 py-7 text-lg rounded-xl font-bold transition-all shadow-lg hover:shadow-white/10"
               >
@@ -419,7 +418,7 @@ ${formData.comments || 'Sin comentarios adicionales.'}`
         )}
 
         {isSummary && !isSuccess && (
-          <motion.div
+           <motion.div
             key="summary"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -427,38 +426,39 @@ ${formData.comments || 'Sin comentarios adicionales.'}`
             className="w-full max-w-lg bg-slate-800/60 border border-slate-700 rounded-2xl p-8 backdrop-blur-md shadow-2xl relative z-10"
           >
             <h2 className="text-2xl font-bold text-white mb-6 text-center">{t.summary.title}</h2>
-
+            
             <div className="space-y-4 mb-8">
               <div className="p-4 bg-slate-900/50 rounded-xl border border-slate-700/50">
                 <p className="text-gray-500 text-xs uppercase font-bold mb-2 tracking-wider">{t.summary.client_label}</p>
                 <div className="flex items-center gap-3 mb-2">
-                  <User className="w-4 h-4 text-orange-400" />
-                  <p className="text-lg font-medium text-white">{formData.name}</p>
+                    <User className="w-4 h-4 text-orange-400"/>
+                    <p className="text-lg font-medium text-white">{formData.name}</p>
                 </div>
                 <div className="flex items-center gap-3 mb-1">
-                  <Mail className="w-4 h-4 text-orange-400" />
-                  <p className="text-gray-400 text-sm">{formData.email}</p>
+                    <Mail className="w-4 h-4 text-orange-400"/>
+                    <p className="text-gray-400 text-sm">{formData.email}</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-orange-400" />
-                  <p className="text-gray-400 text-sm">{formData.phone}</p>
+                    <Phone className="w-4 h-4 text-orange-400"/>
+                    <p className="text-gray-400 text-sm">{formData.phone}</p>
                 </div>
               </div>
-
+              
               <div className="p-4 bg-slate-900/50 rounded-xl border border-slate-700/50 flex justify-between items-center">
-                <div>
-                  <p className="text-gray-500 text-xs uppercase font-bold mb-1 tracking-wider">{t.summary.business_label}</p>
-                  <p className="font-bold text-lg text-white mb-2">{formData.business}</p>
-
-                  <p className="text-gray-500 text-xs uppercase font-bold mb-1 tracking-wider">{t.summary.rubro_label}</p>
-                  <p className="text-sm text-pink-400 font-semibold flex items-center gap-2">
-                    {t.verticals.find((v: any) => v.value === formData.vertical)?.icon}
-                    {t.verticals.find((v: any) => v.value === formData.vertical)?.name}
-                  </p>
-                </div>
-                <Button variant="ghost" size="sm" onClick={() => setStep(3)} className="text-gray-500 hover:text-white hover:bg-white/5">
-                  <Edit2 className="w-4 h-4" />
-                </Button>
+                  <div>
+                    <p className="text-gray-500 text-xs uppercase font-bold mb-1 tracking-wider">{t.summary.business_label}</p>
+                    <p className="font-bold text-lg text-white mb-2">{formData.business}</p>
+                    
+                    <p className="text-gray-500 text-xs uppercase font-bold mb-1 tracking-wider">{t.summary.rubro_label}</p>
+                    {/* CAMBIO: Icono Genérico + Texto escrito por el usuario */}
+                    <p className="text-sm text-pink-400 font-semibold flex items-center gap-2">
+                      <Briefcase className="w-4 h-4"/> 
+                      {formData.vertical}
+                    </p>
+                  </div>
+                  <Button variant="ghost" size="sm" onClick={() => setStep(3)} className="text-gray-500 hover:text-white hover:bg-white/5">
+                    <Edit2 className="w-4 h-4" />
+                  </Button>
               </div>
             </div>
 
@@ -466,8 +466,8 @@ ${formData.comments || 'Sin comentarios adicionales.'}`
               <Button variant="ghost" onClick={prevStep} className="text-gray-500 hover:text-white hover:bg-white/5">
                 <ArrowLeft className="w-5 h-5" />
               </Button>
-              <Button
-                onClick={handleSubmit}
+              <Button 
+                onClick={handleSubmit} 
                 disabled={isSubmitting}
                 className="flex-1 bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white font-bold py-7 rounded-xl shadow-lg shadow-orange-500/20 border-0 transition-all hover:scale-[1.02]"
               >
@@ -485,21 +485,21 @@ ${formData.comments || 'Sin comentarios adicionales.'}`
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="w-full max-w-md bg-slate-800/80 border border-slate-700 rounded-2xl p-8 backdrop-blur-xl shadow-[0_0_50px_rgba(249,115,22,0.15)] relative z-10 text-center"
           >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
+            <motion.div 
+              initial={{ scale: 0 }} 
+              animate={{ scale: 1 }} 
               transition={{ delay: 0.2, type: "spring" }}
               className="w-20 h-20 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(16,185,129,0.15)]"
             >
               <CheckCircle2 className="w-10 h-10 text-emerald-400" />
             </motion.div>
-
+            
             <h2 className="text-3xl font-bold text-white mb-4">{t.success.title}</h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
               {t.success.subtitle}
             </p>
-
-            <Button
+            
+            <Button 
               onClick={handleReset}
               className="w-full bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white font-bold py-6 rounded-xl shadow-lg shadow-orange-500/20 border-0 transition-all hover:scale-[1.02]"
             >
