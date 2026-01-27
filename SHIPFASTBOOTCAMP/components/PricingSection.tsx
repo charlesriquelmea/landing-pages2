@@ -76,9 +76,9 @@ export default function PricingSection({ onOpenForm }: PricingSectionProps) {
               </div>
 
               <div className="flex items-baseline mb-6">
-                <span className="text-5xl font-bold text-white">$90</span>
+                <span className="text-5xl font-bold text-white">$997</span>
                 <span className="text-2xl text-gray-400 ml-2">USD</span>
-                <span className="ml-4 text-lg text-gray-500 line-through">$130 USD</span>
+                <span className="ml-4 text-lg text-gray-500 line-through">$1,440 USD</span>
                 <span className="ml-2 text-sm text-orange-400 font-bold">30% descuento</span>
               </div>
 

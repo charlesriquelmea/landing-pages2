@@ -156,7 +156,7 @@ export default function Footer({ onOpenForm }: FooterProps) {
               </Button>
 
               <div className="text-center">
-                <div className="text-2xl font-bold text-orange-400">$90 USD</div>
+                <div className="text-2xl font-bold text-orange-400">$997 USD</div>
                 <div className="text-sm text-gray-500">30% descuento por tiempo limitado</div>
               </div>
             </motion.div>
