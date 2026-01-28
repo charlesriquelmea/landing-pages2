@@ -37,24 +37,24 @@ function CountUp({ end, prefix = "", suffix = "" }: { end: number; prefix?: stri
 
 const testimonials = [
   {
-    quote: "Iba a pagar $8,000 por una landing. En el bootcamp la hice yo mismo y además creé 5 automatizaciones que me ahorran 15 horas/semana.",
+    quote: "Iba a pagar $8,000 USD por una landing. En el bootcamp la hice yo mismo y además creé 5 automatizaciones que me ahorran 15 horas/semana.",
     author: "Carlos M.",
     business: "Dueño, Mi Taquería (Houston, TX)",
-    savings: "Ahorro: $12,000 primer año",
+    savings: "Ahorro: $12,000 USD primer año",
     avatar: "CM",
   },
   {
-    quote: "Contraté un desarrollador por $15K para un sistema de citas. Ahora lo mantengo y actualizo yo mismo con Lovable.",
+    quote: "Contraté un desarrollador por $15K USD para un sistema de citas. Ahora lo mantengo y actualizo yo mismo con Lovable.",
     author: "María G.",
     business: "Dueña, Bella Nails (Miami, FL)",
-    savings: "Ahorro: $18,000 primer año",
+    savings: "Ahorro: $18,000 USD primer año",
     avatar: "MG",
   },
   {
-    quote: "Mi negocio de landscaping ahora tiene cotizador automático y portal de clientes. Antes pagaba $200/mes a un freelancer.",
+    quote: "Mi negocio de landscaping ahora tiene cotizador automático y portal de clientes. Antes pagaba $200 USD/mes a un freelancer.",
     author: "Roberto S.",
     business: "Dueño, Verde Landscaping (LA, CA)",
-    savings: "Ahorro: $8,500 primer año",
+    savings: "Ahorro: $8,500 USD primer año",
     avatar: "RS",
   },
 ]
@@ -83,7 +83,7 @@ export function SocialProof() {
           className="grid md:grid-cols-3 gap-8 mb-16"
         >
           {[
-            { value: 30000, prefix: "$", label: "Ahorro promedio por alumno" },
+            { value: 30000, prefix: "$", suffix: " USD", label: "Ahorro promedio por alumno" },
             { value: 450, suffix: "%", label: "ROI promedio primer año" },
             { value: 87, suffix: "%", label: "Lanzaron su proyecto en 10 semanas" },
           ].map((stat, index) => (

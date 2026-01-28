@@ -72,7 +72,7 @@ export function StackSection() {
             >
               {/* Glow Effect */}
               <div className={`absolute inset-0 bg-gradient-to-r ${tool.color} opacity-0 group-hover:opacity-20 rounded-2xl blur-xl transition-opacity duration-300`} />
-              
+
               <div className="relative bg-gradient-to-br from-[#1a1f35]/80 to-[#0d1020]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all h-full">
                 <div className="flex items-start gap-4 mb-4">
                   <motion.div
@@ -101,7 +101,7 @@ export function StackSection() {
                   <p className="text-sm text-gray-400">
                     <span className="font-semibold text-white">Valor si contratas:</span>
                   </p>
-                  <p className="text-lg font-bold text-green-400">{tool.value}</p>
+                  <p className="text-lg font-bold text-green-400">{tool.value} USD</p>
                 </div>
               </div>
             </motion.div>

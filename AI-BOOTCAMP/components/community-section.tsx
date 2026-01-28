@@ -73,7 +73,7 @@ export function CommunitySection() {
                 <p className="text-gray-400">Membresía mensual opcional post-bootcamp</p>
               </div>
               <div className="text-right">
-                <p className="text-sm text-gray-500 line-through">$600/mes valor total</p>
+                <p className="text-sm text-gray-500 line-through">$600USD/mes valor total</p>
                 <p className="text-2xl font-bold text-cyan-400">Precio especial alumni</p>
               </div>
             </div>
@@ -105,7 +105,7 @@ export function CommunitySection() {
               <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl p-4 mb-6">
                 <p className="text-sm text-gray-300">
                   <span className="font-semibold text-green-400">Dato clave:</span> El 78% de nuestros alumni activos
-                  en Community Membership reportan ingresos adicionales de <span className="text-white font-semibold">$2,000-$5,000/mes</span> dentro
+                  en Community Membership reportan ingresos adicionales de <span className="text-white font-semibold">$2,000-$5,000 USD/mes</span> dentro
                   de los primeros 6 meses post-bootcamp.
                 </p>
               </div>

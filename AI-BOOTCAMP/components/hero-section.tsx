@@ -101,7 +101,7 @@ export function HeroSection() {
             {/* Headline with Typewriter */}
             <motion.div variants={itemVariants}>
               <TypewriterEffect
-                text="Construye lo que te costaría $30,000 contratar: landing, automatizaciones y apps para tu negocio latino en 8 semanas"
+                text="Construye lo que te costaría $30,000 USD contratar: landing, automatizaciones y apps para tu negocio latino en 8 semanas"
                 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
               />
             </motion.div>
@@ -188,7 +188,7 @@ export function HeroSection() {
                   </div>
                   <h3 className="text-2xl font-bold">Ahorro Promedio</h3>
                   <div className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                    $30,000
+                    $30,000 USD
                   </div>
                   <p className="text-gray-400 text-sm">en servicios de desarrollo</p>
                 </div>

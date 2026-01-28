@@ -2,12 +2,12 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef, useState } from "react"
-import { 
-  UtensilsCrossed, 
-  Sparkles, 
-  Home, 
-  Scissors, 
-  TreeDeciduous, 
+import {
+  UtensilsCrossed,
+  Sparkles,
+  Home,
+  Scissors,
+  TreeDeciduous,
   Briefcase,
   HardHat,
   Car,
@@ -146,11 +146,10 @@ export function IndustrySection() {
             <button
               key={index}
               onClick={() => setActiveIndustry(index)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeIndustry === index
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeIndustry === index
                   ? "bg-cyan-500 text-white shadow-lg shadow-cyan-500/25"
                   : "bg-[#1a1f35]/60 text-gray-400 hover:bg-[#1a1f35] hover:text-white border border-white/10"
-              }`}
+                }`}
             >
               <industry.icon className="w-4 h-4" />
               {industry.name}
@@ -200,7 +199,7 @@ export function IndustrySection() {
               <span className="text-xl">💰</span>
               <span className="text-gray-400">Valor de este sistema:</span>
               <span className="text-xl font-bold text-white">
-                {industries[activeIndustry].value}
+                {industries[activeIndustry].value} USD
               </span>
               <span className="text-gray-500 ml-2">→ Tú lo construyes en el bootcamp</span>
             </div>

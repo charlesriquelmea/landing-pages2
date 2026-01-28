@@ -184,11 +184,10 @@ export function ProductCards() {
                 </motion.div>
               )}
 
-              <div className={`relative h-full bg-gradient-to-br from-[#1a1f35]/80 to-[#0d1020]/80 backdrop-blur-sm border rounded-2xl overflow-hidden transition-all duration-300 ${
-                product.popular 
-                  ? "border-amber-500/50 shadow-lg shadow-amber-500/10" 
-                  : "border-white/10 hover:border-white/20"
-              }`}>
+              <div className={`relative h-full bg-gradient-to-br from-[#1a1f35]/80 to-[#0d1020]/80 backdrop-blur-sm border rounded-2xl overflow-hidden transition-all duration-300 ${product.popular
+                ? "border-amber-500/50 shadow-lg shadow-amber-500/10"
+                : "border-white/10 hover:border-white/20"
+                }`}>
                 {/* Header */}
                 <div className={`bg-gradient-to-r ${product.color} p-6`}>
                   <div className="flex items-center justify-between mb-3">
@@ -232,7 +231,7 @@ export function ProductCards() {
                             </li>
                           ))}
                         </ul>
-                        <p className="text-xs text-green-400">Ahorro: {deliverable.savings}</p>
+                        <p className="text-xs text-green-400">Ahorro: {deliverable.savings} USD</p>
                       </div>
                     ))}
                   </div>
@@ -262,15 +261,15 @@ export function ProductCards() {
                   <div className="bg-[#0A0E1A]/50 rounded-xl p-4 mb-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm text-gray-400">Valor si contratas:</span>
-                      <span className="text-lg font-bold text-white">{product.totalValue}</span>
+                      <span className="text-lg font-bold text-white">{product.totalValue} USD</span>
                     </div>
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm text-gray-400">Tu ahorro:</span>
-                      <span className="text-lg font-bold text-green-400">{product.savings}</span>
+                      <span className="text-lg font-bold text-green-400">{product.savings} USD</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-400">ROI primer año:</span>
-                      <span className="text-lg font-bold text-cyan-400">{product.roi}</span>
+                      <span className="text-lg font-bold text-cyan-400">{product.roi} USD</span>
                     </div>
                   </div>
 

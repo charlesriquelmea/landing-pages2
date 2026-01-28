@@ -8,31 +8,31 @@ import { Button } from "@/components/ui/button"
 const comparisonData = [
   {
     feature: "Landing page profesional",
-    contratar: "$5,000 - $10,000",
+    contratar: "$5,000 - $10,000 USD",
     bootcamp: "Lo haces tú (v0.dev)",
-    ahorro: "$7,500",
+    ahorro: "$7,500 USD",
   },
   {
     feature: "Sistema de automatizaciones",
-    contratar: "$3,000 - $5,000",
+    contratar: "$3,000 - $5,000 USD",
     bootcamp: "Lo haces tú (n8n)",
-    ahorro: "$4,000",
+    ahorro: "$4,000 USD",
   },
   {
     feature: "App web custom",
-    contratar: "$15,000+",
+    contratar: "$15,000+ USD",
     bootcamp: "Lo haces tú (Lovable)",
-    ahorro: "$15,000+",
+    ahorro: "$15,000+ USD",
   },
   {
     feature: "Mantenimiento anual",
-    contratar: "$2,000 - $5,000/año",
+    contratar: "$2,000 - $5,000 USD/año",
     bootcamp: "$0 (tú lo manejas)",
-    ahorro: "$3,500/año",
+    ahorro: "$3,500 USD/año",
   },
   {
     feature: "Cambios y actualizaciones",
-    contratar: "$100 - $200/hora",
+    contratar: "$100 - $200 USD/hora",
     bootcamp: "$0 (conocimiento tuyo)",
     ahorro: "∞",
   },
@@ -101,9 +101,8 @@ export function ComparisonSection() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 0.3 + index * 0.05, duration: 0.4 }}
-                className={`grid grid-cols-4 gap-4 p-6 ${
-                  index !== comparisonData.length - 1 ? "border-b border-white/5" : ""
-                } hover:bg-white/5 transition-colors`}
+                className={`grid grid-cols-4 gap-4 p-6 ${index !== comparisonData.length - 1 ? "border-b border-white/5" : ""
+                  } hover:bg-white/5 transition-colors`}
               >
                 <div className="text-sm font-medium text-white">{row.feature}</div>
                 <div className="text-sm text-gray-400">{row.contratar}</div>
@@ -123,7 +122,7 @@ export function ComparisonSection() {
                 <div>
                   <p className="text-sm text-gray-400 mb-1">Total estimado de ahorro primer año:</p>
                   <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
-                    $25,000 – $35,000
+                    $25,000 – $35,000 USD
                   </p>
                 </div>
                 <motion.div
@@ -134,7 +133,7 @@ export function ComparisonSection() {
                     size="lg"
                     className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-semibold px-8 py-6 rounded-full shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-300 group"
                   >
-                    Prefiero ahorrar $25,000 y tener el conocimiento para siempre
+                    Prefiero ahorrar $25,000 USD y tener el conocimiento para siempre
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </motion.div>

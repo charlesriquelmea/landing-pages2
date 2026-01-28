@@ -33,7 +33,7 @@ const days = [
         ],
       },
     ],
-    value: "$5,000 en consultoría estratégica",
+    value: "$5,000 USD en consultoría estratégica",
   },
   {
     day: "Día 2",
@@ -62,7 +62,7 @@ const days = [
         ],
       },
     ],
-    value: "$3,000 en desarrollo guiado",
+    value: "$3,000 USD en desarrollo guiado",
   },
   {
     day: "Día 3",
@@ -92,7 +92,7 @@ const days = [
         ],
       },
     ],
-    value: "$2,000 en mentoring + conexiones",
+    value: "$2,000 USD en mentoring + conexiones",
   },
 ]
 
@@ -118,7 +118,7 @@ export function SprintSection() {
             <Sparkles className="w-4 h-4 text-amber-400" />
             <span className="text-sm text-amber-400">Incluido en el bootcamp</span>
           </motion.div>
-          
+
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             3 días que transforman tu forma de <span className="text-cyan-400">emprender</span>
           </h2>
@@ -193,7 +193,7 @@ export function SprintSection() {
         >
           <div className="inline-flex items-center gap-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-2xl px-8 py-4">
             <span className="text-gray-400">Total valor Sprint de Innovación:</span>
-            <span className="text-2xl font-bold text-green-400">$10,000</span>
+            <span className="text-2xl font-bold text-green-400">$10,000 USD</span>
           </div>
         </motion.div>
 
@@ -207,7 +207,7 @@ export function SprintSection() {
           <div className="bg-[#1a1f35]/50 border border-white/10 rounded-xl p-6 text-center">
             <h4 className="font-semibold text-white mb-2">Modalidad alternativa (100% remota)</h4>
             <p className="text-sm text-gray-400">
-              Si no puedes asistir presencial, ofrecemos 3 sesiones virtuales intensivas (5 horas cada una) 
+              Si no puedes asistir presencial, ofrecemos 3 sesiones virtuales intensivas (5 horas cada una)
               con breakout rooms por stack tecnológico. Mismo contenido, diferente formato.
             </p>
           </div>

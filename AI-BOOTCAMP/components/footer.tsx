@@ -37,11 +37,11 @@ export function Footer() {
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] to-[#0A0E1A]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.15),transparent_70%)]" />
-        
+
         {/* Animated Grid */}
         <div className="absolute inset-0 opacity-20">
-          <div 
-            className="absolute inset-0" 
+          <div
+            className="absolute inset-0"
             style={{
               backgroundImage: `linear-gradient(rgba(6,182,212,0.1) 1px, transparent 1px),
                                linear-gradient(90deg, rgba(6,182,212,0.1) 1px, transparent 1px)`,
@@ -90,7 +90,7 @@ export function Footer() {
               className="text-xl md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto"
             >
               Aplica hoy y empieza a construir lo que te costaría{" "}
-              <span className="text-white font-semibold">$30,000</span> contratar.
+              <span className="text-white font-semibold">$30,000 USD</span> contratar.
             </motion.p>
 
             {/* CTA Button */}
@@ -155,7 +155,7 @@ export function Footer() {
               <p className="text-gray-400 text-sm mb-6 max-w-xs">
                 Bootcamp híbrido para dueños de small business latinos en USA. Construye, automatiza y vende más con IA.
               </p>
-              
+
               {/* Newsletter */}
               <div className="space-y-3">
                 <p className="text-sm font-semibold text-white">Suscríbete al newsletter</p>

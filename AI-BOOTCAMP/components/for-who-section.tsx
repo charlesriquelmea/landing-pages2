@@ -6,7 +6,7 @@ import { Check, X } from "lucide-react"
 
 const forYou = [
   "Dueño de small business en USA que quiere digitalizarse",
-  "Emprendedor latino que invierte $3K-$10K/año en marketing y no ve ROI",
+  "Emprendedor latino que invierte $3K-$10K USD/año en marketing y no ve ROI",
   "Persona con idea de negocio pero sin capital para desarrolladores",
   "Gerente/operador que pierde horas en tareas repetitivas",
   "Alguien que ya intentó Canva, Wix, pero necesita más poder",

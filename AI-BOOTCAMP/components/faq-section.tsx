@@ -10,8 +10,8 @@ const faqs = [
     answer: "No. v0.dev, Lovable y n8n están diseñados para no-programadores. Si sabes usar WhatsApp y Google, puedes usar estas herramientas. El bootcamp asume cero conocimiento técnico.",
   },
   {
-    question: "¿Realmente puedo ahorrar $20K-$30K?",
-    answer: "Sí. Los precios de mercado para landing pages ($5K-$10K), automatizaciones ($3K-$5K) y apps custom ($15K+) están documentados. Al aprender a hacerlo tú mismo, no solo ahorras esa inversión inicial, sino también los costos de mantenimiento y actualizaciones ($2K-$5K/año).",
+    question: "¿Realmente puedo ahorrar $20K-$30K USD?",
+    answer: "Sí. Los precios de mercado para landing pages ($5K-$10K USD), automatizaciones ($3K-$5K USD) y apps custom ($15K+ USD) están documentados. Al aprender a hacerlo tú mismo, no solo ahorras esa inversión inicial, sino también los costos de mantenimiento y actualizaciones ($2K-$5K/año).",
   },
   {
     question: "¿Qué pasa si no puedo asistir al Sprint de Innovación presencial?",
@@ -87,11 +87,10 @@ export function FAQSection() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className={`w-full text-left p-6 rounded-xl transition-all ${
-                  openIndex === index
-                    ? "bg-gradient-to-br from-[#1a1f35] to-[#0d1020] border border-cyan-500/30"
-                    : "bg-[#1a1f35]/50 border border-white/10 hover:border-white/20"
-                }`}
+                className={`w-full text-left p-6 rounded-xl transition-all ${openIndex === index
+                  ? "bg-gradient-to-br from-[#1a1f35] to-[#0d1020] border border-cyan-500/30"
+                  : "bg-[#1a1f35]/50 border border-white/10 hover:border-white/20"
+                  }`}
               >
                 <div className="flex items-center justify-between gap-4">
                   <h3 className="font-semibold text-white text-lg">{faq.question}</h3>
