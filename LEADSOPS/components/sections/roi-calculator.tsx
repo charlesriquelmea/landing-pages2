@@ -67,9 +67,9 @@ export default function ROICalculator() {
                   className="w-full h-3 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[#2563EB]"
                 />
                 <div className="flex justify-between mt-2">
-                  <span className="text-slate-400 text-sm">$200</span>
-                  <span className="text-[#2563EB] font-bold text-xl">${jobValue.toLocaleString()}</span>
-                  <span className="text-slate-400 text-sm">$5,000</span>
+                  <span className="text-slate-400 text-sm">$200 USD</span>
+                  <span className="text-[#2563EB] font-bold text-xl">${jobValue.toLocaleString()} USD</span>
+                  <span className="text-slate-400 text-sm">$5,000 USD</span>
                 </div>
               </div>
 
@@ -129,7 +129,7 @@ export default function ROICalculator() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-6xl font-bold text-white mb-2"
                   >
-                    ${projectedRevenue.toLocaleString()}
+                    ${projectedRevenue.toLocaleString()}USD
                   </motion.div>
 
                   <div className="text-white/90 text-lg font-semibold">

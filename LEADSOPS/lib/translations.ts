@@ -30,7 +30,7 @@ export const translations = {
             new_way_badge: "NUEVA FORMA",
             cta: "Cambiar a LeadOps Ahora",
             old_features: [
-                'Comprar leads compartidos ($50-150 cada uno)',
+                'Comprar leads compartidos ($50-150 USD cada uno)',
                 'Perseguir tire-kickers todo el día',
                 'Seguimiento manual que nunca pasa',
                 'Tasa de conversión: 15%',
@@ -144,8 +144,8 @@ export const translations = {
                 {
                     name: 'Quick Start',
                     price: '$299',
-                    period: '/mo',
-                    setupCost: '$797',
+                    period: 'USD/mo',
+                    setupCost: '$797 USD',
                     description: 'Para Profesionales Solo',
                     features: [
                         'Capture básico + CRM',
@@ -160,8 +160,8 @@ export const translations = {
                 {
                     name: 'Core Growth',
                     price: '$499',
-                    period: '/mo',
-                    setupCost: '$1,470',
+                    period: 'USD/mo',
+                    setupCost: '$1,470 USD',
                     addon: '+ Pay Per Lead ($30/lead)',
                     description: 'Para Equipos en Crecimiento',
                     features: [
@@ -180,8 +180,8 @@ export const translations = {
                 {
                     name: 'Dominance',
                     price: '$799',
-                    period: '/mo',
-                    setupCost: '$1,997',
+                    period: 'USD/mo',
+                    setupCost: '$1,997 USD',
                     addon: '+ Pay Per Appointment ($50/appt)',
                     description: 'Para Operaciones Multi-Truck',
                     features: [
@@ -203,13 +203,13 @@ export const translations = {
                     {
                         plan: 'Core Growth',
                         type: 'Pay Per Lead',
-                        cost: '$30',
+                        cost: '$30 USD',
                         description: 'Solo pagas por leads calificados y verificados'
                     },
                     {
                         plan: 'Dominance',
                         type: 'Pay Per Appointment',
-                        cost: '$50',
+                        cost: '$50 USD',
                         description: 'Solo pagas por citas confirmadas en tu calendario'
                     }
                 ]
@@ -267,8 +267,8 @@ export const translations = {
                 section_3: {
                     title: "Estructura de costos",
                     items: [
-                        { title: "Setup inicial ($797 - $1,997)", text: "Configuración completa en 48 horas del sistema, landing pages, integraciones, y IA" },
-                        { title: "Mensualidad ($299 - $799)", text: "Mantener infraestructura 24/7: servidores, IA, CRM, soporte, actualizaciones" },
+                        { title: "Setup inicial ($797 - $1,997 USD)", text: "Configuración completa en 48 horas del sistema, landing pages, integraciones, y IA" },
+                        { title: "Mensualidad ($299 - $799 USD)", text: "Mantener infraestructura 24/7: servidores, IA, CRM, soporte, actualizaciones" },
                         { title: "Pay per result ($30/lead o $50/cita)", text: "Solo pagas cuando entregamos un lead calificado o cita confirmada" }
                     ]
                 },
@@ -414,9 +414,9 @@ export const translations = {
                 summary: "Revisión Final"
             },
             plans: [
-                { id: 'quick-start', name: 'Quick Start', display: 'Quick Start', price: '$299/mo', setup: '$797 setup', value: 'quick-start' },
-                { id: 'core-growth', name: 'Core Growth', display: 'Core Growth', price: '$499/mo', setup: '$1,470 setup', extra: '$30/lead', value: 'core-growth' },
-                { id: 'dominance', name: 'Dominance', display: 'Dominance', price: '$799/mo', setup: '$1,997 setup', extra: '$50/appt', value: 'dominance' },
+                { id: 'quick-start', name: 'Quick Start', display: 'Quick Start', price: '$299/mo', setup: '$797 USD setup', value: 'quick-start' },
+                { id: 'core-growth', name: 'Core Growth', display: 'Core Growth', price: '$499/mo', setup: '$1,470 USD setup', extra: '$30/lead', value: 'core-growth' },
+                { id: 'dominance', name: 'Dominance', display: 'Dominance', price: '$799/mo', setup: '$1,997 USD setup', extra: '$50/appt', value: 'dominance' },
             ],
             verticals: [
                 { id: 'hvac', name: 'HVAC', icon: '🌡️', value: 'hvac' },
@@ -547,7 +547,7 @@ export const translations = {
             new_way_badge: "NEW WAY",
             cta: "Switch to LeadOps Now",
             old_features: [
-                'Buying shared leads ($50-150 each)',
+                'Buying shared leads ($50-150 USD each)',
                 'Chasing tire-kickers all day',
                 'Manual follow-up that never happens',
                 'Conversion rate: 15%',
@@ -661,8 +661,8 @@ export const translations = {
                 {
                     name: 'Quick Start',
                     price: '$299',
-                    period: '/mo',
-                    setupCost: '$797',
+                    period: 'USD/mo',
+                    setupCost: '$797 USD',
                     description: 'For Solo Professionals',
                     features: [
                         'Basic Capture + CRM',
@@ -677,8 +677,8 @@ export const translations = {
                 {
                     name: 'Core Growth',
                     price: '$499',
-                    period: '/mo',
-                    setupCost: '$1,470',
+                    period: 'USD/mo',
+                    setupCost: '$1,470 USD',
                     addon: '+ Pay Per Lead ($30/lead)',
                     description: 'For Growing Teams',
                     features: [
@@ -697,8 +697,8 @@ export const translations = {
                 {
                     name: 'Dominance',
                     price: '$799',
-                    period: '/mo',
-                    setupCost: '$1,997',
+                    period: 'USD/mo',
+                    setupCost: '$1,997 USD',
                     addon: '+ Pay Per Appointment ($50/appt)',
                     description: 'For Multi-Truck Operations',
                     features: [
@@ -720,13 +720,13 @@ export const translations = {
                     {
                         plan: 'Core Growth',
                         type: 'Pay Per Lead',
-                        cost: '$30',
+                        cost: '$30 USD',
                         description: 'You only pay for qualified and verified leads'
                     },
                     {
                         plan: 'Dominance',
                         type: 'Pay Per Appointment',
-                        cost: '$50',
+                        cost: '$50 USD',
                         description: 'You only pay for confirmed appointments on your calendar'
                     }
                 ]
@@ -784,8 +784,8 @@ export const translations = {
                 section_3: {
                     title: "Cost Structure",
                     items: [
-                        { title: "Initial Setup ($797 - $1,997)", text: "Complete 48-hour system setup, landing pages, integrations, and AI" },
-                        { title: "Monthly ($299 - $799)", text: "Maintain 24/7 infrastructure: servers, AI, CRM, support, updates" },
+                        { title: "Initial Setup ($797 - $1,997 USD)", text: "Complete 48-hour system setup, landing pages, integrations, and AI" },
+                        { title: "Monthly ($299 - $799 USD)", text: "Maintain 24/7 infrastructure: servers, AI, CRM, support, updates" },
                         { title: "Pay per result ($30/lead or $50/appt)", text: "You only pay when we deliver a qualified lead or confirmed appointment" }
                     ]
                 },
@@ -931,9 +931,9 @@ export const translations = {
                 summary: "Final Review"
             },
             plans: [
-                { id: 'quick-start', name: 'Quick Start', display: 'Quick Start', price: '$299/mo', setup: '$797 setup', value: 'quick-start' },
-                { id: 'core-growth', name: 'Core Growth', display: 'Core Growth', price: '$499/mo', setup: '$1,470 setup', extra: '$30/lead', value: 'core-growth' },
-                { id: 'dominance', name: 'Dominance', display: 'Dominance', price: '$799/mo', setup: '$1,997 setup', extra: '$50/appt', value: 'dominance' },
+                { id: 'quick-start', name: 'Quick Start', display: 'Quick Start', price: '$299/mo', setup: '$797 USD setup', value: 'quick-start' },
+                { id: 'core-growth', name: 'Core Growth', display: 'Core Growth', price: '$499/mo', setup: '$1,470 USD setup', extra: '$30/lead', value: 'core-growth' },
+                { id: 'dominance', name: 'Dominance', display: 'Dominance', price: '$799/mo', setup: '$1,997 USD setup', extra: '$50/appt', value: 'dominance' },
             ],
             verticals: [
                 { id: 'hvac', name: 'HVAC', icon: '🌡️', value: 'hvac' },
