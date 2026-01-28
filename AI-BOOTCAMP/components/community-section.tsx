@@ -10,31 +10,31 @@ const features = [
     icon: Calendar,
     title: "Office hours mensuales (2 sesiones/mes)",
     description: "Casos reales, troubleshooting avanzado, nuevas features de v0, Lovable, n8n",
-    value: "$200/mes",
+    value: "$200 USD/mes",
   },
   {
     icon: Wrench,
     title: "Toolkits y actualizaciones continuas",
     description: "Nuevas plantillas y workflows (10+ cada mes), prompts actualizados con últimos modelos de IA",
-    value: "$100/mes",
+    value: "$100 USD/mes",
   },
   {
     icon: Trophy,
     title: "Retos mensuales (gamificación + accountability)",
     description: '"30 días de leads automatizados", "Lanza una micro-app en 7 días", premios y reconocimientos',
-    value: "$150/mes",
+    value: "$150 USD/mes",
   },
   {
     icon: Users,
     title: "Networking y colaboraciones",
     description: "Comunidad privada (Discord), colaboraciones entre miembros, eventos trimestrales presenciales",
-    value: "$100/mes",
+    value: "$100 USD/mes",
   },
   {
     icon: Rocket,
     title: "Early access a todo",
     description: "Nuevos programas y especializaciones, beta testing de herramientas, descuentos en próximos bootcamps",
-    value: "$50/mes",
+    value: "$50 USD/mes",
   },
 ]
 
@@ -104,8 +104,8 @@ export function CommunitySection() {
             <div className="border-t border-white/10 pt-6">
               <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl p-4 mb-6">
                 <p className="text-sm text-gray-300">
-                  <span className="font-semibold text-green-400">Dato clave:</span> El 78% de nuestros alumni activos 
-                  en Community Membership reportan ingresos adicionales de <span className="text-white font-semibold">$2,000-$5,000/mes</span> dentro 
+                  <span className="font-semibold text-green-400">Dato clave:</span> El 78% de nuestros alumni activos
+                  en Community Membership reportan ingresos adicionales de <span className="text-white font-semibold">$2,000-$5,000/mes</span> dentro
                   de los primeros 6 meses post-bootcamp.
                 </p>
               </div>
