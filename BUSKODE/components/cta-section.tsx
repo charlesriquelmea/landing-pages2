@@ -6,6 +6,8 @@ import { motion, useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import { HackerText } from "./hacker-text"
 
+import { sendEmail } from "../app/actions/send-email"
+
 export function CTASection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
@@ -16,18 +18,29 @@ export function CTASection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email) return
-    
+
     setIsSubmitting(true)
-    // Simulate submission
-    await new Promise(resolve => setTimeout(resolve, 1500))
+
+    const formData = new FormData()
+    formData.append("email", email)
+
+    const result = await sendEmail(formData)
+
     setIsSubmitting(false)
-    setIsSubmitted(true)
-    setEmail("")
+
+    if (result.success) {
+      setIsSubmitted(true)
+      setEmail("")
+    } else {
+      // Handle error optionally, for now just log
+      console.error(result.error)
+      alert("Hubo un error al enviar tu solicitud. Por favor intenta de nuevo.")
+    }
   }
 
   return (
-    <section 
-      ref={ref} 
+    <section
+      ref={ref}
       id="waitlist"
       className="relative py-24 md:py-32 px-4 bg-[#050505] overflow-hidden"
     >
@@ -38,7 +51,7 @@ export function CTASection() {
       </div>
 
       {/* Grid pattern */}
-      
+
 
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         {/* Headline */}
@@ -50,8 +63,8 @@ export function CTASection() {
           <span className="inline-block px-4 py-2 bg-[#00F0FF]/10 border border-[#00F0FF]/30 rounded-full text-[#00F0FF] font-mono text-sm mb-8">
             <HackerText text=">>> UNIRSE_A_LA_REVOLUCIÓN >>>" delay={300} />
           </span>
-          
-          <h2 
+
+          <h2
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
@@ -60,7 +73,7 @@ export function CTASection() {
               o eres construido.
             </span>
           </h2>
-          
+
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
             Tienes las herramientas para construir (<span className="text-[#00F0FF]">Buskode</span>) y el mapa para dirigir (<span className="text-[#FFD60A]">Buskero</span>).{" "}
             La secuencia ha comenzado.{" "}
@@ -85,7 +98,7 @@ export function CTASection() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="tu@email.com"
                     required
-                    className="flex-1 bg-transparent px-4 py-3 text-white placeholder-gray-500 focus:outline-none font-mono"
+                    className="flex-1 bg-transparent px-4 py-3 text-white placeholder-gray-500 focus:outline-none font-mono autofill:bg-transparent autofill:text-white [&:-webkit-autofill]:shadow-[0_0_0_1000px_#0a0a0a_inset] [&:-webkit-autofill]:text-white [&:-webkit-autofill]:-webkit-text-fill-color-white"
                   />
                   <button
                     type="submit"
