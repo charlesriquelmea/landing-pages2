@@ -1,8 +1,5 @@
-"use client"
-
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
+import { useState, useRef } from "react"
+import { motion, useInView } from "framer-motion"
 import {
   Bot,
   MessageCircle,
@@ -19,9 +16,12 @@ import {
   Star,
   Database,
   Gauge,
+  LayoutGrid,
+  Play,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/language-context"
+import { PortfolioModal } from "@/components/landing/portfolio-modal"
 
 interface IAAgentSectionProps {
   onOpenContact: (source: string) => void
@@ -31,6 +31,7 @@ export function IAAgentSection({ onOpenContact }: IAAgentSectionProps) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const { t } = useLanguage()
+  const [isPortfolioOpen, setIsPortfolioOpen] = useState(false)
 
   const processSteps = [
     {
@@ -80,7 +81,7 @@ export function IAAgentSection({ onOpenContact }: IAAgentSectionProps) {
 
   return (
     <section ref={ref} className="overflow-hidden relative bg-white">
-      
+
       {/* 1. HERO SECTION */}
       {/* CAMBIO: py-16 md:py-24 */}
       <div className="bg-gradient-to-br from-[#0d9488] via-[#14b8a6] to-[#2dd4bf] py-16 md:py-24 relative overflow-hidden">
@@ -114,21 +115,38 @@ export function IAAgentSection({ onOpenContact }: IAAgentSectionProps) {
             <p className="text-lg md:text-xl text-white/90 leading-relaxed">{t("ia.subtitle")}</p>
           </motion.div>
 
-          {/* CTA Button */}
+          {/* Buttons */}
           <motion.div
-            className="flex justify-center mb-10"
+            className="flex flex-col items-center gap-6 mb-10"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <Button
               size="lg"
-              className="h-14 px-8 text-lg font-bold bg-slate-900 hover:bg-slate-800 text-white rounded-xl"
+              className="h-14 px-8 text-lg font-bold bg-slate-900 hover:bg-slate-800 text-white rounded-xl w-full sm:w-auto shadow-xl hover:shadow-2xl transition-all duration-300"
               onClick={() => onOpenContact("pricing-ia")}
             >
               {t("ia.cta")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
+
+            <motion.button
+              onClick={() => setIsPortfolioOpen(true)}
+              className="mt-5 group relative flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-[#0066FF] to-[#8B5CF6] text-white rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {/* Shine effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
+
+              <div className="relative flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 transition-colors">
+                  <Play className="h-4 w-4 fill-white" />
+                </div>
+                <span className="font-bold text-lg tracking-wide">VER DEMOS EN VIDEO</span>
+              </div>
+            </motion.button>
           </motion.div>
         </div>
       </div>
@@ -484,6 +502,8 @@ export function IAAgentSection({ onOpenContact }: IAAgentSectionProps) {
           </motion.div>
         </div>
       </div>
+
+      <PortfolioModal isOpen={isPortfolioOpen} onClose={() => setIsPortfolioOpen(false)} />
     </section>
   )
 }

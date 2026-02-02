@@ -6,98 +6,14 @@ import { useRef } from "react"
 import { ExternalLink } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
+import { getProjects } from "@/lib/portfolio-data"
+
 export function PortfolioSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const { t } = useLanguage()
 
-  const projects = [
-    {
-      title: "Salida Fiscal",
-      category: t("portfolio.item1.type"),
-      result: t("portfolio.item1.result"),
-      image: "/images/saidafiscal.png",
-      url: "https://saidafiscal.pro",
-    },
-    // {
-    //   title: "Perceivo AI",
-    //   category: t("portfolio.item3.type"),
-    //   result: t("portfolio.item3.result"),
-    //   image: "/images/perceivoAI.png",
-    //   url: "https://perceivoai.agency",
-    // },
-    // {
-    //   title: "Perceivo AI Franquias",
-    //   category: t("portfolio.item4.type"),
-    //   result: t("portfolio.item4.result"),
-    //   image: "/images/perceivoAIFranquias.png",
-    //   url: "https://franchise.perceivoai.agency",
-    // },
-    // {
-    //   title: "Roberta Torquetti",
-    //   category: t("portfolio.item11.type"),
-    //   result: t("portfolio.item11.result"),
-    //   image: "/images/TorquettiFisioterapia.png",
-    //   url: "https://fisioterapia.protoly.lat/",
-    // },
-    {
-      title: "Planificación Patrimonial",
-      category: t("portfolio.item12.type"),
-      result: t("portfolio.item12.result"),
-      image: "/images/PlanejamientoPatrimonial.png",
-      url: "http://planejamentopatrimonial.pro",
-    },
-    {
-      title: "IusChain",
-      category: t("portfolio.item13.type"),
-      result: t("portfolio.item13.result"),
-      image: "/images/iuschain.png",
-      url: "https://www.iuschain.xyz/",
-    },
-    {
-      title: "Hearth",
-      category: t("portfolio.item14.type"),
-      result: t("portfolio.item14.result"),
-      image: "/images/hearth.png",
-      url: "https://hearth.protolylat.com/",
-    },
-    {
-      title: "Biodescodificación",
-      category: t("portfolio.item15.type"),
-      result: t("portfolio.item15.result"),
-      image: "/images/biodecodificacion.png",
-      url: "https://biodescodificacion.protolylat.com/",
-    },
-    {
-      title: "Booking Pro",
-      category: t("portfolio.item16.type"),
-      result: t("portfolio.item16.result"),
-      image: "/images/bookingpro.png",
-      url: "https://bookingpro.protoly.lat/",
-    },
-    {
-      title: "System 10x",
-      category: t("portfolio.item17.type"),
-      result: t("portfolio.item17.result"),
-      image: "/images/system10x.png",
-      url: "https://system10x.protolylat.com/",
-    },
-    {
-      title: "Victor Mane",
-      category: t("portfolio.item18.type"),
-      result: t("portfolio.item18.result"),
-      image: "/images/victorMane.png",
-      url: "https://www.victormanetattoo.protolylat.com/",
-    },
-    {
-      title: "Inkstinct NYC",
-      category: t("portfolio.item19.type"),
-      result: t("portfolio.item19.result"),
-      image: "/images/inkstinct.png",
-      url: "https://inkstinctnyc.com/",
-      position: "object-top"
-    },
-  ]
+  const projects = getProjects(t)
 
   return (
     // ÚNICO CAMBIO: py-24 md:py-32  --->  py-16 md:py-24
@@ -136,10 +52,10 @@ export function PortfolioSection() {
                   alt={project.title}
                   className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${(project as any).position || ""}`}
                 />
-                
+
                 {/* Overlay oscuro al hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
+
                 {/* Botón flotante al hover */}
                 <motion.div
                   className="absolute top-4 right-4 p-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"

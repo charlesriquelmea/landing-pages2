@@ -641,12 +641,15 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>("es")
 
+  /* 
+  // Desactivado temporalmente para forzar español
   useEffect(() => {
     const saved = localStorage.getItem("language") as Language
     if (saved && (saved === "es" || saved === "en")) {
       setLanguageState(saved)
     }
-  }, [])
+  }, []) 
+  */
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
