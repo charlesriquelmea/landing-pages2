@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { GradientText } from "@/components/gradient-text"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { motion } from "framer-motion"
-import { Building2, Briefcase, ShoppingBag, Stethoscope, Scale, Utensils, MessageCircle } from "lucide-react"
+import { Building2, Briefcase, ShoppingBag, Stethoscope, Scale, Utensils, MessageCircle, Megaphone } from "lucide-react"
 
 const projects = [
   {
@@ -15,45 +15,31 @@ const projects = [
     gradient: "from-emerald-500/20 to-cyan-500/20",
   },
   {
-    title: "Site de Vendas Corporativo",
+    title: "Sites de Vendas",
     tag: "Next.js + Conversão",
     metric: "Vendas +85%",
     icon: ShoppingBag,
     gradient: "from-cyan-500/20 to-blue-500/20",
   },
   {
-    title: "Landing Page Clínica Médica",
+    title: "Pages promocionais",
     tag: "Performance",
-    metric: "Agendamentos +200%",
-    icon: Stethoscope,
+    metric: "Engajamento +200%",
+    icon: Megaphone,
     gradient: "from-purple-500/20 to-pink-500/20",
   },
   {
-    title: "Site Institucional Escritório Advocacia",
+    title: "Portfolios corporativos",
     tag: "Credibilidade",
     metric: "Consultas +150%",
-    icon: Scale,
+    icon: Briefcase, // Ícono de maletín para portfolios corporativos
     gradient: "from-orange-500/20 to-red-500/20",
-  },
-  {
-    title: "Landing Restaurante Premium",
-    tag: "Framer Motion",
-    metric: "Reservas +90%",
-    icon: Utensils,
-    gradient: "from-blue-500/20 to-indigo-500/20",
-  },
-  {
-    title: "Site Institucional Corporativo",
-    tag: "Core Web Vitals 100",
-    metric: "Credibilidade Enterprise",
-    icon: Briefcase,
-    gradient: "from-pink-500/20 to-purple-500/20",
   },
 ]
 
 export function PortfolioSection() {
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden">
+    <section id="projetos" className="relative py-24 lg:py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-[#0a0a0a]">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-500/10 rounded-full blur-[150px]" />
@@ -67,8 +53,11 @@ export function PortfolioSection() {
             </h2>
             <p className="text-lg text-zinc-400 max-w-3xl mx-auto">
               Não é teoria. É o mesmo stack tecnológico que usamos para clientes corporativos.
-              Você vai criar <span className="text-white font-medium">Landing Pages e Sites Institucionais</span> de alta conversão.
-              Todos os formulários redirecionam para <span className="text-cyan-400 font-medium inline-flex items-center gap-1"><MessageCircle className="w-4 h-4" />WhatsApp</span> automaticamente.
+              {/* Você vai criar <span className="text-white font-medium">Landing Pages e Sites Institucionais</span> de alta conversão.
+              Todos os formulários redirecionam para <span className="text-cyan-400 font-medium inline-flex items-center gap-1"><MessageCircle className="w-4 h-4" />WhatsApp</span> automaticamente. */}
+            </p>
+            <p className="mt-2 text-sm text-gray-500 italic">
+              * Solo Landing pages / Sites. No se enseña a crear Apps.
             </p>
           </div>
         </ScrollReveal>
@@ -78,19 +67,19 @@ export function PortfolioSection() {
             <ScrollReveal key={project.title} delay={index * 0.1}>
               <motion.div
                 className="group relative overflow-hidden backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl"
-                whileHover={{ 
-                  scale: 1.05, 
-                  boxShadow: "0 0 30px rgba(6, 182, 212, 0.3)" 
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 0 30px rgba(6, 182, 212, 0.3)"
                 }}
                 transition={{ duration: 0.2 }}
               >
                 {/* Project visual */}
                 <div className={`relative aspect-video bg-gradient-to-br ${project.gradient} p-8 flex items-center justify-center`}>
                   <project.icon className="w-16 h-16 text-white/80" />
-                  
+
                   {/* Overlay gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                  
+
                   {/* Tag */}
                   <Badge className="absolute top-4 left-4 bg-white/10 backdrop-blur-sm border-white/20 text-white">
                     {project.tag}

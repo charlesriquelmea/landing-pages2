@@ -5,8 +5,10 @@ import { ScrollReveal } from "@/components/scroll-reveal"
 import { GradientText } from "@/components/gradient-text"
 import { Rocket, Shield } from "lucide-react"
 import { motion } from "framer-motion"
+import { useContactModal } from "@/components/contact-modal-context"
 
 export function CtaSection() {
+  const { openModal } = useContactModal()
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden">
       {/* Background with gradient and noise texture */}
@@ -14,7 +16,7 @@ export function CtaSection() {
         <div className="absolute inset-0 bg-[#0a0a0a]" />
         <div className="absolute inset-0 bg-gradient-radial from-cyan-500/20 via-purple-500/10 to-transparent" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-gradient-to-br from-cyan-500/30 via-purple-500/20 to-transparent rounded-full blur-[150px]" />
-        
+
         {/* Noise texture overlay */}
         <div className="absolute inset-0 opacity-20" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
@@ -47,9 +49,10 @@ export function CtaSection() {
                 animate={{ scale: [1, 1.02, 1] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               >
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-12 py-8 text-xl transition-all duration-300 hover:shadow-[0_0_50px_rgba(6,182,212,0.6)]"
+                  onClick={openModal}
                 >
                   <Rocket className="w-6 h-6 mr-3" />
                   Começar Agora — R$ 997

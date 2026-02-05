@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
   title: 'Vibe Coding: Da Ideia à Produção | Construa Tecnologia Enterprise com IA',
-  description: 'Aprenda a metodologia interna de uma Software Factory premium para criar sites Next.js & Framer Motion com IA. Tecnologia de R$ 25.000 nas suas mãos.',
+  description: 'Aprenda a metodologia interna de uma Software Factory premium para criar sites Next.js & Framer Motion com IA. Tecnologia de R$ 2.500 e R$ 10.000 nas suas mãos.',
   keywords: 'vibe coding, next.js, framer motion, ia, curso programação, software factory',
 }
 

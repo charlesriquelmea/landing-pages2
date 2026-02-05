@@ -6,8 +6,11 @@ import { GradientText } from "@/components/gradient-text"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { Rocket, Play, Code, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
+import { useContactModal } from "@/components/contact-modal-context"
 
 export function HeroSection() {
+  const { openModal } = useContactModal()
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background gradient */}
@@ -37,27 +40,31 @@ export function HeroSection() {
 
             <ScrollReveal delay={0.2}>
               <p className="text-xl text-zinc-400 max-w-2xl leading-relaxed">
-                A metodologia interna da nossa Software Factory para criar sites Next.js & Framer Motion com IA. 
+                A metodologia interna da nossa Software Factory para criar sites Next.js & Framer Motion com IA.
                 Esqueça construtores básicos — você vai aprender arquitetura de verdade.
               </p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.3}>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold px-8 py-6 text-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]"
+                  onClick={openModal}
                 >
                   <Rocket className="w-5 h-5 mr-2" />
                   Acessar o Método Enterprise
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="lg"
                   className="border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg bg-transparent"
+                  asChild
                 >
-                  <Play className="w-5 h-5 mr-2" />
-                  Ver Projetos Reais
+                  <a href="#projetos">
+                    <Play className="w-5 h-5 mr-2" />
+                    Ver Projetos Reais
+                  </a>
                 </Button>
               </div>
             </ScrollReveal>
@@ -65,7 +72,7 @@ export function HeroSection() {
 
           {/* Visual - 40% */}
           <ScrollReveal delay={0.4} className="lg:col-span-2">
-            <motion.div 
+            <motion.div
               className="relative"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -80,7 +87,7 @@ export function HeroSection() {
                   <div className="w-3 h-3 rounded-full bg-green-500" />
                   <span className="ml-4 text-sm text-zinc-400">v0.dev — prompt.tsx</span>
                 </div>
-                
+
                 {/* Code content */}
                 <div className="p-6 font-mono text-sm">
                   <div className="flex items-center gap-2 text-zinc-500 mb-2">
@@ -107,7 +114,7 @@ export function HeroSection() {
               </div>
 
               {/* Floating elements */}
-              <motion.div 
+              <motion.div
                 className="absolute -top-4 -right-4 backdrop-blur-xl bg-cyan-500/20 border border-cyan-500/30 rounded-xl px-4 py-2"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -115,7 +122,7 @@ export function HeroSection() {
                 <span className="text-cyan-400 text-sm font-medium">Next.js 14</span>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 className="absolute -bottom-4 -left-4 backdrop-blur-xl bg-purple-500/20 border border-purple-500/30 rounded-xl px-4 py-2"
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
