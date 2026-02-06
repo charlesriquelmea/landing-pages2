@@ -51,7 +51,7 @@ export function TypeformContact({ isOpen, onClose, source = "general" }: Typefor
     {
       id: "budget",
       question: "¿Qué paquete te interesa?",
-      options: ["Paquete Core (2,997 €)", "Core + IA Add-on (4,494 €)", "Solo quiero información"],
+      options: ["Paquete Core (1,000 €)", "Core + IA Add-on (1,997 €)", "Solo quiero información"],
       type: "options",
     },
   ]
@@ -84,7 +84,7 @@ export function TypeformContact({ isOpen, onClose, source = "general" }: Typefor
     {
       id: "budget",
       question: "Which package interests you?",
-      options: ["Core Package ($2,997)", "Core + AI Add-on ($4,494)", "I just want information"],
+      options: ["Core Package ($1,000)", "Core + AI Add-on ($1,997)", "I just want information"],
       type: "options",
     },
   ]
@@ -286,8 +286,8 @@ export function TypeformContact({ isOpen, onClose, source = "general" }: Typefor
                               setAnswers({ ...answers, [currentQuestion.id]: option })
                             }}
                             className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-200 ${answers[currentQuestion.id] === option
-                                ? "border-[#00D9FF] bg-[#00D9FF]/10 text-white"
-                                : "border-white/10 bg-white/5 text-white/80 hover:border-white/30"
+                              ? "border-[#00D9FF] bg-[#00D9FF]/10 text-white"
+                              : "border-white/10 bg-white/5 text-white/80 hover:border-white/30"
                               }`}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
