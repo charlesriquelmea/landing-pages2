@@ -20,8 +20,8 @@ const translations = {
     "hero.subtitle2":
       "Construimos plataformas en Next.js —la tecnología de Netflix— con gestión que controlas desde tu celular.",
     "hero.cta": "Ver Demo en Vivo + Consultoría Gratis",
-    "hero.trust1": "Setup desde $3,497 USD (vs $5,000 a 15,000 USD+ tradicional)",
-    "hero.trust2": "Live en 14 días o $500 USD de reembolso",
+    "hero.trust1": "Setup desde 500 € (vs 5,000 a 15,000 €+ tradicional)",
+    "hero.trust2": "Live en 14 días o 500 € de reembolso",
     "hero.trust3": "100% tuyo. Cero ataduras.",
 
     // Problem Section
@@ -168,8 +168,8 @@ const translations = {
     "ia.compare.auto5.desc": "Procesa 1 a 10,000 leads con la misma eficiencia",
     "ia.compare.auto6": "24/7 Sin descanso",
     "ia.compare.auto6.desc": "Califica leads a cualquier hora, todos los días del año",
-    "ia.compare.manual.cost": "Costo promedio: $3,000+ USD/mes por persona",
-    "ia.compare.auto.cost": "Desde $99 USD/mes - Leads ilimitados",
+    "ia.compare.manual.cost": "Costo promedio: 3,000+ €/mes por persona",
+    "ia.compare.auto.cost": "Desde 99 €/mes - Leads ilimitados",
     "ia.compare.cta": "¿Todavía calificas leads manualmente?",
     "ia.compare.cta2": "Únete a las empresas que ya automatizan su calificación",
     "ia.results.title": "Resultados Comprobados",
@@ -224,7 +224,7 @@ const translations = {
     "pricing.recommended": "RECOMENDADO",
     "pricing.core.title": "PAQUETE CORE",
     "pricing.core.subtitle": "Todo lo que necesitas para empezar",
-    "pricing.core.setup": "USD",
+    "pricing.core.setup": "€",
     // ⬇️ AGREGADO PARA QUE FUNCIONE EL CARTEL ⬇️
     "pricing.discount": "50% de dto hasta Marzo de 2026",
     "pricing.core.installments": "Hasta en 2 cuotas a 0 dias y a 14 dias (Al comenzar y al entregar)",
@@ -242,11 +242,11 @@ const translations = {
     "pricing.compare.delivery.us": "15 días",
     "pricing.compare.delivery.them": "2-3 meses",
     "pricing.compare.setup": "Precio setup",
-    "pricing.compare.setup.us": "$3,497 USD",
-    "pricing.compare.setup.them": "$5,000-15,000 USD",
+    "pricing.compare.setup.us": "500 €",
+    "pricing.compare.setup.them": "5,000-15,000 €",
     "pricing.compare.maintenance": "Mantenimiento",
-    "pricing.compare.maintenance.us": "$297 USD/mes todo incluido",
-    "pricing.compare.maintenance.them": "$500+ USD/mes + extras",
+    "pricing.compare.maintenance.us": "97 €/mes todo incluido",
+    "pricing.compare.maintenance.them": "500+ €/mes + extras",
 
     // Core features
     "pricing.core.feature1": "1 Landing Page profesional One Page",
@@ -291,11 +291,11 @@ const translations = {
       "Next.js es la tecnología usada por Netflix, TikTok y Nike. Ofrece velocidades de carga 3-5x más rápidas, mejor SEO de fábrica, y seguridad enterprise. WordPress tiene 60% de las vulnerabilidades web. Wix te limita en personalización y rendimiento.",
     "faq.q2": "¿Cuánto tiempo toma el proceso completo?",
     "faq.a2":
-      "15 días hábiles para el Paquete Core. Si nos atrasamos un solo día, te devolvemos $500 UDS. Sin letra chica.",
+      "15 días hábiles para el Paquete Core. Si nos atrasamos un solo día, te devolvemos 500 €. Sin letra chica.",
     "faq.q3": "¿Puedo hacer cambios yo mismo después?",
     "faq.a3":
       "Sí. Incluimos un CMS (Sistema de Gestión de Contenido) donde puedes cambiar textos, imágenes y contenido sin tocar código. Desde tu celular, tablet o computadora.",
-    "faq.q4": "¿Qué incluye el soporte mensual de $297 USD?",
+    "faq.q4": "¿Qué incluye el soporte mensual de 97 €?",
     "faq.a4":
       "Hosting, actualizaciones de seguridad, backups automáticos, monitoreo 24/7, y soporte técnico prioritario. Todo incluido, sin sorpresas.",
     "faq.q5": "¿Qué pasa si no me gusta el resultado?",
@@ -333,8 +333,8 @@ const translations = {
     "hero.subtitle2":
       "We build platforms in Next.js —Netflix's technology— with management you control from your phone.",
     "hero.cta": "See Live Demo + Free Consultation",
-    "hero.trust1": "Setup from $2,997 USD (vs $5,000+ USD traditional)",
-    "hero.trust2": "Live in 14 days or $500 USD refund",
+    "hero.trust1": "Setup from 2,997 € (vs 5,000+ € traditional)",
+    "hero.trust2": "Live in 14 days or 500 € refund",
     "hero.trust3": "100% yours. Zero strings attached.",
 
     // Problem Section
@@ -478,8 +478,8 @@ const translations = {
     "ia.compare.auto5.desc": "Process 1 to 10,000 leads with the same efficiency",
     "ia.compare.auto6": "24/7 No rest",
     "ia.compare.auto6.desc": "Qualify leads anytime, every day of the year",
-    "ia.compare.manual.cost": "Average cost: $3,000+ USD/month per person",
-    "ia.compare.auto.cost": "From $99 USD/month - Unlimited leads",
+    "ia.compare.manual.cost": "Average cost: 3,000+ €/month per person",
+    "ia.compare.auto.cost": "From 99 €/month - Unlimited leads",
     "ia.compare.cta": "Still qualifying leads manually?",
     "ia.compare.cta2": "Join companies already automating their qualification",
     "ia.results.title": "Proven Results",
@@ -534,7 +534,7 @@ const translations = {
     "pricing.recommended": "RECOMMENDED",
     "pricing.core.title": "CORE PACKAGE",
     "pricing.core.subtitle": "Everything you need to get started",
-    "pricing.core.setup": "UDS",
+    "pricing.core.setup": "€",
     // ⬇️ AGREGADO PARA QUE FUNCIONE EL CARTEL ⬇️
     "pricing.discount": "50% OFF until March 2026",
     "pricing.core.installments": "2 payments at Day 0 & Day 14 (Start & Delivery)",
@@ -552,11 +552,11 @@ const translations = {
     "pricing.compare.delivery.us": "15 days",
     "pricing.compare.delivery.them": "2-3 months",
     "pricing.compare.setup": "Setup price",
-    "pricing.compare.setup.us": "$2,997 USD",
-    "pricing.compare.setup.them": "$5,000-15,000 USD",
+    "pricing.compare.setup.us": "2,997 €",
+    "pricing.compare.setup.them": "5,000-15,000 €",
     "pricing.compare.maintenance": "Maintenance",
-    "pricing.compare.maintenance.us": "$197 USD/mo all included",
-    "pricing.compare.maintenance.them": "$500+ USD/mo + extras",
+    "pricing.compare.maintenance.us": "197 €/mo all included",
+    "pricing.compare.maintenance.them": "500+ €/mo + extras",
 
     // Core features
     "pricing.core.feature1": "1 Professional One Page Landing",
@@ -586,7 +586,7 @@ const translations = {
     "guarantees.title": "We Put Our Money Where Our Mouth Is",
     "guarantees.g1.title": "Live in 14 Days or $500 Back",
     "guarantees.g1.desc":
-      "Your site will be up and running in 2 weeks max. If we're late, we pay you $500 USD. No excuses.",
+      "Your site will be up and running in 2 weeks max. If we're late, we pay you 500 €. No excuses.",
     "guarantees.g2.title": "100% Yours Forever",
     "guarantees.g2.desc": "All code is yours. If you leave, you take everything. Zero locks, zero hostage.",
     "guarantees.g3.title": "Satisfaction Guaranteed",
@@ -601,11 +601,11 @@ const translations = {
       "Next.js is the technology used by Netflix, TikTok, and Nike. It offers 3-5x faster load speeds, better built-in SEO, and enterprise security. WordPress has 60% of web vulnerabilities. Wix limits you in customization and performance.",
     "faq.q2": "How long does the complete process take?",
     "faq.a2":
-      "15 business days for the Core Package. If we're late by a single day, we refund you $500 USD. No fine print.",
+      "15 business days for the Core Package. If we're late by a single day, we refund you 500 €. No fine print.",
     "faq.q3": "Can I make changes myself afterwards?",
     "faq.a3":
       "Yes. We include a CMS (Content Management System) where you can change text, images, and content without touching code. From your phone, tablet, or computer.",
-    "faq.q4": "What does the $197 USD monthly support include?",
+    "faq.q4": "What does the 197 € monthly support include?",
     "faq.a4":
       "Premium hosting on Vercel, security updates, automatic backups, 24/7 monitoring, and priority technical support. All included, no surprises.",
     "faq.q5": "What if I don't like the result?",

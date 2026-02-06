@@ -33,7 +33,7 @@ export function SolutionSection() {
       us: t("solution.compare.control.us"),
       them: t("solution.compare.control.them"),
     },
-    { feature: "Precio Setup", us: "$3,497 UDS todo incluido", them: "$5,000-15,000+ UDS" },
+    { feature: "Precio Setup", us: "500 € todo incluido", them: "5,000-15,000+ €" },
   ]
 
   // Real company logos using Next.js

@@ -195,11 +195,11 @@ export function PricingSection({ onOpenContact }: PricingSectionProps) {
 
             <div className="mb-6">
 
-              <span className="text-2xl text-slate-400 line-through">$5,000</span>
+              <span className="text-2xl text-slate-400 line-through">1,000 €</span>
 
               <div className="flex items-end gap-2">
 
-                <span className="text-5xl font-black text-slate-900">$3,497</span>
+                <span className="text-5xl font-black text-slate-900">500</span>
 
                 <span className="text-slate-500 mb-2">{t("pricing.core.setup")}</span>
                 <span className="mb-2 ml-2 inline-block px-2 py-0.5 bg-red-100 text-red-600 text-[10px] md:text-xs font-bold rounded-full border border-red-200 text-center leading-tight">
@@ -225,7 +225,7 @@ export function PricingSection({ onOpenContact }: PricingSectionProps) {
 
               <div className="text-2xl font-bold text-slate-900">
 
-                $297 USD<span className="text-base font-normal text-slate-500">/mes</span>
+                97 €<span className="text-base font-normal text-slate-500">/mes</span>
 
               </div>
 
@@ -358,7 +358,7 @@ export function PricingSection({ onOpenContact }: PricingSectionProps) {
 
                 <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CF6] to-[#0066FF]">
 
-                  $2,997
+                  1,997
 
                 </span>
 
@@ -380,7 +380,7 @@ export function PricingSection({ onOpenContact }: PricingSectionProps) {
 
               <div className="text-2xl font-bold text-slate-900">
 
-                +$447 USD<span className="text-base font-normal text-slate-500">/mes</span>
+                +347 €<span className="text-base font-normal text-slate-500">/mes</span>
 
               </div>
 

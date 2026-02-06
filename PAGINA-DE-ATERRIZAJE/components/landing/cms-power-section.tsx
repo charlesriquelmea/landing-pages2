@@ -154,7 +154,7 @@ export function CMSPowerSection() {
                     animate={isInView ? { opacity: [1, 0.5, 1] } : {}}
                     transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatDelay: 1 }}
                   >
-                    $<span className="text-[#00D9FF]">299 UDS</span>/mes
+                    $<span className="text-[#00D9FF]">299 €</span>/mes
                   </motion.div>
                 </motion.div>
 
