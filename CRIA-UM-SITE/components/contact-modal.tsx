@@ -24,7 +24,7 @@ interface ContactModalProps {
     onClose: () => void
 }
 
-const WHATSAPP_NUMBER = "5511999999999" // Reemplaza con tu número real
+const WHATSAPP_NUMBER = "553198380292" // Reemplaza con tu número real
 
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     const [step, setStep] = useState(1);
