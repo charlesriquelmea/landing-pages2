@@ -7,7 +7,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
-  title: 'Vibe Coding: Da Ideia à Produção | Construa Tecnologia Enterprise com IA',
+  title: 'Como Criar Sites con AI: Da Idea à Produção | Construa Tecnologia Enterprise com IA',
   description: 'Aprenda a metodologia interna de uma Software Factory premium para criar sites Next.js & Framer Motion com IA. Tecnologia de R$ 2.500 e R$ 10.000 nas suas mãos.',
   keywords: 'vibe coding, next.js, framer motion, ia, curso programação, software factory',
 }

@@ -32,7 +32,7 @@ export function HeroSection() {
 
             <ScrollReveal delay={0.1}>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight text-balance">
-                Sua visão, construída com tecnologia entre{" "}
+                Como criar sites con AI,construída com tecnologia que custa{" "}
                 <GradientText>R$ 2.500 e R$ 10.000</GradientText>.{" "}
                 <span className="text-white">Faça você mesmo.</span>
               </h1>
