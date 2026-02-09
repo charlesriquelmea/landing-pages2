@@ -23,7 +23,7 @@ export default async function LocaleLayout({
   params: Promise<{ lang: string }>
 }>) {
   const { lang } = await params
-  const safeLang: Language = ["en", "es", "pt"].includes(lang) ? (lang as Language) : "en"
+  const safeLang: Language = ["en", "es", "pt"].includes(lang) ? (lang as Language) : "pt"
 
   return (
     <html lang={safeLang} suppressHydrationWarning>

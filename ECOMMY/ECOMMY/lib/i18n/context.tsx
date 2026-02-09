@@ -73,14 +73,14 @@ export function I18nProvider({ children, initialLanguage }: { children: React.Re
         return savedLanguage
       }
     }
-    return "en"
+    return "pt"
   })
 
   const translationMap: Record<Language, LocaleLanguaje> = {
-  es,
-  en,
-  pt,
-}
+    es,
+    en,
+    pt,
+  }
 
   const translations = translationMap[language]
 

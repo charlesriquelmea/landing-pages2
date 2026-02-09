@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     // prefer saved language, else default to 'en'
     const saved = (typeof window !== "undefined" ? localStorage.getItem("language") : null) as Language | null
-    const lang: Language = saved && ["en", "es", "pt"].includes(saved) ? saved : "en"
+    const lang: Language = saved && ["en", "es", "pt"].includes(saved) ? saved : "pt"
     router.replace(`/${lang}`)
   }, [router])
 
