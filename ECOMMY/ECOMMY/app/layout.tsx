@@ -8,7 +8,7 @@ import Script from "next/script"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "AI eCommerce - Agentes Inteligentes para tu Tienda Online",
+  title: "AI eCommerce - Personal Shopper para seu eCommerce.",
   description:
     "Transforme su tienda online con asistentes inteligentes que aumentan conversiones y mejoran la experiencia del cliente",
   generator: 'v0.dev',
