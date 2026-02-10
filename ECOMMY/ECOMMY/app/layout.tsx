@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "AI eCommerce - Personal Shopper para seu eCommerce.",
   description:
-    "Transforme su tienda online con asistentes inteligentes que aumentan conversiones y mejoran la experiencia del cliente",
+    "Transforme sua loja online com assistentes inteligentes que aumentam conversões e melhoram a experiência do cliente.",
   generator: 'v0.dev',
   icons: { icon: "/apple-icon.png" }
 }
