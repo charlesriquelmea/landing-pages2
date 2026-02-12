@@ -16,6 +16,7 @@ import {
   X,
   Youtube,
 } from "lucide-react";
+import OrderForm from "@/components/order-form";
 
 /* ─────────────────────────────── ANIMATION VARIANTS ─────────────────────────── */
 
@@ -24,7 +25,7 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.6, ease: "easeOut" },
+    transition: { delay: i * 0.12, duration: 0.6, ease: "easeOut" as const },
   }),
 };
 
@@ -32,7 +33,7 @@ const fadeIn = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.7, ease: "easeOut" },
+    transition: { duration: 0.7, ease: "easeOut" as const },
   },
 };
 
@@ -197,6 +198,7 @@ function ProjectCard({
   tech,
   index,
   executionStatus,
+  href,
 }: {
   name: string;
   year: string;
@@ -205,40 +207,57 @@ function ProjectCard({
   tech: string[];
   index: number;
   executionStatus?: string;
+  href?: string;
 }) {
-  return (
-    <motion.div
-      variants={fadeUp}
-      custom={index}
-      className="group"
-    >
-      <GlassCard className="flex h-full flex-col p-5 transition-colors hover:border-cyan/30">
-        <div className="flex flex-wrap items-center gap-2">
-          <Chip variant={chipVariantMap[status] ?? "neutral"}>{status}</Chip>
-          <span className="text-xs text-foreground/50">{year}</span>
-          {executionStatus && (
-            <span className="text-xs font-medium text-cyan animate-pulse">
-              • {executionStatus}
-            </span>
-          )}
-        </div>
+  const CardContent = (
+    <GlassCard className="flex h-full flex-col p-5 transition-colors hover:border-cyan/30">
+      <div className="flex flex-wrap items-center gap-2">
+        <Chip variant={chipVariantMap[status] ?? "neutral"}>{status}</Chip>
+        <span className="text-xs text-foreground/50">{year}</span>
+        {executionStatus && (
+          <span className="text-xs font-medium text-cyan animate-pulse">
+            • {executionStatus}
+          </span>
+        )}
+      </div>
+      <div className="flex items-center justify-between">
         <h4 className="mt-3 text-base font-semibold tracking-tight text-foreground">
           {name}
         </h4>
-        <p className="mt-1 flex-1 text-sm leading-relaxed text-foreground/70">
-          {description}
-        </p>
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {tech.map((t) => (
-            <span
-              key={t}
-              className="rounded bg-foreground/5 px-2 py-0.5 text-[11px] text-foreground/50"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-      </GlassCard>
+        {href && (
+          <ArrowRight className="mt-3 h-4 w-4 text-foreground/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-cyan" />
+        )}
+      </div>
+      <p className="mt-1 flex-1 text-sm leading-relaxed text-foreground/70">
+        {description}
+      </p>
+      <div className="mt-4 flex flex-wrap gap-1.5">
+        {tech.map((t) => (
+          <span
+            key={t}
+            className="rounded bg-foreground/5 px-2 py-0.5 text-[11px] text-foreground/50"
+          >
+            {t}
+          </span>
+        ))}
+      </div>
+    </GlassCard>
+  );
+
+  return (
+    <motion.div variants={fadeUp} custom={index} className="group h-full">
+      {href ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block h-full cursor-pointer"
+        >
+          {CardContent}
+        </a>
+      ) : (
+        CardContent
+      )}
     </motion.div>
   );
 }
@@ -270,7 +289,7 @@ function TechStackCard({
       <motion.div
         className="relative h-full w-full [transform-style:preserve-3d]"
         animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: "easeOut" as const }}
       >
         {/* Front */}
         <div className="absolute inset-0 flex items-center rounded-lg border border-foreground/10 bg-foreground/[0.03] px-4 [backface-visibility:hidden]">
@@ -381,6 +400,7 @@ const PROJECTS = [
     status: "Design",
     description: "Diseño responsive en HTML5 desde cero, pensado dispositivo por dispositivo.",
     tech: ["HTML5", "CSS3", "Responsive Design"],
+    href: "#", // Agrega el link aquí
   },
   {
     name: "Developbile",
@@ -389,6 +409,7 @@ const PROJECTS = [
     description:
       "Infraestructura y desarrollo de alto nivel para productos reales.",
     tech: ["Node.js", "Cloud Infrastructure"],
+    href: "#", // Agrega el link aquí
   },
   {
     name: "OnePageCard",
@@ -396,6 +417,7 @@ const PROJECTS = [
     status: "Bootstrapped",
     description: "Presencia digital en una sola página, sin humo.",
     tech: ["HTML5", "Django by Python"],
+    href: "#", // Agrega el link aquí
   },
   {
     name: "Tus Fondas App",
@@ -403,6 +425,7 @@ const PROJECTS = [
     status: "Live",
     description: "El primer directorio de Fondas en Chile.",
     tech: ["Ionic Framework", "Google Maps API"],
+    href: "#", // Agrega el link aquí
   },
   {
     name: "Kulko App",
@@ -411,6 +434,7 @@ const PROJECTS = [
     description:
       "Micro e-commerce que redirecciona ventas por WhatsApp.",
     tech: ["Next.js", "WhatsApp Business API", "Symphony PHP"],
+    href: "#", // Agrega el link aquí
   },
   {
     name: "Perceivo AI Agency",
@@ -419,6 +443,7 @@ const PROJECTS = [
     description:
       "Orquestación de agentes y automatización inteligente.",
     tech: ["LangChain", "n8n", "OpenAI SDK", "Vercel AI SDK"],
+    href: "https://www.perceivoai.agency.protolylat.com/",
   },
   {
     name: "Autonoma AI",
@@ -428,6 +453,7 @@ const PROJECTS = [
       "Automatización inteligente de procesos empresariales.",
     tech: ["Python", "LangChain", "Claude API", "ChatKit"],
     executionStatus: "en ejecución",
+    href: "https://autonoma.ai.protolylat.com/",
   },
   {
     name: "eCommy AI",
@@ -436,15 +462,17 @@ const PROJECTS = [
     description: "El futuro del personal shopper con IA.",
     tech: ["OpenAI GPT-4", "Gemini", "RAG", "Vercel AI SDK"],
     executionStatus: "en ejecución",
+    href: "https://ecommy.ai.protolylat.com/pt",
   },
   {
-    name: "Protolylab",
-    year: "2017\u20132026",
+    name: "Protolylat",
+    year: "2017-2026",
     status: "Live",
     description:
       "La evolución de Pixelbile con Developbile: laboratorio de productos.",
     tech: ["Next.js", "shadcn/ui"],
     executionStatus: "en ejecución",
+    href: "https://www.protolylat.com/en",
   },
   {
     name: "Empowered Night",
@@ -460,7 +488,7 @@ const TECH_STACK: { category: string; items: { name: string; useCase: string }[]
   {
     category: "Frontend & Design",
     items: [
-      { name: "Next.js 16", useCase: "Protolylab, OnePageCard, todas las apps" },
+      { name: "Next.js 16", useCase: "Protolylat, OnePageCard, todas las apps" },
       { name: "React 19", useCase: "UI reactiva en cada producto" },
       { name: "Tailwind CSS", useCase: "Estilos rápidos y consistentes" },
       { name: "shadcn/ui", useCase: "Componentes accesibles y elegantes" },
@@ -565,7 +593,7 @@ function Navbar() {
             </a>
           ))}
           <a
-            href="#ship-fast"
+            href="#contact-form"
             className="rounded-lg bg-cyan px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
           >
             Aplicar a Ship Fast
@@ -602,7 +630,7 @@ function Navbar() {
             </a>
           ))}
           <a
-            href="#ship-fast"
+            href="#contact-form"
             className="mt-3 block rounded-lg bg-cyan py-3 text-center text-sm font-medium text-background"
             onClick={() => setMobileOpen(false)}
           >
@@ -662,7 +690,7 @@ function Hero() {
             className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-foreground/70 md:text-lg"
           >
             {
-              'Nac\u00ed en Santiago de Chile, lejos de Silicon Valley, en un pa\u00eds donde la cancha suele venir inclinada. Mi primer "MBA" no fue un diploma: fue la calle, a los 3 a\u00f1os, vendiendo junto a mi padre y aprendiendo a sostener la mirada, a insistir, y a convertir "no" en supervivencia. Hoy construyo productos y sistemas de innovaci\u00f3n con bootstrapping real: sin capital externo, con recursividad, colaboraci\u00f3n y c\u00f3digo con mis amigos los Devs.'
+              'Nací en Santiago de Chile, lejos de Silicon Valley, en un país donde la cancha suele venir inclinada. Mi primer "MBA" no fue un diploma: fue la calle, a los 3 años, vendiendo junto a mi padre y aprendiendo a sostener la mirada, a insistir, y a convertir "no" en supervivencia. Hoy construyo productos y sistemas de innovación con bootstrapping real: sin capital externo, con recursividad, colaboración y código con mis amigos los Devs.'
             }
           </motion.p>
 
@@ -713,7 +741,7 @@ function Hero() {
           </motion.div>
 
           {[
-            { label: "+12 a\u00f1os en tech e innovaci\u00f3n", icon: "amber" as const },
+            { label: "+12 años en tech e innovación", icon: "amber" as const },
             { label: "+9 incubaciones", icon: "cyan" as const },
             { label: "Bootstrapping puro", icon: "amber" as const },
             { label: "IA + Internet como igualador", icon: "cyan" as const },
@@ -745,7 +773,7 @@ function DNASection() {
           className="text-base leading-relaxed text-foreground/70 md:text-lg"
         >
           {
-            "No ense\u00f1o desde un aula. Construyo desde la experiencia empírica. Crec\u00ed entendiendo algo inc\u00f3modo: el sistema rara vez est\u00e1 dise\u00f1ado para hacerte libre; est\u00e1 dise\u00f1ado para hacerte funcional. Esa revelaci\u00f3n no me volvi\u00f3 c\u00ednico, me volvi\u00f3 intencional: si la estructura no ayuda, entonces se dise\u00f1a una nueva."
+            "No enseño desde un salón de clases. Construyo desde la experiencia empírica. Crecí entendiendo algo incómodo: el sistema rara vez está diseñado para hacerte libre; está diseñado para hacerte funcional. Esa revelación no me volvió cínico, me volvió intencional: si la estructura no ayuda, entonces se diseña una nueva."
           }
         </motion.p>
 
@@ -754,7 +782,7 @@ function DNASection() {
           className="mt-6 text-base leading-relaxed text-foreground/70 md:text-lg"
         >
           {
-            'Creo en una mentalidad autodidacta, aprender por \u00d3smosis y en la tecnolog\u00eda como palanca de movilidad. La innovaci\u00f3n no es "ideas lindas", es ejecuci\u00f3n bajo restricciones.'
+            'Creo en una mentalidad autodidacta, aprender por Ósmosis y en la tecnología como palanca de movilidad. La innovación no es "ideas lindas", es ejecución bajo restricciones.'
           }
         </motion.p>
 
@@ -764,7 +792,7 @@ function DNASection() {
           className="mt-12 border-l-2 border-cyan py-2 pl-6 text-left"
         >
           <p className="text-xl font-semibold leading-snug tracking-tight text-foreground md:text-2xl lg:text-3xl">
-            {'"Internet es el Motor de generaci\u00f3n de Riqueza m\u00e1s grande que jam\u00e1s haya existido."'}
+            {'"Internet es el Motor de generación de Riqueza más grande que jamás haya existido."'}
           </p>
         </motion.blockquote>
       </motion.div>
@@ -822,7 +850,7 @@ function LaCanchaSection() {
         initial={{ rotateY: -15, opacity: 0 }}
         whileInView={{ rotateY: 0, opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: "easeOut" as const }}
         style={{ perspective: 1000, transformStyle: "preserve-3d" }}
         className="hidden md:block"
       >
@@ -890,7 +918,7 @@ function StackSection() {
         initial={{ rotateY: 15, opacity: 0 }}
         whileInView={{ rotateY: 0, opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: "easeOut" as const }}
         style={{ perspective: 1000, transformStyle: "preserve-3d" }}
         className="hidden md:block"
       >
@@ -905,7 +933,7 @@ function StackSection() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.6, ease: "easeOut" as const }}
         className="md:hidden"
       >
         <SectionHeader
@@ -1015,7 +1043,7 @@ function ShipFastSection() {
           initial={{ scale: 0.95, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: "easeOut" as const }}
         >
           <GlassCard className="p-6 md:p-8">
             <h3 className="text-lg font-semibold tracking-tight text-foreground">
@@ -1024,65 +1052,19 @@ function ShipFastSection() {
             <p className="mt-1 text-sm text-foreground/60">
               Cuéntanos qué estás construyendo.
             </p>
-            <form
-              className="mt-6 flex flex-col gap-4"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <motion.div variants={fadeUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                <label
-                  htmlFor="sf-name"
-                  className="mb-1.5 block text-sm font-medium text-foreground/80"
-                >
-                  Nombre
-                </label>
-                <input
-                  id="sf-name"
-                  type="text"
-                  placeholder="Tu nombre"
-                  className="h-12 w-full rounded-lg border border-foreground/10 bg-foreground/[0.03] px-4 text-base text-foreground placeholder:text-foreground/40 outline-none transition-colors focus:border-cyan/50 focus:ring-1 focus:ring-cyan/30"
-                />
-              </motion.div>
-
-              <motion.div variants={fadeUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                <label
-                  htmlFor="sf-email"
-                  className="mb-1.5 block text-sm font-medium text-foreground/80"
-                >
-                  Email
-                </label>
-                <input
-                  id="sf-email"
-                  type="email"
-                  placeholder="tu@email.com"
-                  className="h-12 w-full rounded-lg border border-foreground/10 bg-foreground/[0.03] px-4 text-base text-foreground placeholder:text-foreground/40 outline-none transition-colors focus:border-cyan/50 focus:ring-1 focus:ring-cyan/30"
-                />
-              </motion.div>
-
-              <motion.div variants={fadeUp} custom={2} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                <label
-                  htmlFor="sf-building"
-                  className="mb-1.5 block text-sm font-medium text-foreground/80"
-                >
-                  {"¿Qué estás construyendo?"}
-                </label>
-                <textarea
-                  id="sf-building"
-                  rows={4}
-                  placeholder="Describe tu proyecto o idea..."
-                  className="w-full rounded-lg border border-foreground/10 bg-foreground/[0.03] p-4 text-base text-foreground placeholder:text-foreground/40 outline-none transition-colors focus:border-cyan/50 focus:ring-1 focus:ring-cyan/30 resize-none"
-                />
-              </motion.div>
-
-              <motion.div variants={fadeUp} custom={3} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                <button
-                  type="submit"
-                  className="flex h-12 w-full items-center justify-center rounded-lg bg-cyan text-sm font-medium text-background transition-opacity hover:opacity-90"
-                >
-                  Aplicar a Ship Fast
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </button>
-              </motion.div>
-            </form>
+            {/* Formulario Inline Reemplazado por CTA al Formulario Principal */}
+            <div className="mt-6 flex flex-col gap-4">
+              <p className="text-base text-foreground/80 leading-relaxed">
+                Para aplicar, por favor completa el formulario al final de la página. Queremos conocerte mejor y entender qué estás construyendo.
+              </p>
+              <a
+                href="#contact-form"
+                className="flex h-12 w-full items-center justify-center rounded-lg bg-cyan text-sm font-medium text-background transition-opacity hover:opacity-90"
+              >
+                Ir al Formulario de Aplicación
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </div>
           </GlassCard>
         </motion.div>
       </div>
@@ -1115,7 +1097,7 @@ function FooterCTASection() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.6, ease: "easeOut" as const }}
         className="text-center md:hidden"
       >
         <Chip variant="amber">Trabajemos</Chip>
@@ -1155,7 +1137,7 @@ function FooterCTASection() {
 
 function Footer() {
   const socials = [
-    { label: "LinkedIn", icon: Linkedin, href: "#" },
+    { label: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/carlos-riquelme-acosta-30654870" },
     { label: "YouTube", icon: Youtube, href: "#" },
     { label: "Newsletter", icon: Newspaper, href: "#" },
     { label: "GitHub", icon: Github, href: "#" },
@@ -1166,7 +1148,7 @@ function Footer() {
     <footer className="border-t border-foreground/10 px-5 py-12">
       <div className="mx-auto max-w-container text-center">
         <p className="text-sm leading-relaxed text-foreground/60">
-          {"Santiago \u2194 internet. Construyendo con código, comunidad y obsesión por aprender."}
+          {"Santiago ↔ Internet. Construyendo con código, comunidad y obsesión por aprender."}
         </p>
 
         <div className="mt-6 flex items-center justify-center gap-4">
@@ -1203,6 +1185,7 @@ export default function Page() {
       <StackSection />
       <ShipFastSection />
       <FooterCTASection />
+      <OrderForm />
       <Footer />
     </main>
   );
