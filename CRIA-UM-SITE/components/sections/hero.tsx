@@ -32,16 +32,15 @@ export function HeroSection() {
 
             <ScrollReveal delay={0.1}>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight text-balance">
-                Como criar sites con AI,construída com tecnologia que custa{" "}
-                <GradientText>R$ 2.500 e R$ 10.000</GradientText>.{" "}
-                <span className="text-white">Faça você mesmo.</span>
+                Aprenda a Criar Landing Pages de Alta Conversão{" "}
+                <GradientText>como Nike, TikTok e Netflix</GradientText>.{" "}
+                <span className="text-white">Sem Programar, em Menos de 1 Hora.</span>
               </h1>
             </ScrollReveal>
 
             <ScrollReveal delay={0.2}>
               <p className="text-xl text-zinc-400 max-w-2xl leading-relaxed">
-                A metodologia interna da nossa Software Factory para criar sites Next.js & Framer Motion com IA.
-                Esqueça construtores básicos — você vai aprender arquitetura de verdade.
+                Domine Next.js + Framer Motion com IA. A Stack das Empresas Fortune 500, Agora Acessível para Criadores, Freelancers, Profissionais Independentes, Empreendedores e Pequenos Negócios.
               </p>
             </ScrollReveal>
 
@@ -53,7 +52,7 @@ export function HeroSection() {
                   onClick={openModal}
                 >
                   <Rocket className="w-5 h-5 mr-2" />
-                  Acessar o Método Enterprise
+                  Começar Agora — R$ 97
                 </Button>
                 <Button
                   variant="outline"

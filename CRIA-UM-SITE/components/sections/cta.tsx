@@ -55,7 +55,7 @@ export function CtaSection() {
                   onClick={openModal}
                 >
                   <Rocket className="w-6 h-6 mr-3" />
-                  Começar Agora — R$ 997
+                  Começar Agora — R$ 97
                 </Button>
               </motion.div>
 
