@@ -64,7 +64,7 @@ export async function sendOrderEmail(formData: any) {
                 <!-- Footer -->
                 <div style="text-align: center; margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
                     <p style="margin: 0; font-size: 12px; color: #666;">
-                        Enviado desde el formulario de contacto de carlosriquelme.com
+                        Enviado desde el formulario de contacto de carlosriquel.me
                     </p>
                 </div>
             </div>
