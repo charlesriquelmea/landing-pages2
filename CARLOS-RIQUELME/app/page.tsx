@@ -16,6 +16,7 @@ import {
   X,
   Youtube,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import OrderForm from "@/components/order-form";
 
 /* ─────────────────────────────── ANIMATION VARIANTS ─────────────────────────── */
@@ -209,55 +210,56 @@ function ProjectCard({
   executionStatus?: string;
   href?: string;
 }) {
-  const CardContent = (
-    <GlassCard className="flex h-full flex-col p-5 transition-colors hover:border-cyan/30">
-      <div className="flex flex-wrap items-center gap-2">
-        <Chip variant={chipVariantMap[status] ?? "neutral"}>{status}</Chip>
-        <span className="text-xs text-foreground/50">{year}</span>
-        {executionStatus && (
-          <span className="text-xs font-medium text-cyan animate-pulse">
-            • {executionStatus}
-          </span>
-        )}
-      </div>
-      <div className="flex items-center justify-between">
-        <h4 className="mt-3 text-base font-semibold tracking-tight text-foreground">
-          {name}
-        </h4>
-        {href && (
-          <ArrowRight className="mt-3 h-4 w-4 text-foreground/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-cyan" />
-        )}
-      </div>
-      <p className="mt-1 flex-1 text-sm leading-relaxed text-foreground/70">
-        {description}
-      </p>
-      <div className="mt-4 flex flex-wrap gap-1.5">
-        {tech.map((t) => (
-          <span
-            key={t}
-            className="rounded bg-foreground/5 px-2 py-0.5 text-[11px] text-foreground/50"
-          >
-            {t}
-          </span>
-        ))}
-      </div>
-    </GlassCard>
-  );
-
   return (
     <motion.div variants={fadeUp} custom={index} className="group h-full">
-      {href ? (
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block h-full cursor-pointer"
-        >
-          {CardContent}
-        </a>
-      ) : (
-        CardContent
-      )}
+      <GlassCard className="flex h-full flex-col p-5 transition-colors hover:border-cyan/30">
+        <div className="flex flex-wrap items-center gap-2">
+          <Chip variant={chipVariantMap[status] ?? "neutral"}>{status}</Chip>
+          <span className="text-xs text-foreground/50">{year}</span>
+          {executionStatus && (
+            <span className="text-xs font-medium text-cyan animate-pulse">
+              • {executionStatus}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center justify-between">
+          <h4 className="mt-3 text-base font-semibold tracking-tight text-foreground">
+            {name}
+          </h4>
+        </div>
+        <p className="mt-1 flex-1 text-sm leading-relaxed text-foreground/70">
+          {description}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {tech.map((t) => (
+            <span
+              key={t}
+              className="rounded bg-foreground/5 px-2 py-0.5 text-[11px] text-foreground/50"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+
+        {href && (
+          <div className="mt-6 pt-4 border-t border-foreground/10">
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full"
+            >
+              <Button
+                className="w-full bg-cyan/10 text-cyan hover:bg-cyan hover:text-background border border-cyan/20 group-hover:border-cyan/50 transition-all font-medium"
+                size="sm"
+                variant="outline"
+              >
+                Ver proyecto <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </a>
+          </div>
+        )}
+      </GlassCard>
     </motion.div>
   );
 }
@@ -312,12 +314,14 @@ function CTACard({
   description,
   cta,
   index,
+  href,
 }: {
   icon: React.ReactNode;
   title: string;
   description: string;
   cta: string;
   index: number;
+  href?: string;
 }) {
   return (
     <motion.div
@@ -341,12 +345,21 @@ function CTACard({
         <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground/70">
           {description}
         </p>
-        <button
-          type="button"
-          className="mt-5 flex items-center gap-1 text-sm font-medium text-cyan transition-colors hover:text-cyan/80"
-        >
-          {cta} <ArrowRight className="h-4 w-4" />
-        </button>
+        {href ? (
+          <a
+            href={href}
+            className="mt-5 flex items-center gap-1 text-sm font-medium text-cyan transition-colors hover:text-cyan/80"
+          >
+            {cta} <ArrowRight className="h-4 w-4" />
+          </a>
+        ) : (
+          <button
+            type="button"
+            className="mt-5 flex items-center gap-1 text-sm font-medium text-cyan transition-colors hover:text-cyan/80"
+          >
+            {cta} <ArrowRight className="h-4 w-4" />
+          </button>
+        )}
       </GlassCard>
     </motion.div>
   );
@@ -400,7 +413,7 @@ const PROJECTS = [
     status: "Design",
     description: "Diseño responsive en HTML5 desde cero, pensado dispositivo por dispositivo.",
     tech: ["HTML5", "CSS3", "Responsive Design"],
-    href: "#", // Agrega el link aquí
+
   },
   {
     name: "Developbile",
@@ -409,7 +422,7 @@ const PROJECTS = [
     description:
       "Infraestructura y desarrollo de alto nivel para productos reales.",
     tech: ["Node.js", "Cloud Infrastructure"],
-    href: "#", // Agrega el link aquí
+
   },
   {
     name: "OnePageCard",
@@ -417,7 +430,7 @@ const PROJECTS = [
     status: "Bootstrapped",
     description: "Presencia digital en una sola página, sin humo.",
     tech: ["HTML5", "Django by Python"],
-    href: "#", // Agrega el link aquí
+
   },
   {
     name: "Tus Fondas App",
@@ -425,7 +438,7 @@ const PROJECTS = [
     status: "Live",
     description: "El primer directorio de Fondas en Chile.",
     tech: ["Ionic Framework", "Google Maps API"],
-    href: "#", // Agrega el link aquí
+
   },
   {
     name: "Kulko App",
@@ -434,7 +447,7 @@ const PROJECTS = [
     description:
       "Micro e-commerce que redirecciona ventas por WhatsApp.",
     tech: ["Next.js", "WhatsApp Business API", "Symphony PHP"],
-    href: "#", // Agrega el link aquí
+
   },
   {
     name: "Perceivo AI Agency",
@@ -443,7 +456,7 @@ const PROJECTS = [
     description:
       "Orquestación de agentes y automatización inteligente.",
     tech: ["LangChain", "n8n", "OpenAI SDK", "Vercel AI SDK"],
-    href: "https://www.perceivoai.agency.protolylat.com/",
+
   },
   {
     name: "Autonoma AI",
@@ -1112,6 +1125,7 @@ function FooterCTASection() {
           title="Para Emprendedores"
           description="Validación, producto, y go-to-market sin fantasías."
           cta="Agendar consultoría"
+          href="#contact-form"
           index={0}
         />
         <CTACard
