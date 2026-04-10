@@ -677,7 +677,7 @@ function Hero() {
             <div className="relative h-20 w-20 shrink-0">
               <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-cyan/40 to-amber/30 blur-sm" />
               <img
-                src="/profile.jpg"
+                src="/profilePicture.png"
                 alt="Foto de perfil"
                 className="relative h-20 w-20 rounded-full border-2 border-cyan/30 object-cover"
               />
