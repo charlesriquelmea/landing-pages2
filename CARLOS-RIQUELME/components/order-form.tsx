@@ -5,8 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, ArrowLeft, Send, Terminal, Loader2, Code2, CheckCircle2, Rocket, Briefcase, Building2, UserCircle2, GraduationCap } from 'lucide-react'
 import { sendOrderEmail } from '@/app/actions'
+import { useLanguage } from '@/lib/i18n'
 
 export default function OrderForm() {
+    const { t, language } = useLanguage()
     const [step, setStep] = useState(-1)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
@@ -19,56 +21,27 @@ export default function OrderForm() {
         comments: '',
     })
 
-    // Roles ajustados al lenguaje solicitado por el usuario, usando iconos de Lucide para mejor compatibilidad
-    const rolesOptions = [
-        { value: "dueno-negocio", display: "Dueño de Negocio", icon: <Building2 className="w-6 h-6" /> },
-        { value: "emprendedor", display: "Emprendedor", icon: <Rocket className="w-6 h-6" /> },
-        { value: "profesional", display: "Profesional", icon: <UserCircle2 className="w-6 h-6" /> },
-        { value: "empleado", display: "Empleado", icon: <Briefcase className="w-6 h-6" /> },
-        { value: "estudiante", display: "Estudiante / Maker", icon: <GraduationCap className="w-6 h-6" /> },
-    ]
+    const rolesOptions = (t('orderForm.roles') as any[]).map((r: any, i: number) => ({
+        ...r,
+        icon: [<Building2 className="w-6 h-6" />, <Rocket className="w-6 h-6" />, <UserCircle2 className="w-6 h-6" />, <Briefcase className="w-6 h-6" />, <GraduationCap className="w-6 h-6" />][i],
+    }))
 
-    // Preguntas en Español Neutro (Tú)
-    const questions = [
-        {
-            text: "¿Cuál es tu nombre?",
-            description: "Para saber a quién nos dirigimos.",
-            type: 'input',
-            field: 'name',
-            placeholder: "Nombre completo"
-        },
-        {
-            text: "Tu correo electrónico",
-            description: "Donde te enviaremos la información.",
-            type: 'input',
-            inputType: 'email',
-            field: 'email',
-            placeholder: "tu@email.com"
-        },
-        {
-            text: "WhatsApp (Opcional)",
-            description: "Si prefieres una comunicación más ágil.",
-            type: 'input',
-            inputType: 'tel',
-            field: 'phone',
-            placeholder: "+56 9 ..."
-        },
-        {
-            text: "¿Cuál es tu perfil?",
-            description: "Selecciona la opción que mejor describe tu rol actual.",
-            type: 'select',
-            field: 'role',
-            options: rolesOptions
-        },
-        {
-            text: "¿Qué estás construyendo?",
-            description: "Cuéntanos sobre tu proyecto, idea o el desafío técnico que tienes.",
-            type: 'textarea',
-            field: 'comments',
-            optional: true,
-            placeholder: "Estoy desarrollando una plataforma para... / Necesito automatizar..."
-        },
-    ]
+    const questions = (t('orderForm.questions') as any[]).map((q: any, i: number) => {
+        const types = ['input', 'input', 'input', 'select', 'textarea'] as const
+        const inputTypes = [undefined, 'email' as const, 'tel' as const, undefined, undefined]
+        const fields = ['name', 'email', 'phone', 'role', 'comments'] as const
+        const optionals = [false, false, false, false, true]
+        return {
+            text: q.text,
+            description: q.description,
+            type: types[i],
+            inputType: inputTypes[i],
+            field: fields[i],
+            placeholder: q.placeholder ?? '',
+            optional: optionals[i],
+            options: i === 3 ? rolesOptions : undefined,
+        }
+    })
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -107,12 +80,12 @@ export default function OrderForm() {
 
     const handleSubmit = async () => {
         setIsSubmitting(true)
-        const result = await sendOrderEmail(formData)
+        const result = await sendOrderEmail(formData, language)
 
         if (result.success) {
             setIsSuccess(true)
         } else {
-            alert("Hubo un error al enviar. Por favor, intenta de nuevo.")
+            alert(t('orderForm.sendError'))
         }
         setIsSubmitting(false)
     }
@@ -121,6 +94,7 @@ export default function OrderForm() {
     const isSummary = step === questions.length
     const currentQuestion = questions[step]
     const progress = ((step + 1) / questions.length) * 100
+    const displayRoles = t('orderForm.roles') as any[]
 
     return (
         <section className="py-24 px-4 sm:px-6 lg:px-8 relative min-h-screen flex items-center bg-background overflow-hidden" id="contact-form">
@@ -143,16 +117,16 @@ export default function OrderForm() {
                             <div className="inline-flex items-center justify-center p-4 bg-cyan/10 rounded-full mb-6 ring-1 ring-cyan/20">
                                 <CheckCircle2 className="w-12 h-12 text-cyan" />
                             </div>
-                            <h2 className="text-3xl font-bold mb-4 tracking-tight">Solicitud enviada.</h2>
+                            <h2 className="text-3xl font-bold mb-4 tracking-tight">{t('orderForm.success.title')}</h2>
                             <p className="text-foreground/70 text-lg max-w-md mx-auto">
-                                Hemos recibido tu información. Analizaremos tu caso y nos pondremos en contacto contigo a la brevedad.
+                                {t('orderForm.success.description')}
                             </p>
                             <Button
                                 onClick={() => window.location.reload()}
                                 variant="ghost"
                                 className="mt-8 text-foreground/60 hover:text-foreground hover:bg-foreground/5"
                             >
-                                Volver al inicio
+                                {t('orderForm.success.back')}
                             </Button>
                         </motion.div>
                     ) : isIntro ? (
@@ -168,20 +142,20 @@ export default function OrderForm() {
                             </div>
                             {/* Título alineado con la propuesta de valor del sitio */}
                             <h1 className="text-balance text-4xl sm:text-6xl font-bold text-foreground mb-6 leading-tight tracking-tight">
-                                Construyamos <br />
+                                {t('orderForm.intro.title1')} <br />
                                 <span className="text-cyan">
-                                    algo real.
+                                    {t('orderForm.intro.title2')}
                                 </span>
                             </h1>
                             <p className="text-xl text-foreground/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-                                Si quieres validar una idea, escalar tu producto o implementar automatización inteligente, comienza por aquí.
+                                {t('orderForm.intro.description')}
                             </p>
                             <Button
                                 onClick={startForm}
                                 size="lg"
                                 className="bg-cyan text-background hover:opacity-90 text-lg px-8 py-6 rounded-lg font-bold transition-all hover:scale-105"
                             >
-                                Empezar ahora <Code2 className="ml-2 w-5 h-5" />
+                                {t('orderForm.intro.button')} <Code2 className="ml-2 w-5 h-5" />
                             </Button>
                         </motion.div>
                     ) : (
@@ -202,7 +176,7 @@ export default function OrderForm() {
                                     />
                                 </div>
                                 <div className="mt-3 flex justify-between text-xs text-foreground/50 font-medium uppercase tracking-wider">
-                                    <span>{isSummary ? "Revisión Final" : `Fase ${step + 1} / ${questions.length}`}</span>
+                                    <span>{isSummary ? t('orderForm.progress.review') : `${t('orderForm.progress.phase')} ${step + 1} ${t('orderForm.progress.of')} ${questions.length}`}</span>
                                     <span>{Math.round(Math.min(progress, 100))}%</span>
                                 </div>
                             </div>
@@ -250,7 +224,7 @@ export default function OrderForm() {
 
                                                 {currentQuestion.type === 'select' && (
                                                     <div className="grid sm:grid-cols-2 gap-3">
-                                                        {currentQuestion.options?.map((option: any) => (
+                                                        {rolesOptions.map((option: any) => (
                                                             <button
                                                                 key={option.value}
                                                                 onClick={() => handleSelectOption(currentQuestion.field, option.value)}
@@ -269,7 +243,7 @@ export default function OrderForm() {
                                                 )}
 
                                                 {currentQuestion.field === 'email' && formData.email && !isValidEmail(formData.email) && (
-                                                    <p className="text-amber text-sm mt-2 font-medium">⚠️ El formato del correo no es válido.</p>
+                                                    <p className="text-amber text-sm mt-2 font-medium">{t('orderForm.emailError')}</p>
                                                 )}
                                             </div>
                                         </motion.div>
@@ -280,28 +254,28 @@ export default function OrderForm() {
                                             animate={{ opacity: 1, scale: 1 }}
                                             className="rounded-lg border border-foreground/10 bg-foreground/[0.02] backdrop-blur-sm p-8"
                                         >
-                                            <h2 className="text-2xl font-bold text-foreground mb-6 border-b border-foreground/10 pb-4">Confirma los datos</h2>
+                                            <h2 className="text-2xl font-bold text-foreground mb-6 border-b border-foreground/10 pb-4">{t('orderForm.summary.title')}</h2>
                                             <div className="space-y-6 text-foreground">
                                                 <div className="grid sm:grid-cols-2 gap-8">
                                                     <div>
-                                                        <p className="text-foreground/50 text-xs uppercase font-medium tracking-wider mb-1">Nombre</p>
+                                                        <p className="text-foreground/50 text-xs uppercase font-medium tracking-wider mb-1">{t('orderForm.summary.name')}</p>
                                                         <p className="text-lg font-medium">{formData.name}</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-foreground/50 text-xs uppercase font-medium tracking-wider mb-1">Contacto</p>
+                                                        <p className="text-foreground/50 text-xs uppercase font-medium tracking-wider mb-1">{t('orderForm.summary.contact')}</p>
                                                         <p className="text-foreground/80 text-sm">{formData.email}</p>
                                                         <p className="text-foreground/80 text-sm">{formData.phone}</p>
                                                     </div>
                                                     <div>
-                                                        <p className="text-foreground/50 text-xs uppercase font-medium tracking-wider mb-1">Perfil</p>
+                                                        <p className="text-foreground/50 text-xs uppercase font-medium tracking-wider mb-1">{t('orderForm.summary.profile')}</p>
                                                         <p className="text-lg font-medium">
-                                                            {rolesOptions.find(r => r.value === formData.role)?.display || formData.role}
+                                                            {displayRoles.find((r: any) => r.value === formData.role)?.display || formData.role}
                                                         </p>
                                                     </div>
                                                 </div>
                                                 {formData.comments && (
                                                     <div className="pt-4 border-t border-foreground/10">
-                                                        <p className="text-foreground/50 text-xs uppercase font-medium tracking-wider mb-2">Proyecto / Comentarios</p>
+                                                        <p className="text-foreground/50 text-xs uppercase font-medium tracking-wider mb-2">{t('orderForm.summary.project')}</p>
                                                         <p className="text-foreground/80 text-base leading-relaxed">"{formData.comments}"</p>
                                                     </div>
                                                 )}
@@ -318,7 +292,7 @@ export default function OrderForm() {
                                     size="lg"
                                     className="text-foreground/60 hover:text-foreground hover:bg-foreground/5"
                                 >
-                                    <ArrowLeft className="mr-2 w-4 h-4" /> Atrás
+                                    <ArrowLeft className="mr-2 w-4 h-4" /> {t('orderForm.buttons.back')}
                                 </Button>
 
                                 {!isSummary ? (
@@ -328,7 +302,7 @@ export default function OrderForm() {
                                         size="lg"
                                         className="flex-1 bg-cyan text-background hover:opacity-90 font-bold disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
-                                        Siguiente <ArrowRight className="ml-2 w-4 h-4" />
+                                        {t('orderForm.buttons.next')} <ArrowRight className="ml-2 w-4 h-4" />
                                     </Button>
                                 ) : (
                                     <Button
@@ -338,9 +312,9 @@ export default function OrderForm() {
                                         className="flex-1 bg-cyan text-background hover:opacity-90 font-bold"
                                     >
                                         {isSubmitting ? (
-                                            <><Loader2 className="mr-2 w-4 h-4 animate-spin" /> Enviando...</>
+                                            <><Loader2 className="mr-2 w-4 h-4 animate-spin" /> {t('orderForm.buttons.sending')}</>
                                         ) : (
-                                            <>Enviar Solicitud <Send className="ml-2 w-4 h-4" /></>
+                                            <>{t('orderForm.buttons.submit')} <Send className="ml-2 w-4 h-4" /></>
                                         )}
                                     </Button>
                                 )}

@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import OrderForm from "@/components/order-form";
+import { useLanguage } from "@/lib/i18n";
+import LanguageSwitch from "@/components/language-switch";
 
 /* ─────────────────────────────── ANIMATION VARIANTS ─────────────────────────── */
 
@@ -210,6 +212,7 @@ function ProjectCard({
   executionStatus?: string;
   href?: string;
 }) {
+  const { t } = useLanguage();
   return (
     <motion.div variants={fadeUp} custom={index} className="group h-full">
       <GlassCard className="flex h-full flex-col p-5 transition-colors hover:border-cyan/30">
@@ -254,7 +257,7 @@ function ProjectCard({
                 size="sm"
                 variant="outline"
               >
-                Ver proyecto <ArrowRight className="ml-2 h-4 w-4" />
+                {t('projects.verProyecto')} <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </a>
           </div>
@@ -367,209 +370,59 @@ function CTACard({
 
 /* ─────────────────────────────── DATA ─────────────────────────────── */
 
-const NAV_LINKS = [
-  { label: "Recorrido", href: "#recorrido" },
-  { label: "La Cancha", href: "#la-cancha" },
-  { label: "Stack Tech", href: "#stack" },
-  { label: "Ship Fast", href: "#ship-fast" },
-  { label: "Contacto", href: "#contacto" },
-];
+function getNavLinks(t: (k: string) => any) {
+  return [
+    { label: t('nav.recorrido'), href: "#recorrido" },
+    { label: t('nav.laCancha'), href: "#la-cancha" },
+    { label: t('nav.stackTech'), href: "#stack" },
+    { label: t('nav.shipFast'), href: "#ship-fast" },
+    { label: t('nav.contacto'), href: "#contacto" },
+  ];
+}
 
-const TIMELINE = [
-  {
-    year: "Inicio",
-    title: "El MBA de la calle",
-    description:
-      "A los 3 años vendía con mi padre en Santiago. Aprendí trabajo duro, resiliencia y el arte de vender para sobrevivir.",
-    chip: "Santiago, Chile",
-  },
-  {
-    year: "Revelación",
-    title: "El sistema y la libertad",
-    description:
-      'Entendí temprano que jugar "correcto" no siempre significa ganar. Empecé a buscar modelos mentales, finanzas, y construcción de valor desde cero. Chile, uno de los países más desiguales del mundo, me enseñó que las reglas del juego están escritas por otros.',
-    chip: "Filosofía Kiyosaki y Tim Ferris",
-  },
-  {
-    year: "La cancha",
-    title: "Construir > opinar",
-    description:
-      "Sin títulos rimbombantes, pero con entregables: nodos de valor, productos vivos, y comunidades activas. La obsesión no fue obtener validación académica, sino validación de mercado.",
-    chip: "Bootstrapping",
-  },
-  {
-    year: "Hoy",
-    title: "Arquitectura de ecosistemas",
-    description:
-      "Pienso en sistemas completos: producto, distribución, automatización, comunidad y narrativa. Internet + IA como motor para multiplicar capacidad, no para reemplazar humanidad.",
-    chip: "IA + Internet",
-  },
-];
+function getTimeline(t: (k: string) => any) {
+  const items = t('timeline.items') as any[]
+  return items.map((item: any, i: number) => ({
+    year: item.year,
+    title: item.title,
+    description: item.description,
+    chip: item.chip,
+  }))
+}
 
-const PROJECTS = [
-  {
-    name: "Pixelbile",
-    year: "2014",
-    status: "Design",
-    description: "Diseño responsive en HTML5 desde cero, pensado dispositivo por dispositivo.",
-    tech: ["HTML5", "CSS3", "Responsive Design"],
+const PROJECT_BASE = [
+  { name: "Pixelbile", year: "2014", status: "Design", tech: ["HTML5", "CSS3", "Responsive Design"] },
+  { name: "Developbile", year: "2015", status: "Dev", tech: ["Node.js", "Cloud Infrastructure"] },
+  { name: "OnePageCard", year: "2014", status: "Bootstrapped", tech: ["HTML5", "Django by Python"] },
+  { name: "Tus Fondas App", year: "2015", status: "Live", tech: ["Ionic Framework", "Google Maps API"] },
+  { name: "Kulko App", year: "2020", status: "Live", tech: ["Next.js", "WhatsApp Business API", "Symphony PHP"] },
+  { name: "Perceivo AI Agency", year: "2024", status: "AI-Powered", tech: ["LangChain", "n8n", "OpenAI SDK", "Vercel AI SDK"] },
+  { name: "Autonoma AI", year: "2025", status: "AI-Powered", tech: ["Python", "LangChain", "Claude API", "ChatKit"], executionStatus: "en ejecución", href: "https://autonoma.ai.protolylat.com/" },
+  { name: "eCommy AI", year: "2025", status: "AI-Powered", tech: ["OpenAI GPT-4", "Gemini", "RAG", "Vercel AI SDK"], executionStatus: "en ejecución", href: "https://ecommy.ai.protolylat.com/pt" },
+  { name: "Protolylat", year: "2017-2026", status: "Live", tech: ["Next.js", "shadcn/ui"], executionStatus: "en ejecución", href: "https://www.protolylat.com/en" },
+  { name: "Empowered Night", year: "2015", status: "Community", tech: ["Community building", "IRL events"] },
+]
 
-  },
-  {
-    name: "Developbile",
-    year: "2015",
-    status: "Dev",
-    description:
-      "Infraestructura y desarrollo de alto nivel para productos reales.",
-    tech: ["Node.js", "Cloud Infrastructure"],
+function getProjects(t: (k: string) => any) {
+  const items = t('projects.items') as any[]
+  return PROJECT_BASE.map((base, i) => ({
+    ...base,
+    description: items[i]?.description ?? base.name,
+    executionStatus: base.executionStatus ? t('projects.enEjecucion') : undefined,
+  }))
+}
 
-  },
-  {
-    name: "OnePageCard",
-    year: "2014",
-    status: "Bootstrapped",
-    description: "Presencia digital en una sola página, sin humo.",
-    tech: ["HTML5", "Django by Python"],
-
-  },
-  {
-    name: "Tus Fondas App",
-    year: "2015",
-    status: "Live",
-    description: "El primer directorio de Fondas en Chile.",
-    tech: ["Ionic Framework", "Google Maps API"],
-
-  },
-  {
-    name: "Kulko App",
-    year: "2020",
-    status: "Live",
-    description:
-      "Micro e-commerce que redirecciona ventas por WhatsApp.",
-    tech: ["Next.js", "WhatsApp Business API", "Symphony PHP"],
-
-  },
-  {
-    name: "Perceivo AI Agency",
-    year: "2024",
-    status: "AI-Powered",
-    description:
-      "Orquestación de agentes y automatización inteligente.",
-    tech: ["LangChain", "n8n", "OpenAI SDK", "Vercel AI SDK"],
-
-  },
-  {
-    name: "Autonoma AI",
-    year: "2025",
-    status: "AI-Powered",
-    description:
-      "Automatización inteligente de procesos empresariales.",
-    tech: ["Python", "LangChain", "Claude API", "ChatKit"],
-    executionStatus: "en ejecución",
-    href: "https://autonoma.ai.protolylat.com/",
-  },
-  {
-    name: "eCommy AI",
-    year: "2025",
-    status: "AI-Powered",
-    description: "El futuro del personal shopper con IA.",
-    tech: ["OpenAI GPT-4", "Gemini", "RAG", "Vercel AI SDK"],
-    executionStatus: "en ejecución",
-    href: "https://ecommy.ai.protolylat.com/pt",
-  },
-  {
-    name: "Protolylat",
-    year: "2017-2026",
-    status: "Live",
-    description:
-      "La evolución de Pixelbile con Developbile: laboratorio de productos.",
-    tech: ["Next.js", "shadcn/ui"],
-    executionStatus: "en ejecución",
-    href: "https://www.protolylat.com/en",
-  },
-  {
-    name: "Empowered Night",
-    year: "2015",
-    status: "Community",
-    description:
-      "El punto de encuentro de la resistencia creativa y makers.",
-    tech: ["Community building", "IRL events"],
-  },
-];
-
-const TECH_STACK: { category: string; items: { name: string; useCase: string }[] }[] = [
-  {
-    category: "Frontend & Design",
-    items: [
-      { name: "Next.js 16", useCase: "Protolylat, OnePageCard, todas las apps" },
-      { name: "React 19", useCase: "UI reactiva en cada producto" },
-      { name: "Tailwind CSS", useCase: "Estilos rápidos y consistentes" },
-      { name: "shadcn/ui", useCase: "Componentes accesibles y elegantes" },
-      { name: "Framer Motion", useCase: "Animaciones de esta página" },
-      { name: "v0 by Vercel", useCase: "Prototipado ultra rápido" },
-    ],
-  },
-  {
-    category: "Backend & Infrastructure",
-    items: [
-      { name: "Node.js", useCase: "APIs, microservicios, tooling" },
-      { name: "Python", useCase: "Agentes IA, scraping, data" },
-      { name: "Vercel SDK", useCase: "Deploy instantáneo" },
-      { name: "Vercel / Netlify / DO", useCase: "Hosting multi-cloud" },
-      { name: "Supabase", useCase: "Auth + DB en tiempo real" },
-      { name: "Typescript", useCase: "Tipado estricto en todo el stack" },
-
-    ],
-  },
-  {
-    category: "AI & Automation",
-    items: [
-      { name: "LangChain", useCase: "Orquestación de agentes" },
-      { name: "n8n", useCase: "Workflows de automatización" },
-      { name: "OpenAI SDK", useCase: "GPT en producción" },
-      { name: "ChatKit by OpenAI", useCase: "Interfaces conversacionales" },
-      { name: "Vercel AI SDK", useCase: "Streaming y tool calling" },
-      { name: "Embeddings", useCase: "Incrustación de datos" },
-      { name: "RAG", useCase: "Recuperación aumentada contextual" },
-    ],
-  },
-  {
-    category: "LLMs de Frontera",
-    items: [
-      { name: "Claude 4.6 Sonnet", useCase: "Código, análisis profundo" },
-      { name: "Gemini 3.0 Pro", useCase: "Multimodal, contexto largo" },
-      { name: "GPT-5.2", useCase: "Razonamiento avanzado" },
-    ],
-  },
-  {
-    category: "E-commerce & Tools",
-    items: [
-      { name: "Medusa JS", useCase: "eCommy, headless commerce" },
-      { name: "WhatsApp Business API", useCase: "Kulko App, ventas directas" },
-      { name: "Stripe", useCase: "Pagos sin fricción" },
-      { name: "Meta Ads API", useCase: "Crecimiento orgánico + paid" },
-    ],
-  },
-  {
-    category: "Development Tools",
-    items: [
-      { name: "GitHub", useCase: "Versionamiento de todo" },
-      { name: "Notion", useCase: "Documentación y ops" },
-      { name: "Perplexity AI", useCase: "Research acelerado" },
-      { name: "Antigravity", useCase: "Herramientas internas" },
-      { name: "Windsurf", useCase: "Desarrollo AI-first" },
-      { name: "Replit", useCase: "Prototipos rápidos" },
-      { name: "Claude Code", useCase: "Experto en grandes bases de código" },
-      { name: "GPT 5.3 Codex", useCase: "Instrucciones a código limpio y sin errores" },
-    ],
-  },
-];
+function getTechStack(t: (k: string) => any) {
+  return t('stack.categories') as any[]
+}
 
 /* ─────────────────────────────── NAVBAR ─────────────────────────────── */
 
 function Navbar() {
+  const { t, language } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navLinks = getNavLinks(t);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -584,19 +437,19 @@ function Navbar() {
         : "bg-transparent"
         }`}
       role="navigation"
-      aria-label="Navegación principal"
+      aria-label={t('nav.navegacion')}
     >
       <div className="mx-auto flex max-w-container items-center justify-between px-5 py-4">
         <a
           href="#"
           className="text-sm font-semibold tracking-tight text-foreground md:text-base"
         >
-          Builder<span className="text-cyan">Latino</span>
+          {t('nav.builderLatino')}<span className="text-cyan">{t('nav.builderSuffix')}</span>
         </a>
 
         {/* Desktop nav */}
         <div className="hidden items-center gap-6 md:flex">
-          {NAV_LINKS.map((l) => (
+          {navLinks.map((l: any) => (
             <a
               key={l.href}
               href={l.href}
@@ -605,24 +458,28 @@ function Navbar() {
               {l.label}
             </a>
           ))}
+          <LanguageSwitch />
           <a
             href="#contact-form"
             className="rounded-lg bg-cyan px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
           >
-            Aplicar a Ship Fast
+            {t('nav.aplicarShipFast')}
           </a>
         </div>
 
         {/* Mobile hamburger */}
-        <button
-          type="button"
-          className="flex h-11 w-11 items-center justify-center rounded-lg text-foreground md:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={mobileOpen}
-        >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <LanguageSwitch />
+          <button
+            type="button"
+            className="flex h-11 w-11 items-center justify-center rounded-lg text-foreground"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? t('nav.cerrarMenu') : t('nav.abrirMenu')}
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -632,7 +489,7 @@ function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           className="border-b border-foreground/10 bg-background/95 px-5 pb-6 pt-2 backdrop-blur-lg md:hidden"
         >
-          {NAV_LINKS.map((l) => (
+          {navLinks.map((l: any) => (
             <a
               key={l.href}
               href={l.href}
@@ -647,7 +504,7 @@ function Navbar() {
             className="mt-3 block rounded-lg bg-cyan py-3 text-center text-sm font-medium text-background"
             onClick={() => setMobileOpen(false)}
           >
-            Aplicar a Ship Fast
+            {t('nav.aplicarShipFast')}
           </a>
         </motion.div>
       )}
@@ -658,6 +515,7 @@ function Navbar() {
 /* ─────────────────────────────── HERO ─────────────────────────────── */
 
 function Hero() {
+  const { t } = useLanguage();
   return (
     <section className="relative flex min-h-[100dvh] items-center px-5 pt-20">
       <div className="mx-auto flex max-w-container flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
@@ -678,13 +536,13 @@ function Hero() {
               <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-cyan/40 to-amber/30 blur-sm" />
               <img
                 src="/profilePicture.png"
-                alt="Foto de perfil"
+                alt={t('hero.fotoPerfil')}
                 className="relative h-20 w-20 rounded-full border-2 border-cyan/30 object-cover"
               />
             </div>
             <div>
-              <p className="text-sm font-medium text-foreground/90">Builder Latino</p>
-              <p className="text-xs text-foreground/50">Santiago, Chile</p>
+              <p className="text-sm font-medium text-foreground/90">{t('hero.builderLatino')}</p>
+              <p className="text-xs text-foreground/50">{t('hero.santiago')}</p>
             </div>
           </motion.div>
 
@@ -693,8 +551,8 @@ function Hero() {
             custom={1}
             className="text-balance text-3xl font-bold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl"
           >
-            De vendedor ambulante a arquitecto de{" "}
-            <span className="text-cyan">ecosistemas</span>.
+            {t('hero.title1')}{" "}
+            <span className="text-cyan">{t('hero.title2')}</span>.
           </motion.h1>
 
           <motion.p
@@ -702,9 +560,7 @@ function Hero() {
             custom={2}
             className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-foreground/70 md:text-lg"
           >
-            {
-              'Nací en Santiago de Chile, lejos de Silicon Valley, en un país donde la cancha suele venir inclinada. Mi primer "MBA" no fue un diploma: fue la calle, a los 3 años, vendiendo junto a mi padre y aprendiendo a sostener la mirada, a insistir, y a convertir "no" en supervivencia. Hoy construyo productos y sistemas de innovación con bootstrapping real: sin capital externo, con recursividad, colaboración y código con mis amigos los Devs.'
-            }
+            {t('hero.description')}
           </motion.p>
 
           <motion.div
@@ -716,14 +572,14 @@ function Hero() {
               href="#recorrido"
               className="inline-flex h-12 items-center rounded-lg bg-cyan px-6 text-sm font-medium text-background transition-opacity hover:opacity-90"
             >
-              Ver el recorrido
+              {t('hero.verRecorrido')}
               <ChevronRight className="ml-1 h-4 w-4" />
             </a>
             <a
               href="#contacto"
               className="inline-flex h-12 items-center rounded-lg border border-foreground/20 bg-transparent px-6 text-sm font-medium text-foreground transition-colors hover:border-foreground/40"
             >
-              Trabajar conmigo
+              {t('hero.trabajarConmigo')}
             </a>
           </motion.div>
         </motion.div>
@@ -745,19 +601,19 @@ function Hero() {
               <div className="absolute -inset-1.5 rounded-full bg-gradient-to-br from-cyan/40 to-amber/30 blur-md" />
               <img
                 src="/profilePicture.png"
-                alt="Foto de perfil"
+                alt={t('hero.fotoPerfil')}
                 className="relative h-36 w-36 rounded-full border-2 border-cyan/30 object-cover"
               />
             </div>
-            <p className="mt-3 text-sm font-medium text-foreground/90">Builder Latino</p>
-            <p className="text-xs text-foreground/50">Santiago, Chile</p>
+            <p className="mt-3 text-sm font-medium text-foreground/90">{t('hero.builderLatino')}</p>
+            <p className="text-xs text-foreground/50">{t('hero.santiago')}</p>
           </motion.div>
 
           {[
-            { label: "+12 años en tech e innovación", icon: "amber" as const },
-            { label: "+9 incubaciones", icon: "cyan" as const },
-            { label: "Bootstrapping puro", icon: "amber" as const },
-            { label: "IA + Internet como igualador", icon: "cyan" as const },
+            { label: t('hero.stat1'), icon: "amber" as const },
+            { label: t('hero.stat2'), icon: "cyan" as const },
+            { label: t('hero.stat3'), icon: "amber" as const },
+            { label: t('hero.stat4'), icon: "cyan" as const },
           ].map((stat, i) => (
             <motion.div key={stat.label} variants={fadeUp} custom={i + 4}>
               <Chip variant={stat.icon}>{stat.label}</Chip>
@@ -772,6 +628,7 @@ function Hero() {
 /* ─────────────────────────────── DNA SECTION ─────────────────────────────── */
 
 function DNASection() {
+  const { t } = useLanguage();
   return (
     <SectionWrapper>
       <motion.div
@@ -785,18 +642,14 @@ function DNASection() {
           variants={fadeIn}
           className="text-base leading-relaxed text-foreground/70 md:text-lg"
         >
-          {
-            "No enseño desde un salón de clases. Construyo desde la experiencia empírica. Crecí entendiendo algo incómodo: el sistema rara vez está diseñado para hacerte libre; está diseñado para hacerte funcional. Esa revelación no me volvió cínico, me volvió intencional: si la estructura no ayuda, entonces se diseña una nueva."
-          }
+          {t('dna.p1')}
         </motion.p>
 
         <motion.p
           variants={fadeIn}
           className="mt-6 text-base leading-relaxed text-foreground/70 md:text-lg"
         >
-          {
-            'Creo en una mentalidad autodidacta, aprender por Ósmosis y en la tecnología como palanca de movilidad. La innovación no es "ideas lindas", es ejecución bajo restricciones.'
-          }
+          {t('dna.p2')}
         </motion.p>
 
         <motion.blockquote
@@ -805,7 +658,7 @@ function DNASection() {
           className="mt-12 border-l-2 border-cyan py-2 pl-6 text-left"
         >
           <p className="text-xl font-semibold leading-snug tracking-tight text-foreground md:text-2xl lg:text-3xl">
-            {'"Internet es el Motor de generación de Riqueza más grande que jamás haya existido."'}
+            {t('dna.quote')}
           </p>
         </motion.blockquote>
       </motion.div>
@@ -816,8 +669,10 @@ function DNASection() {
 /* ─────────────────────────────── RECORRIDO (TIMELINE) ─────────────────────────── */
 
 function RecorridoSection() {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.1 });
+  const timeline = getTimeline(t);
 
   return (
     <SectionWrapper id="recorrido">
@@ -829,9 +684,9 @@ function RecorridoSection() {
         variants={fadeUp}
         custom={0}
       >
-        <Chip variant="cyan">Recorrido</Chip>
+        <Chip variant="cyan">{t('timeline.chip')}</Chip>
         <h2 className="mt-4 text-balance text-2xl font-bold tracking-tight text-foreground md:text-4xl">
-          El camino de un builder
+          {t('timeline.title')}
         </h2>
       </motion.div>
 
@@ -846,7 +701,7 @@ function RecorridoSection() {
           />
         </div>
 
-        {TIMELINE.map((item, i) => (
+        {timeline.map((item: any, i: number) => (
           <TimelineItem key={item.title} {...item} index={i} />
         ))}
       </div>
@@ -857,6 +712,8 @@ function RecorridoSection() {
 /* ─────────────────────────────── LA CANCHA (ROTATE 1) ─────────────────────────── */
 
 function LaCanchaSection() {
+  const { t } = useLanguage();
+  const projects = getProjects(t);
   return (
     <SectionWrapper id="la-cancha">
       <motion.div
@@ -868,8 +725,8 @@ function LaCanchaSection() {
         className="hidden md:block"
       >
         <SectionHeader
-          chip="La Cancha"
-          title="Lo construido" subtitle={""}        // subtitle="Esto no es un curso. Es el blueprint de un constructor que ya lo hizo."
+          chip={t('projects.chip')}
+          title={t('projects.title')} subtitle={""}
         />
       </motion.div>
 
@@ -882,8 +739,8 @@ function LaCanchaSection() {
         className="md:hidden"
       >
         <SectionHeader
-          chip="La Cancha"
-          title="Lo construido" subtitle={""}        // subtitle="Esto no es un curso. Es el blueprint de un constructor que ya lo hizo."
+          chip={t('projects.chip')}
+          title={t('projects.title')} subtitle={""}
         />
       </motion.div>
 
@@ -894,7 +751,7 @@ function LaCanchaSection() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
       >
-        {PROJECTS.map((p, i) => (
+        {projects.map((p: any, i: number) => (
           <ProjectCard key={p.name} {...p} index={i} />
         ))}
       </motion.div>
@@ -925,6 +782,8 @@ function SectionHeader({
 /* ─────────────────────────────── STACK TECH (ROTATE 2) ─────────────────────────── */
 
 function StackSection() {
+  const { t } = useLanguage();
+  const techStack = getTechStack(t);
   return (
     <SectionWrapper id="stack">
       <motion.div
@@ -936,9 +795,9 @@ function StackSection() {
         className="hidden md:block"
       >
         <SectionHeader
-          chip="Stack Tech"
-          title="Construyendo con las herramientas de frontera"
-          subtitle="Cada herramienta elegida por su capacidad de ejecución, no por hype."
+          chip={t('stack.chip')}
+          title={t('stack.title')}
+          subtitle={t('stack.subtitle')}
         />
       </motion.div>
 
@@ -950,14 +809,14 @@ function StackSection() {
         className="md:hidden"
       >
         <SectionHeader
-          chip="Stack Tech"
-          title="Construyendo con herramientas de frontera"
-          subtitle="Cada herramienta elegida por su capacidad de ejecución, no por hype."
+          chip={t('stack.chip')}
+          title={t('stack.title')}
+          subtitle={t('stack.subtitle')}
         />
       </motion.div>
 
       <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {TECH_STACK.map((cat, catIdx) => (
+        {techStack.map((cat: any, catIdx: number) => (
           <motion.div
             key={cat.category}
             variants={fadeUp}
@@ -971,7 +830,7 @@ function StackSection() {
                 {cat.category}
               </h3>
               <div className="flex flex-col gap-2">
-                {cat.items.map((item) => (
+                {cat.items.map((item: any) => (
                   <TechStackCard
                     key={item.name}
                     name={item.name}
@@ -990,6 +849,8 @@ function StackSection() {
 /* ─────────────────────────────── SHIP FAST ─────────────────────────────── */
 
 function ShipFastSection() {
+  const { t } = useLanguage();
+  const shipItems = t('shipFast.items') as string[]
   return (
     <SectionWrapper id="ship-fast">
       <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16">
@@ -1002,21 +863,21 @@ function ShipFastSection() {
           viewport={{ once: true, amount: 0.3 }}
         >
           <motion.div variants={fadeUp} custom={0}>
-            <Chip variant="amber">Ship Fast</Chip>
+            <Chip variant="amber">{t('shipFast.chip')}</Chip>
           </motion.div>
           <motion.h2
             variants={fadeUp}
             custom={1}
             className="mt-4 text-balance text-2xl font-bold tracking-tight text-foreground md:text-4xl"
           >
-            Ship Fast: Edición Latina (Orlando)
+            {t('shipFast.title')}
           </motion.h2>
           <motion.p
             variants={fadeUp}
             custom={2}
             className="mt-3 text-base text-foreground/70 md:text-lg"
           >
-            Importamos el mindset de innovación de Silicon Valley y lo adaptamos a la realidad Latina
+            {t('shipFast.description')}
           </motion.p>
 
           <motion.ul
@@ -1026,13 +887,7 @@ function ShipFastSection() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {[
-              "Sprint intensivo de 54 horas",
-              "Problema claro, cliente real",
-              "Prototipo rápido con Vibe Coding",
-              "Demo final con feedback",
-              "Metodología Silicon Valley adaptada a Latam",
-            ].map((item, i) => (
+            {shipItems.map((item: string, i: number) => (
               <motion.li
                 key={item}
                 variants={fadeUp}
@@ -1060,21 +915,21 @@ function ShipFastSection() {
         >
           <GlassCard className="p-6 md:p-8">
             <h3 className="text-lg font-semibold tracking-tight text-foreground">
-              Aplica a Ship Fast
+              {t('shipFast.formTitle')}
             </h3>
             <p className="mt-1 text-sm text-foreground/60">
-              Cuéntanos qué estás construyendo.
+              {t('shipFast.formDescription')}
             </p>
             {/* Formulario Inline Reemplazado por CTA al Formulario Principal */}
             <div className="mt-6 flex flex-col gap-4">
               <p className="text-base text-foreground/80 leading-relaxed">
-                Para aplicar, por favor completa el formulario al final de la página. Queremos conocerte mejor y entender qué estás construyendo.
+                {t('shipFast.formText')}
               </p>
               <a
                 href="#contact-form"
                 className="flex h-12 w-full items-center justify-center rounded-lg bg-cyan text-sm font-medium text-background transition-opacity hover:opacity-90"
               >
-                Ir al Formulario de Aplicación
+                {t('shipFast.formButton')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </div>
@@ -1088,6 +943,8 @@ function ShipFastSection() {
 /* ─────────────────────────────── FOOTER CTA (ROTATE 3) ─────────────────────────── */
 
 function FooterCTASection() {
+  const { t } = useLanguage();
+  const cards = t('footerCta.cards') as any[]
   return (
     <SectionWrapper id="contacto">
       {/* Desktop: 3D rotate header */}
@@ -1099,9 +956,9 @@ function FooterCTASection() {
         style={{ perspective: 800, transformStyle: "preserve-3d" }}
         className="hidden text-center md:block"
       >
-        <Chip variant="amber">Trabajemos</Chip>
+        <Chip variant="amber">{t('footerCta.chip')}</Chip>
         <h2 className="mt-4 text-balance text-2xl font-bold tracking-tight text-foreground md:text-4xl">
-          Si quieres construir algo real, empieza por aquí
+          {t('footerCta.title')}
         </h2>
       </motion.div>
 
@@ -1113,33 +970,33 @@ function FooterCTASection() {
         transition={{ duration: 0.6, ease: "easeOut" as const }}
         className="text-center md:hidden"
       >
-        <Chip variant="amber">Trabajemos</Chip>
+        <Chip variant="amber">{t('footerCta.chip')}</Chip>
         <h2 className="mt-4 text-balance text-2xl font-bold tracking-tight text-foreground">
-          Si quieres construir algo real, empieza por aquí
+          {t('footerCta.title')}
         </h2>
       </motion.div>
 
       <div className="mt-12 grid gap-4 md:grid-cols-3">
         <CTACard
           icon={<span aria-hidden="true" className="text-amber">{"*"}</span>}
-          title="Para Emprendedores"
-          description="Validación, producto, y go-to-market sin fantasías."
-          cta="Agendar consultoría"
+          title={cards[0]?.title ?? "Para Emprendedores"}
+          description={cards[0]?.description ?? ""}
+          cta={cards[0]?.cta ?? ""}
           href="#contact-form"
           index={0}
         />
         <CTACard
           icon={<span aria-hidden="true" className="text-cyan">{"&"}</span>}
-          title="Para Equipos/Empresas"
-          description="Sistemas de automatización e IA aplicados a operación real."
-          cta="Ver casos de éxito"
+          title={cards[1]?.title ?? "Para Equipos/Empresas"}
+          description={cards[1]?.description ?? ""}
+          cta={cards[1]?.cta ?? ""}
           index={1}
         />
         <CTACard
           icon={<span aria-hidden="true" className="text-amber">{">"}</span>}
-          title="Para Builders"
-          description="Ejecución, diseño de producto, y disciplina de shipping."
-          cta="Unirme a la comunidad"
+          title={cards[2]?.title ?? "Para Builders"}
+          description={cards[2]?.description ?? ""}
+          cta={cards[2]?.cta ?? ""}
           index={2}
         />
       </div>
@@ -1150,6 +1007,7 @@ function FooterCTASection() {
 /* ─────────────────────────────── FOOTER ─────────────────────────────── */
 
 function Footer() {
+  const { t } = useLanguage();
   const socials = [
     { label: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/carlos-riquelme-acosta-30654870" },
     { label: "YouTube", icon: Youtube, href: "#" },
@@ -1162,7 +1020,7 @@ function Footer() {
     <footer className="border-t border-foreground/10 px-5 py-12">
       <div className="mx-auto max-w-container text-center">
         <p className="text-sm leading-relaxed text-foreground/60">
-          {"Santiago ↔ Internet. Construyendo con código, comunidad y obsesión por aprender."}
+          {t('footer.text')}
         </p>
 
         <div className="mt-6 flex items-center justify-center gap-4">
@@ -1179,7 +1037,7 @@ function Footer() {
         </div>
 
         <p className="mt-8 text-xs text-foreground/40">
-          {"© 2026 · Hecho con Next.js, café y obsesión"}
+          {t('footer.credit')}
         </p>
       </div>
     </footer>
