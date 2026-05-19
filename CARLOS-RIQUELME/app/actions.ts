@@ -5,11 +5,16 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function sendOrderEmail(formData: any, lang?: string) {
     try {
-        const isEn = lang === 'en'
-        const subject = isEn
-            ? `New inquiry from ${formData.name}`
-            : `Nueva consulta de ${formData.name}`
-        const t = (es: string, en: string) => isEn ? en : es
+        const t = (es: string, en: string, pt: string) => {
+            if (lang === 'en') return en
+            if (lang === 'pt') return pt
+            return es
+        }
+        const subject = t(
+            `Nueva consulta de ${formData.name}`,
+            `New inquiry from ${formData.name}`,
+            `Nova consulta de ${formData.name}`
+        )
         const { data, error } = await resend.emails.send({
             from: 'Tu Web <carlosriquelme@protolylat.com>',
             to: ['business@protolylat.com'],
@@ -33,35 +38,35 @@ export async function sendOrderEmail(formData: any, lang?: string) {
                 <!-- Card -->
                 <div style="background-color: #171717; border: 1px solid #333; border-radius: 12px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
                     <h2 style="margin: 0 0 24px; font-size: 20px; color: #ffffff; border-bottom: 1px solid #333; padding-bottom: 16px;">
-                        ${t('Nueva Consulta Recibida', 'New Inquiry Received')}
+                        ${t('Nueva Consulta Recibida', 'New Inquiry Received', 'Nova Consulta Recebida')}
                     </h2>
                     
                     <div style="margin-bottom: 20px;">
-                        <p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">${t('Nombre', 'Name')}</p>
+                        <p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">${t('Nombre', 'Name', 'Nome')}</p>
                         <p style="margin: 0; font-size: 16px; color: #ffffff; font-weight: 500;">${formData.name}</p>
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">${t('Email', 'Email')}</p>
+                        <p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">${t('Email', 'Email', 'E-mail')}</p>
                         <a href="mailto:${formData.email}" style="margin: 0; font-size: 16px; color: #06b6d4; text-decoration: none;">${formData.email}</a>
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">${t('Teléfono', 'Phone')}</p>
+                        <p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">${t('Teléfono', 'Phone', 'Telefone')}</p>
                         <p style="margin: 0; font-size: 16px; color: #ffffff;">${formData.phone}</p>
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">${t('Rol / Perfil', 'Role / Profile')}</p>
+                        <p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">${t('Rol / Perfil', 'Role / Profile', 'Função / Perfil')}</p>
                         <div style="display: inline-block; padding: 4px 12px; background-color: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.2); border-radius: 9999px;">
                             <span style="color: #06b6d4; font-size: 14px; font-weight: 500;">${formData.role}</span>
                         </div>
                     </div>
 
                     <div style="margin-bottom: 0;">
-                        <p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">${t('Proyecto / Comentarios', 'Project / Comments')}</p>
+                        <p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">${t('Proyecto / Comentarios', 'Project / Comments', 'Projeto / Comentários')}</p>
                         <div style="background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; padding: 16px;">
-                            <p style="margin: 0; font-size: 14px; color: #d4d4d4; line-height: 1.6;">"${formData.comments || t('Sin comentarios', 'No comments')}"</p>
+                            <p style="margin: 0; font-size: 14px; color: #d4d4d4; line-height: 1.6;">"${formData.comments || t('Sin comentarios', 'No comments', 'Sem comentários')}"</p>
                         </div>
                     </div>
                 </div>
@@ -69,7 +74,7 @@ export async function sendOrderEmail(formData: any, lang?: string) {
                 <!-- Footer -->
                 <div style="text-align: center; margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
                     <p style="margin: 0; font-size: 12px; color: #666;">
-                        ${t('Enviado desde el formulario de contacto de carlosriquel.me', 'Sent from the contact form at carlosriquel.me')}
+                        ${t('Enviado desde el formulario de contacto de carlosriquel.me', 'Sent from the contact form at carlosriquel.me', 'Enviado do formulário de contato do carlosriquel.me')}
                     </p>
                 </div>
             </div>

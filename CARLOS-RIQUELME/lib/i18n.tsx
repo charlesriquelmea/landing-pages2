@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 
-export type Language = 'es' | 'en'
+export type Language = 'es' | 'en' | 'pt'
 
 type Translations = Record<string, any>
 
@@ -490,7 +490,249 @@ const en: Translations = {
   },
 }
 
-const all = { es, en }
+const pt: Translations = {
+  nav: {
+    recorrido: 'Jornada',
+    laCancha: 'O Campo',
+    stackTech: 'Stack Tech',
+    shipFast: 'Ship Fast',
+    contacto: 'Contato',
+    aplicarShipFast: 'Aplicar para Ship Fast',
+    cerrarMenu: 'Fechar menu',
+    abrirMenu: 'Abrir menu',
+    navegacion: 'Navegação principal',
+    builderLatino: 'Builder',
+    builderSuffix: 'Latino',
+  },
+  hero: {
+    builderLatino: 'Builder Latino',
+    santiago: 'Santiago, Chile',
+    title1: 'De vendedor ambulante a arquiteto de',
+    title2: 'ecossistemas',
+    description: 'Nasci em Santiago do Chile, longe do Vale do Silício, em um país onde o campo geralmente vem inclinado. Meu primeiro "MBA" não foi um diploma: foi a rua, aos 3 anos, vendendo junto com meu pai e aprendendo a sustentar o olhar, a insistir e a transformar "não" em sobrevivência. Hoje construo produtos e sistemas de inovação com bootstrapping real: sem capital externo, com recursividade, colaboração e código com meus amigos os Devs.',
+    verRecorrido: 'Ver a jornada',
+    trabajarConmigo: 'Trabalhe comigo',
+    fotoPerfil: 'Foto de perfil',
+    stat1: '+12 anos em tech e inovação',
+    stat2: '+9 incubações',
+    stat3: 'Bootstrapping puro',
+    stat4: 'IA + Internet como equalizador',
+  },
+  dna: {
+    p1: 'Não ensino de uma sala de aula. Construo a partir da experiência empírica. Cresci entendendo algo desconfortável: o sistema raramente é projetado para te fazer livre; é projetado para te fazer funcional. Essa revelação não me tornou cínico, me tornou intencional: se a estrutura não ajuda, então projeta-se uma nova.',
+    p2: 'Acredito em uma mentalidade autodidata, aprender por Osmose e na tecnologia como alavanca de mobilidade. Inovação não são "ideias bonitas", é execução sob restrições.',
+    quote: '"A Internet é o maior Motor de geração de Riqueza que já existiu."',
+  },
+  timeline: {
+    chip: 'Jornada',
+    title: 'O caminho de um builder',
+    items: [
+      {
+        year: 'Início',
+        title: 'O MBA da rua',
+        description: 'Aos 3 anos vendia com meu pai em Santiago. Aprendi trabalho duro, resiliência e a arte de vender para sobreviver.',
+        chip: 'Santiago, Chile',
+      },
+      {
+        year: 'Revelação',
+        title: 'O sistema e a liberdade',
+        description: 'Entendi cedo que jogar "correto" nem sempre significa ganhar. Comecei a buscar modelos mentais, finanças e construção de valor do zero. O Chile, um dos países mais desiguais do mundo, me ensinou que as regras do jogo são escritas por outros.',
+        chip: 'Filosofia Kiyosaki e Tim Ferris',
+      },
+      {
+        year: 'O campo',
+        title: 'Construir > opinar',
+        description: 'Sem títulos pomposos, mas com entregáveis: nós de valor, produtos vivos e comunidades ativas. A obsessão não foi obter validação acadêmica, mas validação de mercado.',
+        chip: 'Bootstrapping',
+      },
+      {
+        year: 'Hoje',
+        title: 'Arquitetura de ecossistemas',
+        description: 'Penso em sistemas completos: produto, distribuição, automação, comunidade e narrativa. Internet + IA como motor para multiplicar capacidade, não para substituir humanidade.',
+        chip: 'IA + Internet',
+      },
+    ],
+  },
+  projects: {
+    chip: 'O Campo',
+    title: 'O construído',
+    verProyecto: 'Ver projeto',
+    enEjecucion: 'em execução',
+    items: [
+      { name: 'Pixelbile', description: 'Design responsivo em HTML5 do zero, pensado dispositivo por dispositivo.' },
+      { name: 'Developbile', description: 'Infraestrutura e desenvolvimento de alto nível para produtos reais.' },
+      { name: 'OnePageCard', description: 'Presença digital em uma página, sem enrolação.' },
+      { name: 'Tus Fondas App', description: 'O primeiro diretório de Fondas no Chile.' },
+      { name: 'Kulko App', description: 'Micro e-commerce que redireciona vendas pelo WhatsApp.' },
+      { name: 'Perceivo AI Agency', description: 'Orquestração de agentes e automação inteligente.' },
+      { name: 'Autonoma AI', description: 'Automação inteligente de processos empresariais.' },
+      { name: 'eCommy AI', description: 'O futuro do personal shopper com IA.' },
+      { name: 'Protolylat', description: 'A evolução da Pixelbile com Developbile: laboratório de produtos.' },
+      { name: 'Empowered Night', description: 'O ponto de encontro da resistência criativa e makers.' },
+    ],
+  },
+  stack: {
+    chip: 'Stack Tech',
+    title: 'Construindo com as ferramentas de fronteira',
+    subtitle: 'Cada ferramenta escolhida pela capacidade de execução, não por hype.',
+    categories: [
+      {
+        category: 'Frontend & Design',
+        items: [
+          { name: 'Next.js 16', useCase: 'Protolylat, OnePageCard, todos os apps' },
+          { name: 'React 19', useCase: 'UI reativa em cada produto' },
+          { name: 'Tailwind CSS', useCase: 'Estilos rápidos e consistentes' },
+          { name: 'shadcn/ui', useCase: 'Componentes acessíveis e elegantes' },
+          { name: 'Framer Motion', useCase: 'Animações desta página' },
+          { name: 'v0 by Vercel', useCase: 'Prototipagem ultra rápida' },
+        ],
+      },
+      {
+        category: 'Backend & Infrastructure',
+        items: [
+          { name: 'Node.js', useCase: 'APIs, microsserviços, tooling' },
+          { name: 'Python', useCase: 'Agentes IA, scraping, dados' },
+          { name: 'Vercel SDK', useCase: 'Deploy instantâneo' },
+          { name: 'Vercel / Netlify / DO', useCase: 'Hospedagem multi-cloud' },
+          { name: 'Supabase', useCase: 'Auth + DB em tempo real' },
+          { name: 'Typescript', useCase: 'Tipagem estrita em todo o stack' },
+        ],
+      },
+      {
+        category: 'AI & Automation',
+        items: [
+          { name: 'LangChain', useCase: 'Orquestração de agentes' },
+          { name: 'n8n', useCase: 'Workflows de automação' },
+          { name: 'OpenAI SDK', useCase: 'GPT em produção' },
+          { name: 'ChatKit by OpenAI', useCase: 'Interfaces conversacionais' },
+          { name: 'Vercel AI SDK', useCase: 'Streaming e tool calling' },
+          { name: 'Embeddings', useCase: 'Incrustação de dados' },
+          { name: 'RAG', useCase: 'Recuperação aumentada contextual' },
+        ],
+      },
+      {
+        category: 'LLMs de Fronteira',
+        items: [
+          { name: 'Claude 4.6 Sonnet', useCase: 'Código, análise profunda' },
+          { name: 'Gemini 3.0 Pro', useCase: 'Multimodal, contexto longo' },
+          { name: 'GPT-5.2', useCase: 'Raciocínio avançado' },
+        ],
+      },
+      {
+        category: 'E-commerce & Tools',
+        items: [
+          { name: 'Medusa JS', useCase: 'eCommy, comércio headless' },
+          { name: 'WhatsApp Business API', useCase: 'Kulko App, vendas diretas' },
+          { name: 'Stripe', useCase: 'Pagamentos sem atrito' },
+          { name: 'Meta Ads API', useCase: 'Crescimento orgânico + pago' },
+        ],
+      },
+      {
+        category: 'Development Tools',
+        items: [
+          { name: 'GitHub', useCase: 'Versionamento de tudo' },
+          { name: 'Notion', useCase: 'Documentação e operações' },
+          { name: 'Perplexity AI', useCase: 'Pesquisa acelerada' },
+          { name: 'Antigravity', useCase: 'Ferramentas internas' },
+          { name: 'Windsurf', useCase: 'Desenvolvimento AI-first' },
+          { name: 'Replit', useCase: 'Protótipos rápidos' },
+          { name: 'Claude Code', useCase: 'Especialista em grandes bases de código' },
+          { name: 'GPT 5.3 Codex', useCase: 'Instruções para código limpo e sem erros' },
+        ],
+      },
+    ],
+  },
+  shipFast: {
+    chip: 'Ship Fast',
+    title: 'Ship Fast: Edição Latina (Orlando)',
+    description: 'Importamos a mentalidade de inovação do Vale do Silício e a adaptamos à realidade Latina',
+    items: [
+      'Sprint intensivo de 54 horas',
+      'Problema claro, cliente real',
+      'Protótipo rápido com Vibe Coding',
+      'Demo final com feedback',
+      'Metodologia Vale do Silício adaptada à América Latina',
+    ],
+    formTitle: 'Aplique para Ship Fast',
+    formDescription: 'Conte-nos o que você está construindo.',
+    formText: 'Para aplicar, preencha o formulário no final da página. Queremos conhecer você melhor e entender o que está construindo.',
+    formButton: 'Ir para o Formulário de Aplicação',
+  },
+  footerCta: {
+    chip: 'Vamos trabalhar',
+    title: 'Se você quer construir algo real, comece por aqui',
+    cards: [
+      {
+        title: 'Para Empreendedores',
+        description: 'Validação, produto e go-to-market sem fantasia.',
+        cta: 'Agendar consultoria',
+      },
+      {
+        title: 'Para Equipes/Empresas',
+        description: 'Sistemas de automação e IA aplicados à operação real.',
+        cta: 'Ver casos de sucesso',
+      },
+      {
+        title: 'Para Builders',
+        description: 'Execução, design de produto e disciplina de shipping.',
+        cta: 'Entrar na comunidade',
+      },
+    ],
+  },
+  footer: {
+    text: 'Santiago ↔ Internet. Construindo com código, comunidade e obsessão por aprender.',
+    credit: '© 2026 · Feito com Next.js, café e obsessão',
+  },
+  orderForm: {
+    intro: {
+      title1: 'Vamos construir',
+      title2: 'algo real.',
+      description: 'Se você quer validar uma ideia, escalar seu produto ou implementar automação inteligente, comece por aqui.',
+      button: 'Começar agora',
+    },
+    success: {
+      title: 'Solicitação enviada.',
+      description: 'Recebemos suas informações. Analisaremos seu caso e entraremos em contato em breve.',
+      back: 'Voltar ao início',
+    },
+    progress: {
+      review: 'Revisão Final',
+      phase: 'Fase',
+      of: 'de',
+    },
+    summary: {
+      title: 'Confirme os dados',
+      name: 'Nome',
+      contact: 'Contato',
+      profile: 'Perfil',
+      project: 'Projeto / Comentários',
+    },
+    buttons: {
+      back: 'Voltar',
+      next: 'Próximo',
+      submit: 'Enviar Solicitação',
+      sending: 'Enviando...',
+    },
+    questions: [
+      { text: 'Qual é o seu nome?', description: 'Para saber a quem nos dirigimos.', placeholder: 'Nome completo' },
+      { text: 'Seu e-mail', description: 'Onde enviaremos as informações.', placeholder: 'seu@email.com' },
+      { text: 'WhatsApp (Opcional)', description: 'Se prefere uma comunicação mais ágil.', placeholder: '+55 11 ...' },
+      { text: 'Qual é o seu perfil?', description: 'Selecione a opção que melhor descreve seu cargo atual.' },
+      { text: 'O que você está construindo?', description: 'Conte-nos sobre seu projeto, ideia ou desafio técnico.', placeholder: 'Estou desenvolvendo uma plataforma para... / Preciso automatizar...' },
+    ],
+    roles: [
+      { value: 'dueno-negocio', display: 'Dono de Negócio' },
+      { value: 'emprendedor', display: 'Empreendedor' },
+      { value: 'profesional', display: 'Profissional' },
+      { value: 'empleado', display: 'Funcionário' },
+      { value: 'estudiante', display: 'Estudante / Maker' },
+    ],
+    emailError: '⚠️ O formato do e-mail não é válido.',
+    sendError: 'Ocorreu um erro ao enviar. Por favor, tente novamente.',
+  },
+}
+
+const all = { es, en, pt }
 
 interface LangContextType {
   language: Language
